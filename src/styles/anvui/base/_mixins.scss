@@ -1,0 +1,50 @@
+// Box shadow
+//
+
+@mixin box-shadow($shadow...) {
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+}
+
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+@mixin button-variant(
+  $background,
+  $color,
+  $hover-background,
+  $hover-color,
+  $border: none,
+  $hover-border: none,
+  $disabled-background: $btn-base-disable-bg,
+  $disabled-border: none,
+  $disabled-color: $btn-base-disable-color,
+) {
+  color: $color;
+  border: $border;
+  background-color: $background;
+
+  &:hover {
+    // color: $hover-color;
+    // background-color: $hover-background;
+    color: none;
+    background-color: none;
+    border-color: $hover-border;
+  }
+  
+  &:disabled,
+  &.disabled {
+    color: $disabled-color;
+    background-color: $disabled-background;
+    border-color: $disabled-border;
+  }
+}

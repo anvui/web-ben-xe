@@ -1,0 +1,24 @@
+.el-switch {
+    height: 32px;
+    &__core {
+        height: 32px;
+        border-radius: 16px;    
+        width: 52px!important;
+        border-color: $gray-60;
+        background-color: $gray-60;
+        &::after {
+            width: 28px;
+            height: 28px;
+            top: 1px;
+        }
+    }
+
+    &.is-checked .el-switch__core::after {
+        margin-left: -29px;
+    }
+
+    &.is-checked .el-switch__core {
+        border-color: $green-100;
+        background-color: $green-100;
+    }
+}

@@ -1,0 +1,34 @@
+@each $space, $value in $spaces {
+    .w-#{$space} {
+        width: $value!important;
+    }
+
+}
+
+@each $margin, $value in $margins {
+    .mt-#{$margin} {
+        margin-top: $value!important;
+    }
+
+    .ml-#{$margin} {
+        margin-left: $value!important;
+    }
+
+    .mr-#{$margin} {
+        margin-right: $value!important;
+    }
+
+    .mb-#{$margin} {
+        margin-bottom: $value!important;
+    }
+
+    .mx-#{$margin} {
+        margin-left: $value!important;
+        margin-right: $value!important;
+    }
+
+    .my-#{$margin} {
+        margin-top: $value!important;
+        margin-bottom: $value!important;
+    }
+}

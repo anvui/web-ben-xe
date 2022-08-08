@@ -1,0 +1,22 @@
+
+name: kbus-landing-test
+on:
+  push:
+    branches: [ master ]
+jobs:
+  pull-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Digital Ocean droplet via SSH action
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST_222 }}
+          username: ${{ secrets.SSH_USERNAME_222 }}
+          password: ${{ secrets.SSH_PASSWORD_222 }}
+          port: ${{ secrets.SSH_PORT_222 }}
+          script: |
+            cd kbus_landing
+            git checkout master
+            git pull -f
+            cp -a dist/. /var/www/kbus.vn/dist/
+

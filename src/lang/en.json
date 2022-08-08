@@ -1,0 +1,539 @@
+{
+    "header": {
+        "introduction": "Introduction",
+        "servicePrice": "Service price",
+        "partnerRegistration": "Partner registration",
+        "downloadApp": "Download app",
+        "accountInfo": "Account info",
+        "changePassword": "Change password",
+        "history": "History",
+        "signup": "Signup",
+        "login": "Login",
+        "logout": "Logout"
+    },
+    "introduction": {
+        "title": "The first connected car sharing platform in Southeast Asia!",
+        "save": "Tiết kiệm",
+        "safe": "An toàn",
+        "quicks": "Nhanh chóng",
+        "content1": "KBus là một nền tảng trung gian kết nối giữa những người muốn đi du lịch và các công ty cho thuê xe, mang đến dịch vụ tốt nhất, với chi phí thấp hơn một nửa giá tại bến xe cùng các điều kiện tốt nhất: bảo hiểm, wifi suốt chặng đi, phương tiện được kiểm tra và giám sát bằng GPS, camera. Người dùng được ngồi trên ghế được đánh dấu riêng biệt.",
+        "content2": "Bằng những thao tác cực đơn giản và nhanh chóng, khách hàng chỉ cần chọn cho mình một lộ trình phù hợp cùng thời gian muốn đi. Giá tốt nhất tại thời điểm đặt được hiển thị và thao tác thanh toán nhanh chóng giúp người mua ko cần lo lắng xem mình đã thanh toán thành công chưa. Hệ thống trả ngay thông báo xác nhận vé thông qua Qrcode. chỉ cần scan mã QR code trên App Sàn Vé cho tài xế  mà không cần phải xếp hàng chen lấn nhau, cùng rủ nhau đi càng đông giá sẽ càng rẻ, kết thục chuyến đi khách hàng sẽ được hoàn tiền ngay để sử dụng cho lần đi tới. Cam kết chắc chắn có vị trí ngồi tốt nhất trên xe. Hãy nhanh tay chọn cho mình lộ trình phù hợp để đi thôi nào!"
+    },
+    "ads": {
+        "banner": [
+            "Lan toả KBus niềm vui không ngớt!",
+            "Trở thành đối tác của KBus không lo thiếu khách.",
+            "Trải nghiệm KBus phong cách di chuyển kiểu mới"
+        ]
+    },
+    "benefits": {
+        "sale": "Giá tiết kiệm lên đến 60%",
+        "money": "Không phát sinh phí dịch vụ trên đường",
+        "security": "An toàn trên suốt chặng đường",
+        "star": "Mang đến trải nghiệm tốt nhất trên xe",
+        "cashback": "Hoàn tiền ngay sau mỗi chuyến đi"
+    },
+    "follow": {
+        "title": "Theo dõi các ưu đãi của KBus!",
+        "btnSignup": "Đăng ký nhận thông tin",
+        "formSignupForOffers": {
+            "label": "Để theo dõi các chương trình ưu đãi hấp dẫn của Kbus, bạn hãy để lại thông tin dưới đây nhé",
+            "fullName": "Họ tên",
+            "email": "Email",
+            "phoneNumber": "Số điện thoại",
+            "btnSignup": "Đăng ký",
+            "btnCancel": "Hủy"
+        }
+    },
+    "generalIntroduce": {
+        "title": "KBus - Nền tảng vận tải du lịch tiết kiệm",
+        "content": "KBus là một nền tảng trung gian kết nối giữa những người muốn đi du lịch và các công ty cho thuê xe, mang đến dịch vụ tốt nhất, với chi phí thấp hơn một nửa giá tại bến xe cùng các điều kiện tốt nhất: bảo hiểm, wifi suốt chặng đi, phương tiện được kiểm tra và giám sát bằng GPS, camera. Người dùng được ngồi trên ghế được đánh dấu riêng biệt."
+    },
+    "hotTrip": {
+        "inviting": "đang mời thêm bạn bè cùng tham gia chuyến đi",
+        "price": "Giá hiện tại:",
+        "discount": "Chiết khấu:",
+        "remain": "cần {countPassengersRemain} người nữa để bắt đầu lăn bánh",
+        "fullSeat": "Đã đủ người để bắt đầu chuyến đi",
+        "btnBook": "ĐẶT CHỖ",
+        "btnShare": "Chia sẻ ngay",
+        "totalTrip": "Đang có {length} chuyến đi SÔI ĐỘNG đang kêu gọi bạn tham gia!",
+        "btnRefresh": "Làm mới danh sách chuyến"
+    },
+    "formShareLink": {
+        "title": "Chia sẻ chuyến đi",
+        "field": {
+            "title": "Tiêu đề",
+            "description": "Mô tả",
+            "dataTitle": "Đặt vé cùng mình nhé!!!"
+        },
+        "btnGetLink": "Lấy link",
+        "inviteFriend": {
+            "title": "Rủ bạn bè đi cùng:"
+        }
+    },
+    "installApp": {
+        "title": "Cài đặt ứng dụng KBus nhận ngay chuyến đi Miễn phí !"
+    },
+    "listRating": {
+        "title": "Những đánh giá của người đã từng trải nghiệm Kbus"
+    },
+    "newRoute": {
+        "title": "KBus mở cung đường mới!",
+        "route": "KBus đi Sapa!",
+        "date": "Ra mắt ngày 20/12/2022"
+    },
+    "news": {
+        "title": "Truyền thông nói về KBus và đối tác"
+    },
+    "popularRoute": {
+        "title": "Những điểm đến đang được Cộng đồng KBus yêu thích!",
+        "from": "Xuất phát từ",
+        "to": "đến"
+    },
+    "review": {
+        "title": "Trải nghiệm du lịch cùng KBus"
+    },
+    "servicePrice": {
+        "title": "Giá dịch vụ",
+        "table": {
+            "title": "Bảng giá dịch vụ của Kbus",
+            "content": [
+                "Nền tảng Công nghệ KBus là nơi kết nối giữa người có nhu cầu thuê xe và những đơn vị vận tải xe có phương tiện vận tải dư thừa hoặc chạy rỗng 1 chiều . Chính điều đó mà giá Thuê xe của KBus thường tiết kiệm hơn từ 30% -50% so với giá thuê thông thường. Đặc biệt KBus đã kiểm tra chất lượng để phê duyệt xe trước khi ra nhập nền tảng đảm bảo chất lượng, an toàn và vệ sinh đúng tiêu chuẩn do KBus đặt ra Vì vậy hành khách hoàn toàn có thể yên tâm chất lượng và dịch vụ khi sử dụng tại KBus",
+                "KBus có các loại xe đa dạng từ 9 Chỗ đến 45 chỗ từ xe ghế ngồi đến xe Limousine từ xe giường nằm đến xe phòng khách sạn di động…"
+            ],
+            "columnTitle": [
+                "LOẠI XE",
+                "TIÊU CHUẨN",
+                "GIÁ THAM KHẢO",
+                "GHI CHÚ"
+            ],
+            "btnBookCar": "Đặt xe"
+        },
+        "description": "Để có sử dụng dịch vụ xe Của KBus bạn có thể đặt xe nguyên chuyến tại đây!"
+    },
+    "book": {
+        "trips": {
+            "totalTrips": "Có {tripsLength} chuyến",
+            "btnCreateTrip": "Tạo chuyến của bạn",
+            "tripsNotAvailable": "Ngày {startDate} chưa có chuyến đi nào được cộng đồng tạo ra!",
+            "tripsNotAvailableMessage": [
+                "KBus là nền tảng giúp bạn chủ động tạo ra chuyến đi và kêu gọi mọi người đi chung để chia sẻ tiền thuê. Chính vì vậy bạn hoàn toàn có thể tạo chuyến đi theo yêu cầu của riêng bạn sau đó chia sẻ và kêu gọi mọi người tham gia… Điều này giúp cho phí thuê xe sẽ giảm từ 30% -50%. So với các di chuyển thông thường…",
+                "Nào hãy tạo chuyến theo yêu cầu của bạn (Bạn chỉ có thể tạo chuyến đi ít nhất là 48 tiếng so với giờ lăn bánh để đảm bảo bạn có thời gian và mọi người có thể chia sẻ để đi chung chuyến đi với bạn)",
+                "KBus nền tảng công nghệ kết nối chia sẻ chuyến đi đầu tiên tại Đông Nam Á!"
+            ]
+        },
+        "trip": {
+            "timeLabel": "Thời gian",
+            "distanceTime": "{hours} giờ {minutes}p",
+            "btnTripInfo": "Thông tin chuyến",
+            "userCreated": "NGƯỜI TẠO",
+            "priceLabel": "Giá:",
+            "discountLabel": "Chiết khấu:",
+            "emptySeat": "Số ghế trống:",
+            "btnClose": "Đóng",
+            "btnBook": "Đặt chỗ",
+            "btnTimeout": "Quá giờ",
+            "btnFullSeat": "Hết chỗ",
+            "btnShareTrip": "Chia sẻ ngay"
+        },
+        "moreInfoTrip": {
+            "imagesDescription": "* Trên đây là những hình ảnh phương tiện theo chuẩn phục vụ của của KBus . Hình ảnh do đối tác vận chuyển của KBus cung cấp và đã được đội ngũ của KBus kiểm tra thẩm định. Trong quá trình sử dụng dịch vụ nếu Quý khách thấy không đúng chất lượng cung cấp vui lòng phản hồi ngay trong phần đánh giá của Chúng tôi. Đội ngũ KBus sẽ xác minh và chủ động loại bỏ những đối tác cung cấp chất lượng xe không đúng như công bố đăng ký với KBus!",
+            "policyContent": [
+                "Huỷ vé trước 12 tiếng so với giờ xuất bến: Được hoàn 100% tiền vé",
+                "Huỷ vé sau 12 tiếng so với giờ xuất bến: Không được hoàn tiền vé",
+                "Yêu cầu hành khách đến trước 15 phút,Không chịu trách nhiệm với những hành khách đến muộn"
+            ],
+            "noData": "Không có dữ liệu"
+        },
+        "formCustomerInfo": {
+            "fullName": "Họ tên",
+            "phoneNumber": "Số điện thoại",
+            "email": "Email",
+            "sex": {
+                "label": "Giới tính",
+                "male": "Nam",
+                "female": "Nữ"
+            },
+            "promotionCode": "Mã ưu đãi",
+            "btnConfirm": "Xác nhận",
+            "btnRemove": "Gỡ bỏ",
+            "referralUser": "Người giới thiệu",
+            "btnFillAll": "Điền cho tất cả"
+        },
+        "selectedTrip": {
+            "title": "Chọn điểm lên xuống",
+            "pointUp": "Điểm lên",
+            "pointDown": "Điểm xuống",
+            "noData": "Không tìm thấy dữ liệu",
+            "numberPassengers": "Số lượng hành khách",
+            "selectNumberPassengers": "Số hành khách",
+            "agreeTerms": {
+                "label": "Đồng ý với",
+                "policy": "điều khoản đặt vé"
+            },
+            "seatAndPrice": {
+                "totalPassengers": "Số người đặt",
+                "price": "Thanh toán ngay",
+                "discount": "Tiền hoàn",
+                "promotion": "Khuyến mãi",
+                "remain": "Còn lại",
+                "description": [
+                    "* Tiền hoàn sẽ được hoàn sau khi kết thúc chuyến đi",
+                    "* Mức chiết khấu sẽ tiếp tục tăng nếu bạn mời thêm bạn bè hoặc chuyến đi này có đồng người đi hơn",
+                    "* Huỷ vé trước 12 tiếng so với giờ xuất bến: Được hoàn 100% tiền vé",
+                    "* Huỷ vé sau 12 tiếng so với giờ xuất bến: Không được hoàn tiền vé",
+                    "* Giá đã bao gồm VAT"
+                ]
+            },
+            "invoiceInfo": {
+                "checkbox": "Lấy hoá đơn",
+                "companyName": "Tên công ty",
+                "address": "Địa chỉ",
+                "taxNumber": "Mã số thuế",
+                "email": "Email"
+            },
+            "btnBookTicket": "Tiến hành đặt chỗ"
+        },
+        "filter": {
+            "arrange": {
+                "label": "Sắp xếp",
+                "startTime": "Khởi hành sớm nhất",
+                "price": "Giá vé rẻ nhất"
+            }
+        }
+    },
+    "payment": {
+        "numberCustomer": {
+            "quantity": "Số lượng hành khách:",
+            "male": "nam",
+            "female": "nữ"
+        },
+        "countdown": "Thời gian giữ chỗ",
+        "passengerInfo": {
+            "fullName": "Họ tên",
+            "phoneNumber": "Số điện thoại",
+            "email": "Email",
+            "sex": "Giới tính",
+            "price": "Giá",
+            "promotion": "Khuyến mãi",
+            "discount": "Tiền hoàn"
+        },
+        "priceSection": {
+            "price": "Thanh toán ngay",
+            "discount": "Tiền hoàn",
+            "remain": "Còn lại"
+        },
+        "description": [
+            "* Tiền hoàn sẽ được hoàn sau khi kết thúc chuyến đi",
+            "* Mức chiết khấu sẽ tiếp tục tăng nếu bạn mời thêm bạn bè hoặc chuyến đi này có đồng người đi hơn",
+            "* Huỷ vé trước 12 tiếng so với giờ xuất bến: Được hoàn 100% tiền vé",
+            "* Huỷ vé sau 12 tiếng so với giờ xuất bến: Không được hoàn tiền vé",
+            "* Giá đã bao gồm VAT"
+        ]
+    },
+    "paySuccess": {
+        "title": "Thanh toán thành công",
+        "findFriend": "đang tìm bạn bè cùng tham gia một chuyến đi!",
+        "need": "Cần",
+        "countCustomer": "người đồng hành nữa để bắt đầu chuyến đi!",
+        "fullSeat":"Đã đủ người để bắt đầu chuyến đi",
+        "description": "Đi cùng rẻ sẽ cùng vui - Cùng Kbus tạo nên hành trình thú vị nào!",
+        "share": "Chia sẻ với bạn bè",
+        "noData": "Không có dữ liệu"
+    },
+    "history": {
+        "title": "Lịch sử đặt chỗ",
+        "btnRefresh": "Làm mới danh sách vé",
+        "noData": "Không tìm thấy dữ liệu",
+        "tabs": [
+            "Giỏ hàng",
+            "Thành công",
+            "Hoàn thành",
+            "Hủy"
+        ],
+        "ticketCode": "Mã đặt chỗ",
+        "quantityTicket": "{quantity} vé",
+        "noteTrip": "Ghi chú",
+        "passengerInfo": {
+            "fullName": "Họ tên",
+            "phoneNumber": "Số điện thoại",
+            "email": "Email",
+            "sex": {
+                "label": "Giới tính",
+                "male": "Nam",
+                "female": "Nữ"
+            },
+            "price": "Giá",
+            "promotion": "Khuyến mãi",
+            "discount": "Chiết khấu"
+        },
+        "share": "Rủ bạn bè đi cùng",
+        "payExpire": "Thời gian giữ chỗ",
+        "btnEdit": "Sửa thông tin",
+        "btnPay": "Thanh toán",
+        "btnCancel": "Hủy vé",
+        "rateTrip": "Đánh giá chuyến đi",
+        "ticketStatus": {
+            "canceled": "Đã hủy",
+            "booked": "Chờ thanh toán",
+            "timeout": "Hết hạn thanh toán",
+            "bought": "Đã thanh toán",
+            "onTrip": "Đã lên xe",
+            "completed": "Đã hoàn thành"
+        },
+        "confirmCancel": {
+            "confirm": "Bạn chắc chắn muốn hủy vé?",
+            "after12": "Hủy vé sau 12 tiếng so với giờ xuất bến: Không được hoàn tiền vé",
+            "before12": "Hủy vé trước 12 tiếng so với giờ xuất bến: Được hoàn 100% tiền vé"
+        },
+        "btnSave": "Lưu thông tin",
+        "btnClose": "Hủy bỏ"
+    },
+    "formRegisPartner": {
+        "type": [
+            "Cá nhân",
+            "Doanh nghiệp"
+        ],
+        "partnerInfo": {
+            "companyName": "Tên công ty",
+            "email": "Email",
+            "address": "Địa chỉ",
+            "phoneNumber": "Số điện thoại",
+            "area": "Khu vực hoạt động thường xuyên của đơn vị",
+            "representativeFullname": "Người đại diện",
+            "representativePosition": "Chức vụ",
+            "representativePhone": "Số điện thoại",
+            "contactFullname": "Người liên hệ",
+            "contactPosition": "Chức vụ",
+            "contactPhone": "Số điện thoại",
+            "businessLicense": "Số giấy phép ĐKKD",
+            "licenseImage": "Ảnh GPKD",
+            "services": "Đơn vị từng hoạt động loại hình dịch vụ vận tải nào sau đây",
+            "btnSubmit": "Gửi mẫu đăng ký"
+        }
+    },
+    "downloadApp": {
+        "title": "Tải app để nhận tiền hoàn",
+        "appCustomer": {
+            "title": "App Kbus cho khách hàng",
+            "contents": [
+                "Đặt xe du lịch vui chơi thoả thích",
+                "Thuê xe nguyên chuyến thuận lợi giá rẻ",
+                "Đi xe ghép chia sẻ tiền thuê",
+                "Thanh toán online được hoàn tiền ngay",
+                "Giới thiệu khách hàng cả làng đều vui",
+                "Chất lượng dịch vụ đạt tiêu chuẩn"
+            ]
+        },
+        "appPartner": {
+            "title": "App Kbus cho đối tác và tài xế",
+            "contents": [
+                "Không phải lo về nguồn khách",
+                "Chủ động thời gian nhận cuốc xe",
+                "Liên tục có thưởng cho tài xế và đối tác uy tín",
+                "Lịch chạy trực quan, dễ quản lý",
+                "Theo dõi chuyến dễ dàng tiện lợi",
+                "Sẵn sàng chào đón 4000+ phương tiện"
+            ]
+        },
+        "fee": "FREE",
+        "button": {
+            "label": "TẢI NGAY TẠI",
+            "ios": "App store",
+            "android": "Google play"
+        }
+    },
+    "editUser": {
+        "title": "Thông tin tài khoản",
+        "formEdit": {
+            "userName": "Tên đăng nhập",
+            "phoneNumber": "Số điện thoại",
+            "fullName": "Họ tên",
+            "email": "Email",
+            "btnSave":"Lưu thông tin"
+        }
+    },
+    "changePassword": {
+        "title": "Đổi mật khẩu",
+        "currentPassword": "Mật khẩu hiện tại",
+        "newPassword": "Mật khẩu mới",
+        "confirmPassword": "Xác nhận mật khẩu",
+        "btnSave": "Lưu thông tin",
+        "btnBack": "Quay lại"
+    },
+    "login": {
+        "title": "Đăng nhập",
+        "usernameOrPhone": "Tên đăng nhập/Số điện thoại",
+        "password": "Mật khẩu",
+        "btnLogin": "Đăng nhập",
+        "btnForgotPassword": "Quên mật khẩu?",
+        "seperateText": "Or",
+        "haveNotAccount": {
+            "label": "Chưa có tài khoản?",
+            "btnSignupNow": "Đăng ký ngay"
+        }
+    },
+    "resetPassword": {
+        "title": "Quên mật khẩu",
+        "usernameOrPhone": "Tên đăng nhập/Số điện thoại",
+        "btnSendOtp": "Gửi mã",
+        "otp": "Mã xác nhận",
+        "password": "Mật khẩu",
+        "confirmPassword": "Xác nhận mật khẩu",
+        "btnSave": "Lưu thông tin",
+        "btnBack": "Quay lại"
+    },
+    "signup": {
+        "title": "Đăng ký",
+        "userName": "Tên đăng nhập",
+        "fullName": "Họ tên",
+        "email": "Email",
+        "phoneNumber": "Số điện thoại",
+        "password": "Mật khẩu",
+        "otp": "OTP code",
+        "btnSignup": "Đăng ký tài khoản",
+        "btnSend": "Send OTP",
+        "btnVerify": "Confirm OTP",
+        "haveAccount": {
+            "label": "Đã có tài khoản?",
+            "btnLogin": "Login"
+        }
+    },
+    "formSignupForOffers": {
+        "label": "Để theo dõi các chương trình ưu đãi hấp dẫn của Kbus, bạn hãy để lại thông tin dưới đây nhé"
+    },
+    "404": {
+        "message": "Page not found",
+        "btnGoBack": "Back to home"
+    },
+    "message": {
+        "common": {
+            "undefinedError": "An error has occurred"
+        },
+        "book": {
+            "typeFullCustomerInfo": "Please enter full information for {totalPassengers} passengers",
+            "checkCustomerInfo": "Please check the information again",
+            "bookTicketSuccess": "Booking successful",
+            "selectPointUp": "Vui lòng chọn điểm lên",
+            "selectPointDown": "Vui lòng chọn điểm xuống",
+            "enterCorrectPassengerInfo": "Vui lòng nhập đúng thông tin hành khách",
+            "enterCompanyName": "Vui lòng nhập tên công ty",
+            "enterEmail": "Vui lòng nhập đúng định dạng email",
+            "enterAddress": "Vui lòng nhập địa chỉ",
+            "enterTax": "Vui lòng nhập mã số thuế",
+            "communityNotCreateTrip": "Ngày {startDate} chưa có chuyến đi nào được cộng đồng tạo ra!",
+            "checkLoginCreateTrip": "Quý khách vui lòng đăng nhập để tạo chuyến",
+            "checkLoginBookTicket": "Vui lòng đăng nhập để đặt chỗ",
+            "applyPromotion": "Đã áp dụng mã ưu đãi",
+            "validate": {
+                "fullName": "Vui lòng nhập họ tên",
+                "phoneNumber": "Nhập đúng định dạng số điện thoại",
+                "email": "Nhập đúng định dạng email"
+            }
+        },
+        "createTrip": {
+            "selectVehicle": "Vui lòng chọn phương tiện",
+            "selectPointUp": "Vui lòng chọn điểm lên",
+            "selectPointDown": "Vui lòng chọn điểm xuống",
+            "selectNumberPassengers": "Vui lòng chọn số lượng hành khách",
+            "selectPlace": "Vui lòng chọn từ 2 lộ trình trở lên",
+            "selectRoute": "Vui lòng chọn tuyến",
+            "selectPickUpandPickDown": "Vui lòng chọn điểm đi và điểm đến",
+            "enterFullPlace": "Vui lòng nhập đủ thông tin {numberPlace} điểm dừng",
+            "selectStartDate": "Vui lòng chọn ngày khởi hành",
+            "selectStartTime": "Vui lòng chọn giờ khởi hành",
+            "enterCorrectPassengerInfo": "Vui lòng nhập đúng thông tin hành khách",
+            "enterCompanyName": "Vui lòng nhập tên công ty",
+            "enterEmail": "Vui lòng nhập đúng định dạng email",
+            "enterAddress": "Vui lòng nhập địa chỉ",
+            "enterTax": "Vui lòng nhập mã số thuế",
+            "typeFullCustomerInfo": "Please enter full information for {totalPassengers} passengers"
+        },
+        "follow": {
+            "featureIncoming": "Tính năng đang phát triển",
+            "formSignupForOffers": {
+                "fullName": "Vui lòng nhập họ tên",
+                "phoneNumber": "Nhập đúng định dạng số điện thoại",
+                "email": "Nhập đúng định dạng email"
+            }
+        },
+        "servicePrice": {
+            "checkLogin": "Vui lòng đăng nhập"
+        },
+        "history": {
+            "checkCustomerInfo": "Vui lòng kiểm tra lại thông tin hành khách",
+            "updateInfoComplete": "Cập nhật thành công"
+        },
+        "formRegisPartner": {
+            "phoneNumber": "Nhập đúng định dạng số điện thoại",
+            "email": "Nhập đúng định dạng email",
+            "companyName": "Vui lòng nhập tên công ty",
+            "address": "Vui lòng nhập địa chỉ",
+            "area": "Vui lòng nhập khu vực hoạt động",
+            "representativeFullname": "Vui lòng nhập tên người đại diện",
+            "representativePosition": "Vui lòng nhập chức vụ",
+            "contactFullname": "Vui lòng nhập tên người liên hệ",
+            "contactPosition": "Vui lòng nhập chức vụ",
+            "businessLicense": "Vui lòng nhập số giấy phép ĐKKD",
+            "taxNumber": "Vui lòng nhập mã số thuế",
+            "bankNumber": "Vui lòng nhập số tài khoản",
+            "bankOwner": "Vui lòng nhập tên chủ tài khoản",
+            "bankCode": "Vui lòng chọn ngân hàng",
+            "licenseImage": "Vui lòng tải lên ảnh GPKD",
+            "services": "Chọn đủ loại hình dịch vụ",
+            "otherService": "Bạn đang chọn loại hình dịch vụ khác. Vui lòng ghi rõ",
+            "listServices": [
+                "Xe hợp đồng",
+                "Xe hợp đồng du lịch",
+                "Xe tuyến cố định",
+                "Taxi",
+                "Xe bus",
+                "Chưa từng phục vụ",
+                "Khác (vui lòng ghi rõ)"
+            ],
+            "submitSuccessful": "Đã gửi form đăng ký"
+        },
+        "editUser": {
+            "limitUsername": "Vui lòng nhập tên đăng nhập trong khoảng từ 6-20 ký tự",
+            "fullName": "Nhập đúng định dạng họ tên",
+            "phoneNumber": "Nhập đúng định dạng số điện thoại",
+            "email": "Nhập đúng định dạng email",
+            "updateSuccessful": "Cập nhật thành công"
+        },
+        "changePassword": {
+            "requireCurrentPassword": "Mật khẩu hiện tại là bắt buộc",
+            "oldPasswordIncorrect": "Mật khẩu cũ không chính xác",
+            "requirePassword": "Mật khẩu mới là bắt buộc",
+            "limitPassword": "Vui lòng nhập mật khẩu từ 6-20 ký tự",
+            "requireConfirmPassword": "Xác nhận mật khẩu là bắt buộc",
+            "passwordNotMatch": "Mật khẩu không trùng khớp",
+            "updateSuccessful": "Đổi mật khẩu thành công"
+        },
+        "login": {
+            "requireUsername": "Tên đăng nhập là bắt buộc",
+            "limitPassword": "Vui lòng nhập mật khẩu trên 6 ký tự"
+        },
+        "resetPassword": {
+            "requireUsername": "Tên đăng nhập là bắt buộc",
+            "requireOtp": "Mã xác nhận là bắt buộc",
+            "requirePassword": "Mật khẩu là bắt buộc",
+            "limitPassword": "Vui lòng nhập mật khẩu từ 6-20 ký tự",
+            "requireConfirmPassword":"Xác nhận mật khẩu là bắt buộc",
+            "passwordNotMatch": "Mật khẩu không trùng khớp",
+            "updateSuccessful": "Đổi mật khẩu thành công"
+        },
+        "signup": {
+            "limitUsername": "Vui lòng nhập tên đăng nhập trong khoảng từ 6-20 ký tự",
+            "limitPassword": "Vui lòng nhập mật khẩu trên 6 ký tự",
+            "fullNameCorrect": "Nhập đúng định dạng họ tên",
+            "phoneNumberCorrect": "Nhập đúng định dạng số điện thoại",
+            "emailCorrect": "Nhập đúng định dạng email",
+            "otpIncorrect": "Vui lòng nhập mã OTP",
+            "signupSuccessful": "Đăng ký thành công",
+            "sendOtpSuccess": "Sent OTP",
+            "sendOtpError": "OTP has not been sent",
+            "confirmOtpError": "OTP authentication error"
+        }
+    }
+}

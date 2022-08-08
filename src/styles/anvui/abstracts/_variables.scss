@@ -1,0 +1,242 @@
+
+$variable-prefix: av- !default;
+
+//Color system
+$white: #ffffff;
+$black: #232731;
+
+$anvui-100: #084388;
+$anvui-80: #6B8EB8;
+$anvui-20: #CED9E7;
+
+$orange-100: #F39B13;
+$orange-80: #F8C371;
+$orange-20: #FDEBD0;
+
+$puprle-100: #6A71E5;
+$puprle-80: #A6AAEF;
+$puprle-20: #E1E3FA;
+
+$blue-100: #0091FE;
+$blue-80: #66BDFE;
+$blue-20: #CCE9FF;
+
+$green-100: #49D193;
+$green-80: #6DDAA8;
+$green-20: #C8F1DF;
+
+$red-100: #FF4868;
+$red-80: #FF91A4;
+$red-20: #FFDAE1;
+
+$yellow-100: #FFD200;
+$yellow-80: #FFE465;
+$yellow-20: #FFF6CB;
+
+$gray-100: #383F47;
+$gray-80: #646D84;
+$gray-70: #9399A9;
+$gray-60: #B0B5C1;
+$gray-40: #ECEDF1;
+$gray-20: #ffffff;
+
+$main: #ED196B;
+
+$colors: (
+    'white': $white,
+    'black': $black,
+
+    'anvui-100': $anvui-100,
+    'anvui-80': $anvui-80,
+    'anvui-20': $anvui-20,
+
+    'orange-100': $orange-100,
+    'orange-80': $orange-80,
+    'orange-20': $orange-20,
+
+    'puprle-100': $puprle-100,
+    'puprle-80': $puprle-80,
+    'puprle-20': $puprle-20,
+
+    'blue-100': $blue-100,
+    'blue-80': $blue-80,
+    'blue-20': $blue-20,
+
+    'green-100': $green-100,
+    'green-80': $green-80,
+    'green-20': $green-20,
+
+    'red-100': $red-100,
+    'red-80': $red-80,
+    'red-20': $red-20,
+
+    'yellow-100': $yellow-100,
+    'yellow-80': $yellow-80,
+    'yellow-20': $yellow-20,
+
+    'gray-100': $gray-100,
+    'gray-80': $gray-80,
+    'gray-70': $gray-70,
+    'gray-60': $gray-60,
+    'gray-40': $gray-40,
+    'gray-20': $gray-20,
+
+) !default;
+
+$spaces: (
+    '20': 20%,
+    '25': 25%,
+    '50': 50%,
+    '75': 75%,
+    '100': 100%,
+);
+
+$margins: (
+    '0': 0,
+    '4px': 4px,
+    '8px': 8px,
+    '12px': 12px,
+    '16px': 16px,
+    '20px': 20px,
+    '24px': 24px,
+    '28px': 28px,
+    '32px': 32px,
+    '36px': 36px,
+    '40px': 40px,
+    '44px': 44px,
+    '48px': 48px,
+);
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg:                   $gray-20 !default;
+$body-color:                $gray-100 !default;
+$body-text-align:           null !default;
+
+
+// Typography
+$font-family-base: Cabin;
+$font-size-base: 16px;
+
+$big-font-size:             18px;
+$normal-font-size:          18px;
+$small-font-size:           16px;
+$tiny-font-size:            14px;
+$very-tiny-font-size:       14px;
+
+$font-weight-lighter:         lighter !default;
+$font-weight-light:           400 !default;
+$font-weight-normal:          500 !default;
+$font-weight-bold:            700 !default;
+$font-weight-bolder:          bolder !default;
+
+$link-color:                $blue-100;
+$link-decoration:           none;
+$link-hover-color:          $blue-100;
+$link-hover-decoration:     underline;
+
+$headings-margin-bottom:      0 !default;
+$headings-font-family:        $font-family-base !default;
+
+$table-cell-padding-y:        12px !default;
+$table-cell-padding-x:        12px !default;
+$table-caption-color:         $gray-20;
+$table-th-font-weight:        $font-weight-normal;
+
+$legend-font-size:            $big-font-size;
+$legend-font-weight:          $font-weight-normal;
+
+
+//Button
+$btn-big-font-size:         $big-font-size;
+$btn-big-font-family:       $font-family-base;
+$btn-big-shadow:            0px 2px 4px rgba(0, 0, 0, 0.15);
+$btn-big-radius:            12px;
+$btn-big-padding-x:         24px;
+$btn-big-padding-y:         17px;
+$btn-big1-padding-x:        12px;
+$btn-big1-padding-y:        17px;
+
+
+$btn-nomal-font-size:         $normal-font-size;
+$btn-nomal-font-family:       $font-family-base;
+$btn-nomal-shadow:            0px 2px 4px rgba(0, 0, 0, 0.15);
+$btn-nomal-radius:            12px;
+$btn-nomal-padding-x:         24px;
+$btn-nomal-padding-y:         13px;
+$btn-nomal1-padding-x:        12px;
+$btn-nomal1-padding-y:        13px;
+
+$btn-small-font-size:         $small-font-size;
+$btn-small-font-family:       $font-family-base;
+$btn-small-shadow:            0px 2px 4px rgba(0, 0, 0, 0.15);
+$btn-small-radius:            12px;
+$btn-small-padding-x:         24px;
+$btn-small-padding-y:         10.5px;
+$btn-small1-padding-x:        12px;
+$btn-small1-padding-y:        10.5px;
+
+$btn-tiny-font-size:         $tiny-font-size;
+$btn-tiny-font-family:       $font-family-base;
+$btn-tiny-shadow:            0px 2px 4px rgba(0, 0, 0, 0.15);
+$btn-tiny-radius:            12px;
+$btn-tiny-padding-x:         24px;
+$btn-tiny-padding-y:         7.5px;
+$btn-tiny1-padding-x:        12px;
+$btn-tiny1-padding-y:        7.5px;
+
+$btn-very-tiny-font-size:         $very-tiny-font-size;
+$btn-very-tiny-font-family:       $font-family-base;
+$btn-very-tiny-shadow:            0px 2px 4px rgba(0, 0, 0, 0.15);
+$btn-very-tiny-radius:            8px;
+$btn-very-tiny-padding-x:         24px;
+$btn-very-tiny-padding-y:         3.5px;
+$btn-very-tiny1-padding-x:        12px;
+$btn-very-tiny1-padding-y:        3.5px;
+
+$btn-base-font-family:         $font-family-base;
+$btn-base-font-weight:         $font-weight-normal;
+$btn-base-font-size:           $btn-nomal-font-size;            
+// $btn-base-line-height:         '22px';
+$btn-base-shadow:              0px 2px 4px rgba(0, 0, 0, 0.15);
+$btn-base-white-space:         null;
+$btn-base-border:              none;
+$btn-base-disable-bg:          $gray-40;
+$btn-base-disable-color:       $gray-60;
+$btn-base-padding-x:           $btn-nomal-padding-x;
+$btn-base-padding-y:           $btn-nomal-padding-y;
+$btn-base-radius:              $btn-nomal-radius;
+
+
+//POP UP
+$popup-bg:                  $white;
+$popup-padding-x:           24px;
+$popup-padding-y:           24px;
+$popup-box-shadow:          0px 1px 7px rgba(0, 0, 0, 0.05);
+$popup-border-radius:       12px;
+$popup-small-padding-x:     24px;
+$popup-small-padding-y:     16px;
+
+// INPUT
+$input-padding-y:           11px; 
+$input-padding-x:           16px;
+$input-font-family:         $font-family-base;
+$input-font-size:           $font-size-base;
+$input-bg:                  $white;
+$input-color:               $black;
+$input-border:              1px solid $gray-40;
+$input-border-radius:       12px;
+$input-placeholder-color:   $gray-80;
+$input-placeholder-font-size:   $font-size-base;
+$input-height:                  40px;
+$input-line-height:             unset;
+
+$input-big-padding-y:       14px;
+$input-big-padding-x:       16px;
+$input-big-height:          48px;
+
+$input-small-padding-y:       7px;
+$input-small-padding-x:       16px;
+$input-small-height:          32px;

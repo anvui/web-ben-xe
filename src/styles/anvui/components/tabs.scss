@@ -1,0 +1,55 @@
+.el-tabs {
+    &__item {
+        height: auto;
+        line-height: normal;
+        padding: 6.5px 24px;
+        font-size: 16px;
+        color: $gray-80;
+        margin-bottom: 8px;
+
+        &:hover {
+            color: $anvui-100;
+        }
+
+        &.is-active {
+            color: $anvui-100;
+        }
+    }
+
+    &__active-bar {
+        background-color: $anvui-100;
+    }
+}
+
+.el-tabs__nav-wrap::after {
+    display: none;
+}
+
+.el-tabs.el-tabs1 {
+    @extend .el-tabs;
+}
+
+.el-tabs.el-tabs1 .el-tabs__active-bar {
+    display: none;
+}
+
+.el-tabs.el-tabs1 .el-tabs__item {
+    background-color: $gray-40;
+    border-radius: 12px;
+    margin-right: 16px;
+}
+
+.el-tabs.el-tabs1.el-tabs--bottom .el-tabs__item.is-bottom:last-child, 
+.el-tabs.el-tabs1.el-tabs--bottom .el-tabs__item.is-top:last-child, 
+.el-tabs.el-tabs1.el-tabs--top .el-tabs__item.is-bottom:last-child, 
+.el-tabs.el-tabs1.el-tabs--top .el-tabs__item.is-top:last-child {
+    padding-right: 24px;
+    margin-right: 0px;
+}
+
+.el-tabs.el-tabs1.el-tabs--bottom .el-tabs__item.is-bottom:nth-child(2), 
+.el-tabs.el-tabs1.el-tabs--bottom .el-tabs__item.is-top:nth-child(2), 
+.el-tabs.el-tabs1.el-tabs--top .el-tabs__item.is-bottom:nth-child(2), 
+.el-tabs.el-tabs1.el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+    padding-left: 24px;
+}

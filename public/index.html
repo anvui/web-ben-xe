@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+    <!-- meta for seo -->
+    <meta name="title" content="KBus">
+    <meta name="description" content="KBus - Nền tảng kết nối chia sẻ xe du lịch đường dài đầu tiên tại Đông Nam Á" />
+
+    <meta name="keywords" content="Đi càng đông giá càng rẻ">
+    <meta name="keywords" content="Càng vui càng tiết kiệm">
+    <meta name="keywords" content="Tải app liền tay có ngay vé miễn phí">
+    <meta name="keywords" content="Mời bạn đi cùng vui chung một chuyến">
+    <meta name="keywords" content="Tải KBUS niềm vui không ngớt">
+    <meta name="keywords" content="Thanh toán online có ngay vé giá rẻ">
+    <meta name="keywords" content="Khám phá Sapa giá chỉ 10k">
+    <meta name="keywords" content="Thuê xe du lịch vui chơi thỏa thích">
+    <meta name="keywords" content="Khỏi lo về khách chỉ lo xe sạch">
+    <meta name="robots" content="index,follow">
+    <meta http-equiv="content-language" content="vi">
+
+    <meta property="og:url" content="https://kbus.vn/" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KBus - Nền tảng kết nối chia sẻ xe du lịch đường dài đầu tiên tại Đông Nam Á" />
+    <meta property="og:description" content="KBus là nền tảng công nghệ kết nối xe vận tải du lịch với hành khách có nhu cầu thuê xe chung cùng nhau" />
+    <meta property="og:image" content="https://apikbus.anvui.vn/image/get/bd5d0690-5a99-4bf7-ab04-e233beda8cd2" />
+
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="kbus.vn">
+    <meta property="twitter:url" content="https://kbus.vn/">
+    <meta name="twitter:title" content="KBus - Nền tảng kết nối chia sẻ xe du lịch đường dài">
+    <meta name="twitter:description" content="KBus là nền tảng công nghệ kết nối xe vận tải du lịch với hành khách có nhu cầu thuê xe chung cùng nhau">
+    <meta name="twitter:image" content="https://apikbus.anvui.vn/image/get/bd5d0690-5a99-4bf7-ab04-e233beda8cd2">
+
+    <link rel="stylesheet" href="plugins/bootstrap-4.0.0/css/bootstrap.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="<%= BASE_URL %>favicon.png">
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+    <script src="/plugins/bootstrap-4.0.0/js/bootstrap.min.js"></script> -->
+
+    <script src='https://www.google.com/recaptcha/api.js?hl=en' async defer></script>
+    
+    <!-- <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="939383271889-24rrrnchf83qa14tc09ejgnfl950ttkg.apps.googleusercontent.com"> -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    <!-- <script src="https://apis.google.com/js/api:client.js" async defer></script> -->
+    
+    <title>KBUS</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+    <!-- built files will be auto injected -->
+    <!-- #                             _`
+    #                          _ooOoo_
+    #                         o8888888o
+    #                         88" . "88
+    #                         (| -_- |)
+    #                         O\  =  /O
+    #                      ____/`---'\____
+    #                    .'  \\|     |//  `.
+    #                   /  \\|||  :  |||//  \			
+    #                  /  _||||| -:- |||||_  \			
+    #                  |   | \\\  -  /'| |   |
+    #                  | \_|  `\`---'//  |_/ |
+    #                  \  .-\__ `-. -'__/-.  /
+    #                ___`. .'  /--.--\  `. .'___
+    #             ."" '<  `.___\_<|>_/___.' _> \"".
+    #            | | :  `- \`. ;`. _/; .'/ /  .' ; |
+    #            \  \ `-.   \_\_`. _.'_/_/  -' _.' /
+    #=============`-.`___`-.__\ \___  /__.-'_.'_.-'=================#
+                               `=--=-'
+              _.-/`)
+             // / / )
+          .=// / / / )
+         //`/ / / / /
+        // /     ` /
+       ||         /
+        \\       /
+         ))    .'
+        //    /
+             / -->
+  </body>
+</html>
+<script>
+  var chatbox = document.getElementById('fb-customer-chat');
+  chatbox.setAttribute("page_id", "101860222237704");
+  chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
+<!-- Your SDK code -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      xfbml            : true,
+      version          : 'v13.0'
+    });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>

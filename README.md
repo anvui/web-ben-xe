@@ -1,1 +1,3 @@
-# web-ben-xe
+npm install
+
+npm run dev

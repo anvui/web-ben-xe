@@ -1,0 +1,276 @@
+.#{$variable-prefix}input {
+  display: block;
+  width: 100%;
+  height: $input-height;
+  padding: $input-padding-y $input-padding-x;
+  font-family: $input-font-family;
+  font-size: $input-font-size;
+  // font-weight: $input-font-weight;
+  line-height: $input-line-height;
+  color: $input-color;
+  background-color: $input-bg;
+  background-clip: padding-box;
+  border: $input-border;
+  appearance: none; // Fix appearance for date inputs in Safari
+  border-radius: $input-border-radius;
+
+  &:focus {
+    outline: 0;
+    border-color: $anvui-100;
+  }
+
+  &::placeholder {
+    color: $input-placeholder-color;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
+  }
+  &[disabled=disabled] {
+    background-color: $gray-40;
+    color: $black;
+    border-color: $gray-40;
+  }
+} 
+
+//Add :not(.el-input) by css priority
+textarea.#{$variable-prefix}input {
+  height: unset;
+}
+
+.el-textarea .el-textarea__inner {
+  @extend .#{$variable-prefix}input;
+  height: unset;
+}
+
+// Rewrite element ui mixed input
+.el-input-group.el-input-group--append {
+  .el-input__inner{
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .el-input-group__append {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+}
+
+.el-input-group.el-input-group--prepend {
+  .el-input__inner{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
+  .el-input-group__prepend {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+}
+
+
+
+.#{$variable-prefix}input-big {
+  padding: $input-big-padding-y $input-big-padding-x;
+  height: $input-big-height;
+  font-size: $input-font-size;
+}
+
+.#{$variable-prefix}input-sm {
+  padding: $input-small-padding-y $input-small-padding-x;
+  height: $input-small-height;
+  font-size: $input-font-size;
+}
+
+//OVERRIDE ELEMENT UI STYLE
+.el-select {
+  width: 100%;
+
+  .el-input__suffix-inner .el-input__icon {
+    color: $gray-80
+  }
+
+  .el-input.is-focus .el-input__inner {
+    border-color: $anvui-100;
+  }
+}
+
+// 1. Độ ưu tiên trong css
+.el-input { //1
+  &.el-input--mini input,
+  &.el-input--small input {
+    @extend .#{$variable-prefix}input-sm
+  }
+
+  &.el-input--medium input {
+    @extend .#{$variable-prefix}input
+  }
+
+  &.el-input--large input {
+    @extend .#{$variable-prefix}input-big
+  }
+}
+
+.el-select-dropdown.el-popper[x-placement^=bottom] {
+  margin-top: 4px;
+}
+
+.el-select-dropdown {
+  border: 1px solid $anvui-100;
+  box-shadow: none;
+  box-sizing: border-box;
+  border-radius: 12px;
+
+  .popper__arrow {
+    display: none
+  }
+
+  .el-select-dropdown__item {
+    font-size: 16px;
+    // line-height: 19px;
+    color: $black;
+  }
+
+  .el-select-dropdown__item.hover {
+    background: $gray-40;
+  }
+}
+
+.el-input .el-input__inner {
+  @extend .#{$variable-prefix}input;
+}
+
+
+.el-checkbox {
+  &__inner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid $gray-80;
+
+    &:hover {
+      border-color: $gray-80;
+    }
+
+    &::after {
+      border-color: $anvui-100;
+      left: 5px;
+      border-width: 2px;
+    } 
+  }
+
+  &__label {
+    padding-left: 11px;
+    font-size: 16px;
+    // line-height: 19px;
+    color: $gray-100;
+  }
+
+  &__input.is-checked+.el-checkbox__label {
+      color: $gray-100;
+  }
+
+  &__input.is-focus .el-checkbox__inner, 
+  &__input.is-checked .el-checkbox__inner, 
+  &__input.is-indeterminate .el-checkbox__inner {
+    background-color: $white;
+    border-color: $anvui-100;
+  }
+}
+
+.el-radio {
+  &__inner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid $gray-80;
+
+    &:hover {
+      border-color: $anvui-100
+    }
+
+    &::after {
+      background-color: $anvui-100;
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  &__input.is-checked .el-radio__inner {
+    border-color: $anvui-100;
+    background-color: $white;
+  }
+
+  &__label {
+    padding-left: 10px;
+    color: $gray-100;
+    font-size: 16px;
+  }
+
+  &__input.is-checked+.el-radio__label {
+      color: $gray-100;
+  }
+}
+
+.el-input.el-input--prefix input {
+  padding-left: 33px;
+}
+
+.el-input.el-input--suffix input {
+  padding-right: 32px;
+}
+
+.el-picker-panel {
+  background: $white;
+  box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+
+  .el-date-picker__header-label {
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: $gray-100;
+  }
+
+  .el-date-table th {
+    border-bottom: none;
+    color: $gray-100;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .el-date-table td { 
+    padding: 1px;
+
+    &.start-date div,
+    &.end-date div,
+    &.default div,
+    &.current div{
+      background: $orange-80;
+      border: 1px solid  $orange-100;
+      border-radius: 4px;
+      span {
+        background: $orange-80;
+        color: $gray-100;
+      }
+    }
+
+    &.default div {
+      background: $orange-20;
+      span {
+        background: $orange-20;
+      }
+    }
+    
+    div {
+      border: 1px solid $gray-40;
+      box-sizing: border-box;
+      border-radius: 4px;
+      background-color: $gray-20;
+
+      span {
+        color: $gray-100;
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+.btn {
+  display: inline-block;
+  font-family: $btn-base-font-family;
+  font-weight: $btn-base-font-weight;
+  font-size: $btn-base-font-size;
+  // line-height: $btn-base-line-height;
+  color: $body-color;
+  text-align: center;
+  text-decoration: none;
+  // white-space: $btn-white-space;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: $btn-base-border;
+  border-radius: $btn-base-radius;
+  padding: $btn-base-padding-y $btn-base-padding-x ;
+  @include box-shadow($btn-base-shadow);
+
+  &:hover {
+    color: $body-color;
+    text-decoration: none;
+  }
+  
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    pointer-events: none;
+    background-color: $btn-base-disable-bg;
+    color: $btn-base-disable-color;
+  }
+}
+
+@each $color, $value in $colors {
+  .btn-#{$color} {
+    @include button-variant($value, $white, $value, $white);
+  }
+}
+
+.btn-big {
+  font-size: $btn-big-font-size;
+  padding: $btn-big-padding-y $btn-big-padding-x;
+}
+
+.btn1-big {
+  font-size: $btn-big-font-size;
+  padding: $btn-big1-padding-y $btn-big1-padding-x;
+}
+
+.btn-md {
+  font-size: $btn-small-font-size;
+  padding: $btn-nomal-padding-y $btn-nomal-padding-x;
+}
+
+.btn1-md {
+  font-size: $btn-small-font-size;
+  padding: $btn-nomal1-padding-y $btn-nomal1-padding-x;
+}
+
+.btn-sm {
+  font-size: $btn-small-font-size;
+  padding: $btn-small-padding-y $btn-small-padding-x;
+}
+
+.btn1-sm {
+  font-size: $btn-small-font-size;
+  padding: $btn-small1-padding-y $btn-small1-padding-x;
+}
+
+.btn-tiny {
+  font-size: $btn-tiny-font-size;
+  padding: $btn-tiny-padding-y $btn-tiny-padding-x;
+}
+
+.btn1-tiny {
+  font-size: $btn-tiny-font-size;
+  padding: $btn-tiny1-padding-y $btn-tiny1-padding-x;
+}
+
+.btn-vtiny {
+  font-size: $btn-very-tiny-font-size;
+  padding: $btn-very-tiny-padding-y $btn-very-tiny-padding-x;
+}
+
+.btn1-vtiny {
+  font-size: $btn-very-tiny-font-size;
+  padding: $btn-very-tiny1-padding-y $btn-very-tiny1-padding-x;
+}
+
