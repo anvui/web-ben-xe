@@ -18,6 +18,7 @@ import partner from './modules/partner'
 import question from './modules/question'
 import place from './modules/place'
 import config from './modules/config'
+import system from './modules/system'
 
 Vue.use(Vuex)
 
@@ -39,7 +40,8 @@ const store = new Vuex.Store({
     partner,
     question,
     place,
-    config
+    config,
+    system
   },
   getters
 })

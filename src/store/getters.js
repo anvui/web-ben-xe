@@ -37,6 +37,7 @@ const getters = {
   firstCustomerInfo: state => state.trip.firstCustomerInfo,
   statusUpdateTicket: state => state.ticket.statusUpdateTicket,
   listPlaces: state => state.place.listPlaces,
-  systemConfig: state => state.config.systemConfig
+  systemConfig: state => state.config.systemConfig,
+  companyConfig: state => state.system.companyConfig
 }
 export default getters

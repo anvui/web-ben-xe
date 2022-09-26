@@ -1,10 +1,17 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <!-- <div :class="{'fixed-header':fixedHeader}"> -->
-    <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" class="layout-width" />
-    <!-- </div> -->
-    <app-main class="layout-width main-container" />
-    <menu-footer v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" />
+    <template v-if="companyConfig">
+      <!-- <div :class="{'fixed-header':fixedHeader}"> -->
+      <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" class="layout-width" />
+      <!-- </div> -->
+      <app-main class="layout-width main-container" />
+      <menu-footer v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" />
+    </template>
+    <template v-if="companyConfig && companyConfig.sitename === 'localhost:9529'">
+      <!-- <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" class="layout-width" />
+      <app-main class="layout-width main-container" />
+      <menu-footer v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" /> -->
+    </template>
   </div>
 </template>
 
@@ -13,6 +20,7 @@ import { AppMain } from './components'
 import Navbar from '@/components/MenuHeader/Index.vue'
 import ResizeMixin from './mixin/ResizeHandler'
 import MenuFooter from '@/components/Footer/index.vue'
+import { mapGetters } from 'vuex'
 // import SlideNotify from '@/components/SlideNotify'
 
 export default {
@@ -25,6 +33,7 @@ export default {
   },
   mixins: [ResizeMixin],
   computed: {
+    ...mapGetters(['companyConfig']),
     sidebar() {
       return this.$store.state.app.sidebar
     },
