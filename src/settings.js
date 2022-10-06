@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'KBUS',
+  title: 'Website ben xe',
 
   /**
    * @type {boolean} true | false

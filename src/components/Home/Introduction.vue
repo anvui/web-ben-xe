@@ -26,16 +26,14 @@
     </div>
     <div class="container">
       <search-trip />
-      <banner-ads />
     </div>
   </div>
 </template>
 <script>
 import SearchTrip from '../SearchTrip/SearchTrip.vue'
-import BannerAds from './BannerAds.vue'
 
 export default {
-  components: { SearchTrip, BannerAds },
+  components: { SearchTrip },
   data() {
     return {
       urlBg: 'https://apikbus.anvui.vn/image/get/bd5d0690-5a99-4bf7-ab04-e233beda8cd2'

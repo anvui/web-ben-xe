@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'App',
   data() {
@@ -17,30 +18,12 @@ export default {
     const sitename = window.location.host
     await this.getCompanyConfig(sitename)
   },
-  mounted() {
-    // this.getConfig()
-  },
+  mounted() {},
   methods: {
-    // getConfig() {
-    //   this.$store.dispatch('config/getConfig', { packageName: this.packageNameForConfig })
-    // },
-    async getCompanyConfig(sitename) {
-      const config = await this.callApiGetConfig(sitename)
-      this.config = config
-      this.$store.dispatch('system/saveCompanyConfig', config)
-      console.log(this.config)
-    },
-    callApiGetConfig(sitename) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          const config = {
-            packageName: 'nhà xe An Vui',
-            sitename: sitename
-          }
-          resolve(config)
-        }, 5000)
-      })
-    }
+    ...mapActions({
+      testAction: 'system/testAction',
+      getCompanyConfig: 'system/getCompanyConfig'
+    })
   }
 }
 </script>

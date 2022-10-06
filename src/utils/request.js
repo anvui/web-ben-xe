@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+// import { getToken } from '@/utils/auth'
 import i18n from '@/lang/i18n'
 
 // create an axios instance
@@ -27,6 +27,7 @@ service.interceptors.request.use(
         lang = 'en-US'
     }
     config.headers['accept-language'] = lang
+    config.headers['partner'] = store.getters.companyConfig.partnerId || ''
 
     if (store.getters.token) {
       // let each request carry token
@@ -34,7 +35,7 @@ service.interceptors.request.use(
       // config.headers['X-Token'] = getToken()
 
       // set authorization bearer token
-      config.headers['Authorization'] = 'Bearer ' + getToken()
+      // config.headers['Authorization'] = 'Bearer ' + getToken()
     }
     return config
   },

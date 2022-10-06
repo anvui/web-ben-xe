@@ -93,30 +93,30 @@ export const constantRoutes = [
         component: () => import('@/views/history/BookedHistory'),
         meta: { title: 'Lịch sử đặt vé', icon: '' }
       },
-      {
-        path: 'download',
-        name: 'DownloadApp',
-        component: () => import('@/views/download/DownloadApp'),
-        meta: { title: 'Tải app', icon: '' }
-      },
-      {
-        path: 'download/partner',
-        name: 'DownloadAppPartner',
-        component: () => import('@/views/download/DownloadApp'),
-        meta: { title: 'Tải app đối tác', icon: '' }
-      },
-      {
-        path: 'create-trip',
-        name: 'CreateTrip',
-        component: () => import('@/views/CreateTrip/CreateTrip'),
-        meta: { title: 'Tạo chuyến', icon: '' }
-      },
-      {
-        path: 'create-trip/view',
-        name: 'ConfirmCreateTrip',
-        component: () => import('@/components/CreateTrip/TripCreated'),
-        meta: { title: 'Xác nhận thanh toán', icon: '' }
-      },
+      // {
+      //   path: 'download',
+      //   name: 'DownloadApp',
+      //   component: () => import('@/views/download/DownloadApp'),
+      //   meta: { title: 'Tải app', icon: '' }
+      // },
+      // {
+      //   path: 'download/partner',
+      //   name: 'DownloadAppPartner',
+      //   component: () => import('@/views/download/DownloadApp'),
+      //   meta: { title: 'Tải app đối tác', icon: '' }
+      // },
+      // {
+      //   path: 'create-trip',
+      //   name: 'CreateTrip',
+      //   component: () => import('@/views/CreateTrip/CreateTrip'),
+      //   meta: { title: 'Tạo chuyến', icon: '' }
+      // },
+      // {
+      //   path: 'create-trip/view',
+      //   name: 'ConfirmCreateTrip',
+      //   component: () => import('@/components/CreateTrip/TripCreated'),
+      //   meta: { title: 'Xác nhận thanh toán', icon: '' }
+      // },
       {
         path: 'news/article/:slug',
         name: 'ViewNews',
@@ -135,42 +135,42 @@ export const constantRoutes = [
         component: () => import('@/views/user/Edit.vue'),
         meta: { title: 'Thông tin tài khoản', icon: '' }
       },
-      {
-        path: 'terms-of-use',
-        name: 'TermsOfUse',
-        component: () => import('@/views/TermsOfUse/index.vue'),
-        meta: { title: 'Điều khoản sử dụng', icon: '' }
-      },
-      {
-        path: 'privacy-policy',
-        name: 'PrivacyPolicy',
-        component: () => import('@/views/PrivacyPolicy/index.vue'),
-        meta: { title: 'Chính sách bảo mật', icon: '' }
-      },
-      {
-        path: 'complaints-policy',
-        name: 'ComplaintsPolicy',
-        component: () => import('@/views/ComplaintsPolicy/index.vue'),
-        meta: { title: 'Chính sách khiếu nại', icon: '' }
-      },
-      {
-        path: 'booking-policy',
-        name: 'BookingPolicy',
-        component: () => import('@/views/BookingPolicy/index.vue'),
-        meta: { title: 'Điều khoản đặt vé', icon: '' }
-      },
-      {
-        path: 'cancellation-policy',
-        name: 'CancellationPolicy',
-        component: () => import('@/views/CancellationPolicy/index.vue'),
-        meta: { title: 'Chính sách hủy vé', icon: '' }
-      },
-      {
-        path: 'partner-registration',
-        name: 'PartnerRegistration',
-        component: () => import('@/views/PartnerRegistration/index.vue'),
-        meta: { title: 'Đăng ký đối tác', icon: '' }
-      },
+      // {
+      //   path: 'terms-of-use',
+      //   name: 'TermsOfUse',
+      //   component: () => import('@/views/TermsOfUse/index.vue'),
+      //   meta: { title: 'Điều khoản sử dụng', icon: '' }
+      // },
+      // {
+      //   path: 'privacy-policy',
+      //   name: 'PrivacyPolicy',
+      //   component: () => import('@/views/PrivacyPolicy/index.vue'),
+      //   meta: { title: 'Chính sách bảo mật', icon: '' }
+      // },
+      // {
+      //   path: 'complaints-policy',
+      //   name: 'ComplaintsPolicy',
+      //   component: () => import('@/views/ComplaintsPolicy/index.vue'),
+      //   meta: { title: 'Chính sách khiếu nại', icon: '' }
+      // },
+      // {
+      //   path: 'booking-policy',
+      //   name: 'BookingPolicy',
+      //   component: () => import('@/views/BookingPolicy/index.vue'),
+      //   meta: { title: 'Điều khoản đặt vé', icon: '' }
+      // },
+      // {
+      //   path: 'cancellation-policy',
+      //   name: 'CancellationPolicy',
+      //   component: () => import('@/views/CancellationPolicy/index.vue'),
+      //   meta: { title: 'Chính sách hủy vé', icon: '' }
+      // },
+      // {
+      //   path: 'partner-registration',
+      //   name: 'PartnerRegistration',
+      //   component: () => import('@/views/PartnerRegistration/index.vue'),
+      //   meta: { title: 'Đăng ký đối tác', icon: '' }
+      // },
       {
         path: 'reset-password',
         name: 'ResetPassword',
@@ -183,12 +183,12 @@ export const constantRoutes = [
         component: () => import('@/views/ChangePassword/index.vue'),
         meta: { title: 'Thay đổi mật khẩu', icon: '' }
       },
-      {
-        path: 'services-price',
-        name: 'ServicePrice',
-        component: () => import('@/views/ServicePriceList/index.vue'),
-        meta: { title: 'Giá dịch vụ', icon: '' }
-      },
+      // {
+      //   path: 'services-price',
+      //   name: 'ServicePrice',
+      //   component: () => import('@/views/ServicePriceList/index.vue'),
+      //   meta: { title: 'Giá dịch vụ', icon: '' }
+      // },
       {
         path: 'login',
         name: 'Login',

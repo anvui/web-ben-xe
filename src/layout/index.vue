@@ -1,16 +1,11 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <template v-if="companyConfig">
-      <!-- <div :class="{'fixed-header':fixedHeader}"> -->
-      <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" class="layout-width" />
-      <!-- </div> -->
+      <div :class="{'fixed-header':fixedHeader}">
+        <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" class="layout-width" />
+      </div>
       <app-main class="layout-width main-container" />
       <menu-footer v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" />
-    </template>
-    <template v-if="companyConfig && companyConfig.sitename === 'localhost:9529'">
-      <!-- <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" class="layout-width" />
-      <app-main class="layout-width main-container" />
-      <menu-footer v-if="$route.name !== 'Login' && $route.name !== 'Signup' && $route.name !== 'ResetPassword'" /> -->
     </template>
   </div>
 </template>
