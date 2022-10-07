@@ -71,9 +71,10 @@ router.beforeEach(async(to, from, next) => {
     } else {
       // other pages that do not have permission to access are redirected to the login page.
       // Message.error('Vui lòng đăng nhập để thực hiện tính năng này')
-      next(`/${locale || 'vi'}/login?redirect=${lastPath}`)
       // next()
-      NProgress.done()
+
+      // next(`/${locale || 'vi'}/login?redirect=${lastPath}`)
+      // NProgress.done()
     }
     next()
   }
