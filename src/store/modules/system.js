@@ -1,4 +1,5 @@
 import { getListPoints } from '@/api/system'
+import { setPayload } from '@/utils/get-point-and-date'
 
 const state = {
   companyConfig: null,
@@ -45,6 +46,16 @@ const actions = {
         reject(error)
       })
     })
+  },
+  getPointAndDate({ commit }, params) {
+    const data = {
+      from: params.from,
+      to: params.to,
+      startDate: params.startDate
+      // endDate: params.endDate
+    }
+    commit('SET_POINT_AND_DATE', data)
+    setPayload(JSON.stringify(data))
   },
   testAction({ commit }, config) {
     console.log('this.config', config)

@@ -67,7 +67,6 @@ export default {
   },
   methods: {
     async getListData() {
-      console.log('get list pointssss')
       await this.$store.dispatch('system/getPoints')
     },
     querySearch(queryString, callback) {
@@ -89,6 +88,7 @@ export default {
           results = listData
         }
       }
+      console.log(results)
       callback(results)
     },
     createFilter(queryString) {
@@ -100,7 +100,9 @@ export default {
       }
     },
     handleSelect(province) {
-      this.$emit('input', province.value)
+      console.log(province)
+      console.log('searchPoint', this.searchPoint)
+      this.$emit('input', province.label)
     },
     handleInput(value) {
       // this.$emit('input', value)

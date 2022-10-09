@@ -134,7 +134,14 @@ export default {
       this.requestFilter.endPoint = startPoint
     },
     searchTrip() {
-      console.log('companyConfig', this.companyConfig)
+      if (!this.$refs.PointUp.searchPoint) {
+        this.$message.error('Vui lòng chọn điểm đi')
+      } else if (!this.$refs.PointDown.searchPoint) {
+        this.$message.error('Vui lòng chọn điểm đến')
+      }
+      console.log(this.requestFilter)
+      return
+      // console.log('companyConfig', this.companyConfig)
       const params = {
         date: '20221003',
         companyId: null,
@@ -143,11 +150,16 @@ export default {
         type: 0,
         routeIds: null
       }
-      searchTrip(params).then(response => {
-        console.log(response)
-      }).catch(err => {
-        self.$message.warning(`Kết nối tìm kiếm thất bại: ${err}`)
-      })
+      // await new Promise((resolve, rejected) => {
+      //   searchTrip(params).then(response => {
+      //     this.$store.dispatch('system/getPointAndDate', params)
+      //     this.$router.push({ name: 'OrderPage' })
+      //   }).catch(err => {
+      //     self.$message.warning(`Kết nối tìm kiếm thất bại: ${err}`)
+      //   })
+      // })
+      this.$store.dispatch('system/getPointAndDate', params)
+      this.$router.push({ name: 'OrderPage' })
     },
     compareDateAndNow(date) {
       if (date >= this.$moment().format('YYYY-MM-DD')) {
