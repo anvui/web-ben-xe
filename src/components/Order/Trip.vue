@@ -56,21 +56,21 @@
       </div>
       <div class="col-auto info-price ml-auto">
         <div class="border-wrap">
-          <div class="text-right">
+          <!-- <div class="text-right">
             <span class="title">{{ $t('book.trip.priceLabel') }}</span>
             <span class="price-ticket">{{ numeral(trip.baseTicketPrice).format('0,0') }}đ</span>
           </div>
           <div class="text-right mt-1">
             <span class="title">{{ $t('book.trip.discountLabel') }}</span>
             <span class="price-ticket">{{ numeral(Math.abs(trip.currentTicketPrice - trip.baseTicketPrice)).format('0,0') }}đ</span>
-          </div>
-          <span class="empty-seat">{{ $t('book.trip.emptySeat') }} {{ trip.vehicle.totalSeat - trip.numberTicketPaid }}</span>
+          </div> -->
+          <span class="empty-seat">{{ $t('book.trip.emptySeat') }} {{ trip.totalSeat }}</span>
           <el-button
-            v-if="allowBookTicket && trip.vehicle.totalSeat - trip.numberTicketPaid > 0"
+            v-if="allowBookTicket && trip.totalSeat> 0"
             class="btn-select-trip d-block"
             @click.stop="openSelectedTripSection"
           >
-            {{ selectedTripStatus === trip.id ? $t('book.trip.btnClose') : $t('book.trip.btnBook') }}
+            {{ selectedTripStatus === trip.tripId ? $t('book.trip.btnClose') : $t('book.trip.btnBook') }}
           </el-button>
           <el-button
             v-if="!allowBookTicket"
@@ -80,9 +80,9 @@
             {{ $t('book.trip.btnTimeout') }}
           </el-button>
           <el-button
-            v-if="allowBookTicket && trip.vehicle.totalSeat - trip.numberTicketPaid <= 0"
+            v-if="allowBookTicket && trip.totalSeat <= 0"
             class="btn-select-trip d-block ml-auto"
-            :class="{ 'disabled': trip.vehicle.totalSeat - trip.numberTicketPaid <= 0 }"
+            :class="{ 'disabled': trip.totalSeat <= 0 }"
           >
             {{ $t('book.trip.btnFullSeat') }}
           </el-button>
@@ -95,26 +95,26 @@
               <div class="share">
                 <span class="description">Rủ bạn bè đi cùng:</span>
                 <div class="list-icon">
-                  <a href="" title="Copy to clipboard" @click.prevent="shareTrip('url', trip.id)">
+                  <a href="" title="Copy to clipboard" @click.prevent="shareTrip('url', trip.tripId)">
                     <img src="@/assets/images/icon-copy.png" alt="copy to clipboard">
                   </a>
-                  <a href="" title="Share to facebook" @click.prevent="shareTrip('fb', trip.id)">
+                  <a href="" title="Share to facebook" @click.prevent="shareTrip('fb', trip.tripId)">
                     <img src="@/assets/images/icon-facebook.png" alt="share to fb">
                   </a>
                 </div>
               </div>
               <a slot="reference" href="javascript:void(0)" class="share-trip">Chia sẻ ngay</a>
             </el-popover> -->
-            <a href="javascript:void(0)" class="share-trip" @click.prevent="shareTrip()">{{ $t('book.trip.btnShareTrip') }}</a>
-            <form-share-link v-model="dialogShareTrip" :trip="trip" />
+            <!-- <a href="javascript:void(0)" class="share-trip" @click.prevent="shareTrip()">{{ $t('book.trip.btnShareTrip') }}</a>
+            <form-share-link v-model="dialogShareTrip" :trip="trip" /> -->
           </div>
         </div>
       </div>
     </div>
-    <div class="more-info-section" :class="[ moreInfoStatus === trip.id ? '' : 'collapsed' ]">
+    <div class="more-info-section" :class="[ moreInfoStatus === trip.tripId ? '' : 'collapsed' ]">
       <more-info-trip :trip="trip" />
     </div>
-    <div class="selected-trip-section" :class="[ selectedTripStatus === trip.id ? '' : 'collapsed' ]">
+    <div class="selected-trip-section" :class="[ selectedTripStatus === trip.tripId ? '' : 'collapsed' ]">
       <selected-trip :trip="trip" />
     </div>
   </div>
@@ -139,7 +139,7 @@ export default {
     },
     statusSelectedTripSection: {
       default: null,
-      type: Number
+      type: [Number, String, Array]
     }
   },
   data() {
@@ -158,30 +158,34 @@ export default {
       'token'
     ]),
     formatStartTime() {
-      const format = this.$moment.utc(this.trip.runTime).format('HH:mm')
+      const format = this.$moment.utc(this.trip.startTime).format('HH:mm')
       return format
     },
     formatStartDate() {
-      const startTime = new Date(this.trip.runTime).getTime()
-      return this.$moment.utc(startTime).format('DD/MM/YYYY')
+      // const startTime = new Date(this.trip.startTime).getTime()
+      const year = this.trip.startDateReality.slice(0,4)
+      const month = this.trip.startDateReality.slice(4,6)
+      const day = this.trip.startDateReality.slice(6,9)
+      return `${day}-${month}-${year}`
     },
     formatDistanceTime() {
-      const distance = getUTCTime(this.trip.finishTime)
+      const distance = getUTCTime((this.trip.finishTime|| 2*1000*60*60))
       return distance
     },
     formatEndTime() {
       let data = ''
-      const startTime = this.$moment.utc(this.trip.runTime).format('YYYY/MM/DD HH:mm:ss')
+      const startTime = this.$moment.utc(this.trip.startTime).format('YYYY/MM/DD HH:mm:ss')
       const startTimeMillisec = new Date(startTime).getTime()
-      const endTimeMillisec = startTimeMillisec + this.trip.finishTime
+      const endTimeMillisec = startTimeMillisec + (this.trip.finishTime|| 2*1000*60*60)
       const endTime = this.$moment(endTimeMillisec).format('HH:mm')
       data = endTime
       return data
     },
     formatEndDate() {
-      const startTime = new Date(this.trip.runTime).getTime()
-      const endTime = startTime + this.trip.finishTime
-      return this.$moment.utc(endTime).format('DD/MM/YYYY')
+      const year = this.trip.startDateReality.slice(0,4)
+      const month = this.trip.startDateReality.slice(4,6)
+      const day = this.trip.startDateReality.slice(6,9)
+      return `${day}-${month}-${year}`
     },
     moreInfoStatus: {
       get() {
@@ -201,15 +205,16 @@ export default {
     },
     allowBookTicket() {
       // check allow by date
-      const startTime = new Date(this.trip.runTime)
-      const startTimeMilli = startTime.getTime() - 25200000
-      const now = new Date()
-      const nowMilli = now.getTime()
-      if (startTimeMilli - nowMilli > 0) {
-        return true
-      } else {
-        return false
-      }
+      // const startTime = new Date(this.trip.startTime)
+      // const startTimeMilli = startTime.getTime() - 25200000
+      // const now = new Date()
+      // const nowMilli = now.getTime()
+      // if (startTimeMilli - nowMilli > 0) {
+      //   return true
+      // } else {
+      //   return false
+      // }
+      return true
     },
     getPointManual() {
       let points = null
@@ -224,29 +229,32 @@ export default {
       if (this.selectedTripStatus) {
         this.selectedTripStatus = null
       }
-      if (this.moreInfoStatus && this.moreInfoStatus === this.trip.id) {
+      if (this.moreInfoStatus && this.moreInfoStatus === this.trip.tripId) {
         this.moreInfoStatus = null
         return false
-      } else if (!this.moreInfoStatus || this.selectedTripStatus !== this.trip.id) {
-        this.moreInfoStatus = this.trip.id
+      } else if (!this.moreInfoStatus || this.selectedTripStatus !== this.trip.tripId) {
+        this.moreInfoStatus = this.trip.tripId
       }
     },
-    openSelectedTripSection() {
-      if (this.token) {
+    async openSelectedTripSection() {
+      // if (this.token) {
         if (this.moreInfoStatus) {
           this.moreInfoStatus = null
         }
-        if (this.selectedTripStatus && this.selectedTripStatus === this.trip.id) {
+        if (this.selectedTripStatus && this.selectedTripStatus === this.trip.tripId) {
           this.selectedTripStatus = null
           return false
-        } else if (!this.selectedTripStatus || this.moreInfoStatus !== this.trip.id) {
-          this.selectedTripStatus = this.trip.id
+        } else if (!this.selectedTripStatus || this.moreInfoStatus !== this.trip.tripId) {
+          this.selectedTripStatus = this.trip.tripId
         }
-      } else {
-        if (confirm(this.$t('message.book.checkLoginBookTicket'))) {
-          this.$router.push({ path: `login?redirect=book` })
-        }
-      }
+        // get trip detail
+        console.log(this.trip)
+        await this.$store.dispatch('system/getTripDetail', this.trip.tripId)
+      // } else {
+      //   if (confirm(this.$t('message.book.checkLoginBookTicket'))) {
+      //     this.$router.push({ path: `login?redirect=book` })
+      //   }
+      // }
     },
     shareTrip() {
       // if (!this.userInfo) {

@@ -8,9 +8,9 @@
       </template>
     </ul>
     <div v-if="navActiveStatus === 1" id="list-image">
-      <div v-if="trip.vehicle.images">
+      <div v-if="trip.images">
         <hooper :settings="hooperSettings">
-          <template v-for="(itemImg, indexImg) in trip.vehicle.images">
+          <template v-for="(itemImg, indexImg) in trip.images">
             <slide :key="indexImg">
               <div class="row no-gutters justify-content-center">
                 <div class="col-auto">

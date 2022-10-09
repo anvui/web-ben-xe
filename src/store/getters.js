@@ -40,6 +40,21 @@ const getters = {
 
   systemConfig: state => state.config.systemConfig,
   companyConfig: state => state.system.companyConfig,
-  listPoint: state => state.system.points
+  listPoint: state => state.system.points,
+  searchTripQuery: state => state.system.searchTripQuery,
+  selectedTrip: state => state.system.selectedTrip,
+  tripSeatMap: state => {
+    if (state.system.selectedTrip) {
+      const seatMap = state.system.selectedTrip.trip.seatMap ? JSON.parse(state.system.selectedTrip.trip.seatMap) : []
+      const seatMapObject = {
+        numberOfColumns: Math.max(...seatMap.map(x => x.column)),
+        numberOfFloors: Math.max(...seatMap.map(x => x.floor)),
+        numberOfRows: Math.max(...seatMap.map(x => x.row)),
+        seatList: seatMap
+      }
+      return seatMapObject
+    }
+    else return null
+  }
 }
 export default getters

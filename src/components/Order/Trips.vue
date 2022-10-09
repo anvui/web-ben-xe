@@ -5,12 +5,12 @@
         <div class="col-auto">
           <span class="total-trip">{{ $t('book.trips.totalTrips', { 'tripsLength': trips.length }) }}</span>
         </div>
-        <div v-if="(getDateAndPoint && getDateAndPoint.startDate) != $moment().format('YYYY-MM-DD') && trips.length > 0" class="col text-right">
+        <!-- <div v-if="(getDateAndPoint && getDateAndPoint.startDate) != $moment().format('YYYY-MM-DD') && trips.length > 0" class="col text-right">
           <el-button class="btn-create-own-trip" @click="handleCreateTrip">{{ $t('book.trips.btnCreateTrip') }}</el-button>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div v-if="trips && trips.length <= 0">
+    <!-- <div v-if="trips && trips.length <= 0">
       <div class="w-100 trips-not-available">
         <span class="w-100 text-center font-weight-bold">
           {{ $t('book.trips.tripsNotAvailable', { startDate: $moment(getDateAndPoint.startDate).format('DD-MM-YYYY') }) }}
@@ -25,7 +25,7 @@
       <div>
         <form-create-trip />
       </div>
-    </div>
+    </div> -->
     <div v-if="!loading && trips && trips.length > 0" class="list">
       <template v-for="(item, index) in trips">
         <trip :key="index" :trip="item" :status-more-info-section="moreInfoStatus" :status-selected-trip-section="selectedTripStatus" @set-status-more-info-section="setStatusMoreInfoSection" @set-status-selected-trip-section="setStatusSelectedTripSection" />
@@ -50,16 +50,17 @@ export default {
       selectedTripStatus: null,
       loading: false,
       mapStartPoint: null,
-      mapEndPoint: null
-      // trips: []
+      mapEndPoint: null,
+      trips: []
     }
   },
   computed: {
     ...mapGetters([
       'token',
-      'trips',
+      // 'trips',
       'dateAndPoint',
-      'provinces'
+      'listPoint',
+      'searchTripQuery'
     ]),
     getDateAndPoint() {
       let dateAndPoint = this.dateAndPoint
@@ -72,11 +73,14 @@ export default {
     }
   },
   watch: {
+    'searchTripQuery': async function(val) {
+      await this.getListTrip()
+    },
     'getDateAndPoint': async function(val) {
       // console.log(val)
       if (!this.$route.query.tripId && !this.$route.params.tripId) {
-        this.mapStartPoint = this.provinces.find((province) => province.provinceName === this.getDateAndPoint.from)
-        this.mapEndPoint = this.provinces.find((province) => province.provinceName === this.getDateAndPoint.to)
+        this.mapStartPoint = this.getDateAndPoint.startPoint
+        this.mapEndPoint = this.getDateAndPoint.endPoint
         await this.getListTrip()
       }
     },
@@ -87,18 +91,22 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('route/getProvinces')
-    this.mapStartPoint = this.getDateAndPoint ? this.provinces.find((province) => province.provinceName === this.getDateAndPoint.from) : null
-    this.mapEndPoint = this.getDateAndPoint ? this.provinces.find((province) => province.provinceName === this.getDateAndPoint.to) : null
-    if (this.$route.query.tripId || this.$route.params.tripId) {
-      if (this.$route.query.tripId) {
-        this.moreInfoStatus = parseInt(this.$route.query.tripId)
-      } else if (this.$route.params.tripId) {
-        this.moreInfoStatus = parseInt(this.$route.params.tripId)
+    try {
+      this.mapStartPoint = this.searchTripQuery.startPoint
+      this.mapEndPoint = this.searchTripQuery.endPoint
+      if (this.$route.query.tripId || this.$route.params.tripId) {
+        if (this.$route.query.tripId) {
+          this.moreInfoStatus = parseInt(this.$route.query.tripId)
+        } else if (this.$route.params.tripId) {
+          this.moreInfoStatus = parseInt(this.$route.params.tripId)
+        }
+        await this.getTripByTripId()
+      } else {
+        await this.getListTrip()
       }
-      await this.getTripByTripId()
-    } else {
-      await this.getListTrip()
+    } catch (error) {
+      console.log('warning trips page', error)
+      this.$router.push({ name: 'Home' } )
     }
   },
   methods: {
@@ -108,43 +116,36 @@ export default {
     setStatusSelectedTripSection(value) {
       this.selectedTripStatus = value
     },
-    getListTrip() {
-      const param = {
-        from: this.mapStartPoint && this.mapStartPoint.id ? this.mapStartPoint.id : undefined,
-        to: this.mapEndPoint && this.mapEndPoint.id ? this.mapEndPoint.id : undefined,
-        startDate: this.getDateAndPoint ? this.getDateAndPoint.startDate : ''
-      }
+    async getListTrip() {
+      const param = this.searchTripQuery
+      console.log('param', param)
       this.loading = true
-      this.$store.dispatch('trip/getListTrip', param).then((resp) => {
-        if (this.trips.length > 0) {
-          // this.trips = resp
-          this.trips.map((trip, t) => {
-            // calculate millisecond and add field runTimeMilliseconds
-            const formatTime = getUTCTime(trip.runTime)
-            const milliSec = convertHourToMilliseconds(parseInt(formatTime.hours), parseInt(formatTime.minutes), parseInt(formatTime.seconds))
+      // this.$store.dispatch('system/getListTrip', param).then((resp) => {
+      //   if (this.trips.length > 0) {
+      //     console.log('listtrip', res)
+      //     this.trips = resp
+      //     this.trips.map((trip, t) => {
+      //       // calculate millisecond and add field runTimeMilliseconds
+      //       const formatTime = getUTCTime(trip.runTime)
+      //       const milliSec = convertHourToMilliseconds(parseInt(formatTime.hours), parseInt(formatTime.minutes), parseInt(formatTime.seconds))
 
-            this.trips[t] = { ...trip, runTimeMilliseconds: milliSec }
-          })
-        } else {
-          this.$message.warning(this.$t('message.book.communityNotCreateTrip', { startDate: this.$moment(this.getDateAndPoint.startDate).format('DD-MM-YYYY') }))
-        }
-        this.loading = false
-      }).catch((error) => {
-        this.loading = false
-        this.$message.error(error.message ? error.message : this.$t('message.common.undefinedError'))
-        console.log(error)
-      })
-    },
-    getTripByTripId() {
-      this.loading = true
-      let tripId = 0
-      if (this.$route.query.tripId) {
-        tripId = this.$route.query.tripId
-      } else if (this.$route.params.tripId) {
-        tripId = this.$route.params.tripId
-      }
-      this.$store.dispatch('trip/getTripByTripId', { tripId: tripId }).then((resp) => {
-        // resp ? this.trips.push(resp) : null
+      //       this.trips[t] = { ...trip, runTimeMilliseconds: milliSec }
+      //     })
+      //   } else {
+      //     this.$message.warning(this.$t('message.book.communityNotCreateTrip', { startDate: this.$moment(this.getDateAndPoint.startDate).format('DD-MM-YYYY') }))
+      //   }
+      //   this.loading = false
+      // }).catch((error) => {
+      //   this.loading = false
+      //   this.$message.error(error.message ? error.message : this.$t('message.common.undefinedError'))
+      //   console.log(error)
+      // })
+
+      const resp = await this.$store.dispatch('system/getListTrip', param)
+      if (resp) {
+        console.log('listtrip', resp)
+        // this.$store.dispatch('system/setTrips', resp)
+        this.trips = resp
         this.trips.map((trip, t) => {
           // calculate millisecond and add field runTimeMilliseconds
           const formatTime = getUTCTime(trip.runTime)
@@ -152,19 +153,42 @@ export default {
 
           this.trips[t] = { ...trip, runTimeMilliseconds: milliSec }
         })
-
-        // set data to local storage
-        this.$store.dispatch('trip/getPointAndDate', {
-          from: this.trips[0].route ? this.trips[0].route.points[0].district.provinceName : null,
-          to: this.trips[0].route ? this.trips[0].route.points[this.trips[0].route.points.length - 1].district.provinceName : null,
-          startDate: this.$moment.utc(this.trips[0].runTime).format('YYYY-MM-DD')
-        })
-        this.loading = false
-      }).catch((error) => {
-        this.loading = false
-        this.$message.error(this.$t('message.common.undefinedError'))
+      } else {
+        this.$message.error(error.message ? error.message : this.$t('message.common.undefinedError'))
         console.log(error)
-      })
+      }
+      this.loading = false
+    },
+    getTripByTripId() {
+      // this.loading = true
+      // let tripId = 0
+      // if (this.$route.query.tripId) {
+      //   tripId = this.$route.query.tripId
+      // } else if (this.$route.params.tripId) {
+      //   tripId = this.$route.params.tripId
+      // }
+      // this.$store.dispatch('trip/getTripByTripId', { tripId: tripId }).then((resp) => {
+      //   // resp ? this.trips.push(resp) : null
+      //   this.trips.map((trip, t) => {
+      //     // calculate millisecond and add field runTimeMilliseconds
+      //     const formatTime = getUTCTime(trip.runTime)
+      //     const milliSec = convertHourToMilliseconds(parseInt(formatTime.hours), parseInt(formatTime.minutes), parseInt(formatTime.seconds))
+
+      //     this.trips[t] = { ...trip, runTimeMilliseconds: milliSec }
+      //   })
+
+      //   // set data to local storage
+      //   this.$store.dispatch('trip/getPointAndDate', {
+      //     from: this.trips[0].route ? this.trips[0].route.points[0].district.provinceName : null,
+      //     to: this.trips[0].route ? this.trips[0].route.points[this.trips[0].route.points.length - 1].district.provinceName : null,
+      //     startDate: this.$moment.utc(this.trips[0].runTime).format('YYYY-MM-DD')
+      //   })
+      //   this.loading = false
+      // }).catch((error) => {
+      //   this.loading = false
+      //   this.$message.error(this.$t('message.common.undefinedError'))
+      //   console.log(error)
+      // })
     },
     handleCreateTrip() {
       if (this.token) {

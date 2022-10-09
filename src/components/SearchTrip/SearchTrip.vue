@@ -102,7 +102,8 @@ export default {
       'provinces',
       'dateAndPoint',
       'token',
-      'companyConfig'
+      'companyConfig',
+      'listPoint'
     ]),
     getDateAndPoint() {
       let dateAndPoint = this.dateAndPoint
@@ -136,17 +137,18 @@ export default {
     searchTrip() {
       if (!this.$refs.PointUp.searchPoint) {
         this.$message.error('Vui lòng chọn điểm đi')
-      } else if (!this.$refs.PointDown.searchPoint) {
+        return
+      }
+      if (!this.$refs.PointDown.searchPoint) {
         this.$message.error('Vui lòng chọn điểm đến')
+        return
       }
       console.log(this.requestFilter)
-      return
-      // console.log('companyConfig', this.companyConfig)
       const params = {
-        date: '20221003',
+        date: this.requestFilter.startDate.split('-').join(''),
         companyId: null,
-        startPoint: 'P0Ov1wkYPHp9tiT',
-        endPoint: 'P0G31tEzXSfsHqV',
+        startPoint: this.listPoint.find(point => point.pointName === this.requestFilter.startPoint).pointId,
+        endPoint: this.listPoint.find(point => point.pointName === this.requestFilter.endPoint).pointId,
         type: 0,
         routeIds: null
       }

@@ -120,7 +120,7 @@ export default {
       default: null
     },
     tripId: {
-      type: Number,
+      type: [Number, String, Array],
       default: 0
     },
     passengerInfo: {

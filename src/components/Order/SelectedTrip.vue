@@ -102,12 +102,67 @@
     <div class="select-number-passengers">
       <div class="col-md-5">
         <div class="w-100 mt-3">
-          <h4 class="text-title">{{ $t('book.selectedTrip.numberPassengers') }}</h4>
+          <h4 class="text-title">Sơ đồ ghế</h4>
         </div>
-        <div class="number-passengers-wrapper">
-          <div id="male">
+        <div
+          class="number-passengers-wrapper"
+          v-loading="!selectedTrip && trip.tripId !== selectedTrip.trip.tripId && !seatMapFake"
+          element-loading-text="Đợi xíu..."
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="rgb(255 255 255)"
+        >
+          <!-- <div id="male">
             <label>{{ $t('book.selectedTrip.selectNumberPassengers') }}</label>
-            <el-input-number :value="totalPassengers" :step="1" :min="0" :max="trip.vehicle.totalSeat - trip.numberTicketPaid" @change="handlePassengersChange" />
+            <el-input-number :value="totalPassengers" :step="1" :min="0" :max="trip.totalSeat" @change="handlePassengersChange" />
+          </div> -->
+          <div class="seat-map-placeholder">
+            <div
+              v-for="(floor, index) in seatMapFake"
+              :key="index"
+              class="seat-floor"
+            >
+              <label class="section-label justify-self-center">{{
+                `Tầng ${index + 1}`
+              }}</label>
+              <div class="seat-section">
+                <div
+                  v-for="(row, r) in floor"
+                  :key="`${index}.${r}`"
+                  class="seat-row"
+                >
+                  <div
+                    v-for="(col, c) in row"
+                    :key="`${index}.${r}.${c}`"
+                    class="seat-col"
+                  >
+                    <div
+                      :id="'seat-' + col.seatId"
+                      :class="[
+                        col.seatId &&
+                        (col.seatType === 3 || col.seatType === 4)
+                          ? 'seat-available'
+                          : 'seat-not-available',
+                      ]"
+                      class="seat-item"
+                      @click="selectSeat(col)"
+                    >
+                      <div class="seat-name">
+                        {{ col.seatId ? col.seatId : "" }}
+                      </div>
+                      <!-- <b-row align-h="center">
+                        <b-col v-if="list_lock_seat.includes(col.seatId)" cols="auto">
+                          <i class="el-icon-lock" title="Ghế khóa" />
+                        </b-col>
+                        <b-col v-if="timeExpire(col)" cols="auto">
+                          <time-countdown :time="timeExpire(col)" />
+                        </b-col>
+                      </b-row> -->
+                      <!-- <div class="seat-status" /> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -130,7 +185,7 @@
                 ref="FormCustomerInfo"
                 v-model="customerInfos"
                 :label-form-customer-active="labelFormCustomerActive"
-                :trip-id="trip.id"
+                :trip-id="trip.tripId"
               />
             </template>
           </div>
@@ -142,7 +197,7 @@
         {{ $t('book.selectedTrip.agreeTerms.label') }} <a href="#">{{ $t('book.selectedTrip.agreeTerms.policy') }}</a>
       </el-checkbox>
     </div>
-    <div class="total-seat-and-price">
+    <!-- <div class="total-seat-and-price">
       <div class="total-wrapper">
         <label>{{ $t('book.selectedTrip.seatAndPrice.totalPassengers') }}</label>
         <label>{{ totalPassengers }}</label>
@@ -168,7 +223,7 @@
           <span :key="i">{{ item }}</span>
         </template>
       </div>
-    </div>
+    </div> -->
     <div class="form-invoice">
       <el-checkbox
         v-if="$route.name === 'OrderPage' || $route.name === 'CreateTrip'"
@@ -277,8 +332,15 @@ export default {
       'userInfo',
       'validate',
       'fillAllCustomer',
-      'firstCustomerInfo'
+      'firstCustomerInfo',
+      'selectedTrip',
+      'tripSeatMap'
     ]),
+    seatMapFake() {
+      const seatMap = this.tripSeatMap ? this.makeMapData(this.tripSeatMap) : null
+      console.log(seatMap)
+      return seatMap
+    },
     getListPointUp() {
       let points = null
       if (this.trip.route) {
@@ -325,7 +387,7 @@ export default {
         return 0
       }
       const priceByDistance = parseInt(((this.trip.route.distance * this.trip.vehicle.pricePerKm) + this.trip.planTrip.additionMoney) * (1 + this.routeProfit))
-      const numberSeats = this.trip.vehicle.totalSeat
+      const numberSeats = this.trip.totalSeat
       const discountPrice = parseInt(priceByDistance / numberSeats)
       let baseTicketPrice = this.trip.baseTicketPrice
 
@@ -437,6 +499,7 @@ export default {
     }
   },
   methods: {
+    selectSeat() {},
     handelFormCustomerActive(index) {
       this.labelFormCustomerActive = index
     },
@@ -481,9 +544,13 @@ export default {
       }
     },
     handleBookTicket() {
+      console.log(this.$refs.FormCustomerInfo)
+      console.log(this.customerInfos)
+        return
       if (this.validateCustomerInfo()) {
         // set data customers info
         const data = []
+        
         this.$refs.FormCustomerInfo.forEach((item, i) => {
           if (item.validate.length === 0 && item.customerInfo.fullname && item.customerInfo.phoneNumber && item.customerInfo.email && item.customerInfo.sex) {
             const params = {
@@ -507,7 +574,7 @@ export default {
         } else {
           // define params pass to api and call api
           const info = {
-            tripId: this.trip.id,
+            tripId: this.trip.tripId,
             personInfos: this.customerInfos,
             pointUpId: this.pickUpAddress,
             pointDownId: this.pickDownAddress,
@@ -551,7 +618,54 @@ export default {
 
       const findErrorByIndex = this.validate.filter(element => element.index !== index)
       this.$store.dispatch('trip/validateInfo', findErrorByIndex)
-    }
+    },
+    makeMapData(seatMap) {
+      const self = this
+      const data = []
+      for (let f = 0; f < seatMap.numberOfFloors; f++) {
+        const listRow = []
+        for (let r = 0; r < seatMap.numberOfRows; r++) {
+          const listCol = []
+          for (let c = 0; c < seatMap.numberOfColumns; c++) {
+            listCol.push(self.makeSeatDefault(f + 1, r + 1, c + 1))
+          }
+          listRow.push(listCol)
+        }
+        data.push(listRow)
+      }
+      if (seatMap.seatList) {
+        seatMap.seatList.forEach((element) => {
+          try {
+            if (
+              data[element.floor - 1][element.row - 1][element.column - 1] !==
+              undefined
+            ) {
+              data[element.floor - 1][element.row - 1][element.column - 1] =
+                element
+              data[element.floor - 1][element.row - 1][
+                element.column - 1
+              ].id = `${element.floor}${element.row}${element.column}`
+            }
+          } catch (e) {
+            console.log('ticket error' + JSON.stringify(element) + ` (${e})`)
+          }
+        })
+      }
+      return data
+    },
+    makeSeatDefault(floor, row, column) {
+      const data = {
+        floor: floor,
+        column: column,
+        row: row,
+        seatId: null,
+        seatType: 7,
+        seatStatus: 1,
+        extraPrice: 0,
+        id: `${floor}${row}${column}`
+      }
+      return data
+    },
   }
 }
 </script>
@@ -906,6 +1020,156 @@ $bg_light_gray: #F4F7F8;
     text-align: center;
     color: $gray;
     user-select: none;
+  }
+}
+// seat map css
+.seat-map-placeholder {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 3px;
+  .seat-floor {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2px;
+    .seat-section {
+      background: #a4b0be;
+      border-radius: 4px;
+      .seat-row {
+        display: flex;
+        flex-wrap: nowrap;
+        .seat-col {
+          flex-basis: 0;
+          flex-grow: 1;
+          .seat-available {
+            background: white !important;
+            justify-content: center;
+          }
+          .seat-item {
+            position: relative;
+            padding: 3px;
+            margin: 3px;
+            min-height: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            // border: 1px solid #80808038;
+            // box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.05);
+            .seat-name {
+              font-size: 4px;
+              text-align: center;
+              color: #232731;
+              font-weight: bold;
+              // padding-bottom: 10px;
+            }
+            .customer-info {
+              font-size: 2px;
+            }
+          }
+          .seat-selected {
+            background: #fdd0fc !important;
+            border: 1px solid #d413f3;
+          }
+          .seat-available {
+            .seat-status {
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%);
+              bottom: 7px;
+              background: #50C694;
+              border-radius: 2px;
+              height: 4px;
+              width: 86%;
+              &::after {
+                content: '';
+                position: inherit;
+                left: 0;
+                bottom: 0;
+                background: #50C694;
+                border-radius: 2px;
+                width: 100%;
+                height: 4px;
+              }
+            }
+            &.seat-sold .seat-status::after {
+              width: 100%;
+              background: #2dc1cd;
+            }
+            &.seat-for-sale .seat-status::after {
+              width: 100%;
+              background: #50C694;
+            }
+            &.seat-booked .seat-status::after {
+              width: 100%;
+              background: #f1c40f;
+            }
+            &.seat-paid .seat-status::after {
+              width: 100%;
+              background: #084388;
+            }
+            &.one-way-ticket .seat-status::after {
+              width: calc(100% / 2);
+            }
+            &.owner-seat {
+              opacity: 0.8;
+            }
+          }
+          .seat-not-available {
+            &.seat-lock {
+              opacity: 0.8;
+              background: #c8d6e5;
+              i {
+                content: '';
+                position: absolute;
+                top: 48%;
+                left: 50%;
+                transform: translateX(-50%);
+              }
+            }
+          }
+          .seat-just-updated{
+            background: yellow !important;
+          }
+        }
+      }
+    }
+  }
+}
+.justify-self-center {
+  justify-self: center;
+}
+.input-section {
+  display: flex;
+  align-items: center;
+}
+.left-input-section {
+  flex-wrap: wrap;
+}
+.list-seat-selected-contain {
+  .list-seat-selected {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 2px;
+    .btn-close-seats {
+      height: 28px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+.ticket-just-updated {
+  animation: ripple 0.5s linear infinite;
+}
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(#3498db, 0.3),
+      0 0 0 1px rgba(#3498db, 0.3),
+      0 0 0 3px rgba(#3498db, 0.3),
+      0 0 0 5px rgba(#3498db, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(#3498db, 0.3),
+      0 0 0 4px rgba(#3498db, 0.3),
+      0 0 0 20px rgba(#3498db, 0),
+      0 0 0 30px rgba(#3498db, 0);
   }
 }
 </style>

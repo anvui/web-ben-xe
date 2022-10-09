@@ -110,44 +110,44 @@ export default {
     ...mapGetters(['trips'])
   },
   watch: {
-    'currentArrange': function(val) {
-      switch (val) {
-        case 'rate-company':
-          console.log(1)
-          break
+    // 'currentArrange': function(val) {
+    //   switch (val) {
+    //     case 'rate-company':
+    //       console.log(1)
+    //       break
 
-        case 'start-time':
-          this.trips.sort(function(a, b) {
-            return parseInt(a.runTimeMilliseconds) - parseInt(b.runTimeMilliseconds)
-          })
-          break
+    //     case 'start-time':
+    //       this.trips.sort(function(a, b) {
+    //         return parseInt(a.runTimeMilliseconds) - parseInt(b.runTimeMilliseconds)
+    //       })
+    //       break
 
-        case 'cheap-price':
-          this.trips.sort(function(a, b) {
-            return parseInt(a.baseTicketPrice) - parseInt(b.baseTicketPrice)
-          })
-          break
+    //     case 'cheap-price':
+    //       this.trips.sort(function(a, b) {
+    //         return parseInt(a.baseTicketPrice) - parseInt(b.baseTicketPrice)
+    //       })
+    //       break
 
-        default:
-          break
-      }
-    },
-    'filters.startTime': function(val) {
-      switch (val) {
-        case 1:
-          break
+    //     default:
+    //       break
+    //   }
+    // },
+    // 'filters.startTime': function(val) {
+    //   switch (val) {
+    //     case 1:
+    //       break
 
-        case 2:
-          break
+    //     case 2:
+    //       break
 
-        case 3:
-          console.log(3)
-          break
+    //     case 3:
+    //       console.log(3)
+    //       break
 
-        default:
-          break
-      }
-    }
+    //     default:
+    //       break
+    //   }
+    // }
   },
   methods: {
     arrangeTrip(id) {

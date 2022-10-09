@@ -88,21 +88,18 @@ export default {
           results = listData
         }
       }
-      console.log(results)
       callback(results)
     },
     createFilter(queryString) {
       return (province) => {
-        // console.log(province, queryString)
-        const lowerProvince = removeVietnameseTones(province.pointName ? province.pointName.toLowerCase() : '')
+        const lowerProvince = removeVietnameseTones(province.value ? province.value.toLowerCase() : '')
         const lowerQuery = removeVietnameseTones(queryString.toLowerCase())
-        return (lowerProvince.includes(lowerQuery))
+        
+        return lowerProvince.includes(lowerQuery)
       }
     },
     handleSelect(province) {
-      console.log(province)
-      console.log('searchPoint', this.searchPoint)
-      this.$emit('input', province.label)
+      this.$emit('input', province.value)
     },
     handleInput(value) {
       // this.$emit('input', value)

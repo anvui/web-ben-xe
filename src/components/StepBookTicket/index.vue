@@ -10,14 +10,16 @@
             <div class="route-info">
               <div class="route">
                 <div class="province-name">
-                  <span v-if="getDateAndPoint && getDateAndPoint.from" id="start-point">{{ getDateAndPoint.from }}</span>
-                  <span v-if="getDateAndPoint && getDateAndPoint.from && getDateAndPoint.to"> - </span>
-                  <span v-if="getDateAndPoint && getDateAndPoint.to" id="end-point">{{ getDateAndPoint.to }}</span>
+                  <template v-if="searchTripQuery">
+                    <span id="start-point">{{ listPoint.find(point => point.pointId === searchTripQuery.startPoint).pointName }}</span>
+                    <span> - </span>
+                    <span id="end-point">{{ listPoint.find(point => point.pointId === searchTripQuery.endPoint).pointName }}</span>
+                  </template>
                 </div>
-                <a v-if="$route.name !== 'payment'" href="" :style="{ 'padding-left': getDateAndPoint ? '8px' : '' }" @click.prevent="reselectRoute = true">Chọn lại</a>
+                <a v-if="$route.name !== 'payment'" href="" :style="{ 'padding-left': searchTripQuery ? '8px' : '' }" @click.prevent="reselectRoute = true">Chọn lại</a>
               </div>
               <div class="date">
-                <p>{{ getDateAndPoint ? $moment(getDateAndPoint.startDate).format("DD/MM/YYYY") : '' }}</p>
+                <p>{{ searchTripQuery ? $moment(searchTripQuery.startDate).format("DD/MM/YYYY") : '' }}</p>
               </div>
             </div>
           </div>
@@ -59,7 +61,9 @@ export default {
   computed: {
     ...mapGetters([
       'provinces',
-      'dateAndPoint'
+      'dateAndPoint',
+      'searchTripQuery',
+      'listPoint'
     ]),
     getDateAndPoint() {
       let dateAndPoint = this.dateAndPoint
@@ -74,10 +78,6 @@ export default {
       const point = this.getDateAndPoint ? this.provinces.find((item, index) => item.id === this.getDateAndPoint.from) : null
       return point
     },
-    mapEndPoint() {
-      const point = this.getDateAndPoint ? this.provinces.find((item, index) => item.id === this.getDateAndPoint.to) : null
-      return point
-    }
   },
   methods: {
   }
