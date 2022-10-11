@@ -62,7 +62,7 @@ service.interceptors.response.use(
     const res = response.data
 
     // if code is not 200 or 201, it is error
-    if (res.code === 200 || res.code === 201) {
+    if (res.code === 200 || res.code === 201 || res.code === 202) {
       return res
     } else {
       // Message({

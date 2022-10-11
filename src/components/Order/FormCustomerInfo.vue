@@ -112,7 +112,7 @@ import { mapGetters } from 'vuex'
 export default {
   props: {
     labelFormCustomerActive: {
-      type: Number,
+      type: [Number, String, Array],
       default: 1
     },
     value: {

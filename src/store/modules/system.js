@@ -1,4 +1,4 @@
-import { getListPoints, searchTrip, getTripDetail } from '@/api/system'
+import { getListPoints, searchTrip, getTripDetail, bookTickets } from '@/api/system'
 import { setPayload } from '@/utils/get-point-and-date'
 
 const state = {
@@ -6,7 +6,8 @@ const state = {
   points: [],
   trips: [],
   searchTripQuery: null,
-  selectedTrip: null
+  selectedTrip: null,
+  lastOrder: null
 }
 
 const mutations = {
@@ -21,6 +22,9 @@ const mutations = {
   },
   SET_SELECTED_TRIP: (state, datya) => {
     state.selectedTrip = datya
+  },
+  SET_LAST_ORDER: (state, datya) => {
+    state.lastOrder = datya
   },
   SET_POINT_AND_DATE: (state, daya) => {
     state.searchTripQuery = daya
@@ -59,18 +63,28 @@ const actions = {
       })
     })
   },
+  bookTickets({ commit }, params) {
+    return new Promise((resolve, reject) => {
+      bookTickets(params).then(response => {
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   getTripDetail({ commit }, data) {
     // return new Promise((resolve, reject) => {
-      const params = {
-        tripId: data
-      }
-      getTripDetail(params).then(response => {
-        const data = response.results
-        commit('SET_SELECTED_TRIP', data)
-        // resolve()
-      }).catch(error => {
-        // reject(error)
-      })
+    const params = {
+      tripId: data
+    }
+    getTripDetail(params).then(response => {
+      const data = response.results
+      commit('SET_SELECTED_TRIP', data)
+      // resolve()
+    }).catch(error => {
+      console.log(error)
+      // reject(error)
+    })
     // })
   },
   setTrips({ commit }, params) {
@@ -78,6 +92,9 @@ const actions = {
   },
   setTrip({ commit }, params) {
     commit('SET_SELECTED_TRIP', params)
+  },
+  setLastOrder({ commit }, params) {
+    commit('SET_LAST_ORDER', params)
   },
   getListTrip({ commit }, params) {
     return new Promise((resolve, reject) => {

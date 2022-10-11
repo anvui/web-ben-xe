@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d216bff"],{c491:function(n,t,c){"use strict";c.r(t);var e=function(){var n=this,t=n.$createElement,c=n._self._c||t;return c("div",{staticClass:"booking-policy"})},l=[],s={},i=s,o=c("2877"),u=Object(o["a"])(i,e,l,!1,null,null,null);t["default"]=u.exports}}]);

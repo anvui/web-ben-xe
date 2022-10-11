@@ -123,11 +123,11 @@
 import { getUTCTime } from '@/utils/index'
 import MoreInfoTrip from '@/components/Order/MoreInfoTrip.vue'
 import SelectedTrip from '@/components/Order/SelectedTrip.vue'
-import FormShareLink from '@/components/Popup/FormShareLink.vue'
+// import FormShareLink from '@/components/Popup/FormShareLink.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  components: { MoreInfoTrip, SelectedTrip, FormShareLink },
+  components: { MoreInfoTrip, SelectedTrip },
   props: {
     trip: {
       default: null,
@@ -163,28 +163,28 @@ export default {
     },
     formatStartDate() {
       // const startTime = new Date(this.trip.startTime).getTime()
-      const year = this.trip.startDateReality.slice(0,4)
-      const month = this.trip.startDateReality.slice(4,6)
-      const day = this.trip.startDateReality.slice(6,9)
+      const year = this.trip.startDateReality.slice(0, 4)
+      const month = this.trip.startDateReality.slice(4, 6)
+      const day = this.trip.startDateReality.slice(6, 9)
       return `${day}-${month}-${year}`
     },
     formatDistanceTime() {
-      const distance = getUTCTime((this.trip.finishTime|| 2*1000*60*60))
+      const distance = getUTCTime((this.trip.finishTime || 2 * 1000 * 60 * 60))
       return distance
     },
     formatEndTime() {
       let data = ''
       const startTime = this.$moment.utc(this.trip.startTime).format('YYYY/MM/DD HH:mm:ss')
       const startTimeMillisec = new Date(startTime).getTime()
-      const endTimeMillisec = startTimeMillisec + (this.trip.finishTime|| 2*1000*60*60)
+      const endTimeMillisec = startTimeMillisec + (this.trip.finishTime || 2 * 1000 * 60 * 60)
       const endTime = this.$moment(endTimeMillisec).format('HH:mm')
       data = endTime
       return data
     },
     formatEndDate() {
-      const year = this.trip.startDateReality.slice(0,4)
-      const month = this.trip.startDateReality.slice(4,6)
-      const day = this.trip.startDateReality.slice(6,9)
+      const year = this.trip.startDateReality.slice(0, 4)
+      const month = this.trip.startDateReality.slice(4, 6)
+      const day = this.trip.startDateReality.slice(6, 9)
       return `${day}-${month}-${year}`
     },
     moreInfoStatus: {
@@ -238,18 +238,18 @@ export default {
     },
     async openSelectedTripSection() {
       // if (this.token) {
-        if (this.moreInfoStatus) {
-          this.moreInfoStatus = null
-        }
-        if (this.selectedTripStatus && this.selectedTripStatus === this.trip.tripId) {
-          this.selectedTripStatus = null
-          return false
-        } else if (!this.selectedTripStatus || this.moreInfoStatus !== this.trip.tripId) {
-          this.selectedTripStatus = this.trip.tripId
-        }
-        // get trip detail
-        console.log(this.trip)
-        await this.$store.dispatch('system/getTripDetail', this.trip.tripId)
+      if (this.moreInfoStatus) {
+        this.moreInfoStatus = null
+      }
+      if (this.selectedTripStatus && this.selectedTripStatus === this.trip.tripId) {
+        this.selectedTripStatus = null
+        return false
+      } else if (!this.selectedTripStatus || this.moreInfoStatus !== this.trip.tripId) {
+        this.selectedTripStatus = this.trip.tripId
+      }
+      // get trip detail
+      console.log(this.trip)
+      await this.$store.dispatch('system/getTripDetail', this.trip.tripId)
       // } else {
       //   if (confirm(this.$t('message.book.checkLoginBookTicket'))) {
       //     this.$router.push({ path: `login?redirect=book` })

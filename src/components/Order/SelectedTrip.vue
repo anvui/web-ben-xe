@@ -102,11 +102,13 @@
     <div class="select-number-passengers">
       <div class="col-md-5">
         <div class="w-100 mt-3">
-          <h4 class="text-title">Sơ đồ ghế</h4>
+          <h4 class="text-title">Sơ đồ ghế (chọn ghế)</h4>
         </div>
         <div
+          v-loading="!selectedTrip ||
+            trip.tripId !== selectedTrip.trip.id ||
+            !seatMapFake"
           class="number-passengers-wrapper"
-          v-loading="!selectedTrip && trip.tripId !== selectedTrip.trip.tripId && !seatMapFake"
           element-loading-text="Đợi xíu..."
           element-loading-spinner="el-icon-loading"
           element-loading-background="rgb(255 255 255)"
@@ -139,9 +141,10 @@
                       :id="'seat-' + col.seatId"
                       :class="[
                         col.seatId &&
-                        (col.seatType === 3 || col.seatType === 4)
+                          (col.seatType === 3 || col.seatType === 4)
                           ? 'seat-available'
                           : 'seat-not-available',
+                        listSelectedSeat[col.seatId] ? 'seat-selected' : '',
                       ]"
                       class="seat-item"
                       @click="selectSeat(col)"
@@ -167,12 +170,12 @@
         </div>
       </div>
       <div class="col-md-7">
-        <div class="customer-info-wrapper" :style="{ 'padding': totalPassengers > 0 ? '0.5rem 1rem 0 1rem' : '' }">
-          <div id="list-label" :style="{ 'border-bottom': totalPassengers > 0 ? '1px solid #ECEDF1' : '' }">
+        <div class="customer-info-wrapper" :style="{ 'padding': totalTicket > 0 ? '0.5rem 1rem 0 1rem' : '' }">
+          <div id="list-label" :style="{ 'border-bottom': totalTicket > 0 ? '1px solid #ECEDF1' : '' }">
             <div class="nav">
               <template v-for="index in listIndexTotalPassengers">
                 <div :key="index" class="nav-item">
-                  <label class="pb-1" :class="{ 'label-active': labelFormCustomerActive === index }" @click="handelFormCustomerActive(index)">HK{{ index }}</label>
+                  <label class="pb-1" :class="{ 'label-active': labelFormCustomerActive === index }" @click="handelFormCustomerActive(index)">Ghế {{ index }}</label>
                   <i v-if="index !== 1" class="el-icon-circle-close pl-1 pt-1" @click="removeFormCustomer(index)" />
                 </div>
               </template>
@@ -309,7 +312,7 @@ export default {
       pickUpAddressManual: '',
       pickDownAddressManual: '',
       agreeTermsStatus: true,
-      totalPassengers: 1,
+      totalPassengers: 0,
       labelFormCustomerActive: 1,
       loadingBookTicket: false,
       customerInfos: [],
@@ -323,7 +326,8 @@ export default {
         tax: ''
       },
       formInvoiceRules: {
-      }
+      },
+      listSelectedSeat: {}
     }
   },
   computed: {
@@ -334,11 +338,16 @@ export default {
       'fillAllCustomer',
       'firstCustomerInfo',
       'selectedTrip',
-      'tripSeatMap'
+      'tripSeatMap',
+      'listPoint',
+      'searchTripQuery'
     ]),
+    totalTicket() {
+      const total = this.listIndexTotalPassengers.length
+      return total
+    },
     seatMapFake() {
       const seatMap = this.tripSeatMap ? this.makeMapData(this.tripSeatMap) : null
-      console.log(seatMap)
       return seatMap
     },
     getListPointUp() {
@@ -363,7 +372,7 @@ export default {
       return data
     },
     totalPrice() {
-      const total = this.trip.baseTicketPrice * this.totalPassengers
+      const total = this.trip.baseTicketPrice * this.totalTicket
       return total
     },
     discountPriceNow() {
@@ -373,11 +382,11 @@ export default {
       const distance = this.trip.route ? this.trip.route.distance : this.trip.distance
       const minDistance = this.trip.vehicle.minDistance ? this.trip.vehicle.minDistance : 0
       const priceByDistance = parseInt(((minDistance > distance ? minDistance : distance) * this.trip.vehicle.pricePerKm + this.trip.planTrip.additionMoney) * (1 + this.routeProfit))
-      const numberSeats = this.trip.numberTicketPaid + this.totalPassengers
+      const numberSeats = this.trip.numberTicketPaid + this.totalTicket
       const discountPrice = parseInt(priceByDistance / numberSeats)
 
       if (this.trip.baseTicketPrice > discountPrice) {
-        return (this.trip.baseTicketPrice - discountPrice) * this.totalPassengers
+        return (this.trip.baseTicketPrice - discountPrice) * this.totalTicket
       } else {
         return 0
       }
@@ -394,16 +403,16 @@ export default {
       if (baseTicketPrice === 0) {
         baseTicketPrice = parseInt(priceByDistance / numberSeats * 60 / 100)
       }
-      return (baseTicketPrice - discountPrice) * this.totalPassengers
+      return (baseTicketPrice - discountPrice) * this.totalTicket
     },
     promotionDiscount() {
       let data = 0
       if (this.promotionResponse) {
-        const discount = parseInt(this.totalPrice / this.totalPassengers) * this.promotionResponse.discount
+        const discount = parseInt(this.totalPrice / this.totalTicket) * this.promotionResponse.discount
         if (discount < this.promotionResponse.maxDiscountValue) {
-          data = discount * this.totalPassengers
+          data = discount * this.totalTicket
         } else {
-          data = this.promotionResponse.maxDiscountValue * this.totalPassengers
+          data = this.promotionResponse.maxDiscountValue * this.totalTicket
         }
       } else {
         data = 0
@@ -414,7 +423,7 @@ export default {
       return data
     },
     remainPrice() {
-      const discount = (this.trip.baseTicketPrice * this.totalPassengers) - this.discountPriceNow
+      const discount = (this.trip.baseTicketPrice * this.totalTicket) - this.discountPriceNow
       return discount
     },
     discountTicket() {
@@ -439,9 +448,9 @@ export default {
     }
   },
   watch: {
-    'listIndexTotalPassengers': function(val) {
-      this.totalPassengers = this.listIndexTotalPassengers.length
-    },
+    // 'listIndexTotalPassengers': function(val) {
+    //   this.totalTicket = this.listIndexTotalPassengers.length
+    // },
     'pickUpAddress': function(val) {
       if (val) {
         this.pointActive = 'point-down'
@@ -499,7 +508,17 @@ export default {
     }
   },
   methods: {
-    selectSeat() {},
+    selectSeat(seat) {
+      if (this.listSelectedSeat[seat.seatId]) {
+        this.$delete(this.listSelectedSeat, seat.seatId)
+      } else {
+        this.$set(this.listSelectedSeat, seat.seatId, seat)
+      }
+      if (Object.keys(this.listSelectedSeat).length === 1) {
+        this.labelFormCustomerActive = seat.seatId
+      }
+      this.listIndexTotalPassengers = Object.keys(this.listSelectedSeat)
+    },
     handelFormCustomerActive(index) {
       this.labelFormCustomerActive = index
     },
@@ -543,63 +562,81 @@ export default {
         return true
       }
     },
-    handleBookTicket() {
-      console.log(this.$refs.FormCustomerInfo)
-      console.log(this.customerInfos)
+    async handleBookTicket() {
+      // console.log(this.listSelectedSeat)
+      // console.log(this.listIndexTotalPassengers)
+      console.log(this.listPoint)
+      console.log(this.searchTripQuery)
+      // console.log(this.customerInfos)
+      if (!this.validateCustomerInfo()) {
         return
-      if (this.validateCustomerInfo()) {
-        // set data customers info
-        const data = []
-        
-        this.$refs.FormCustomerInfo.forEach((item, i) => {
-          if (item.validate.length === 0 && item.customerInfo.fullname && item.customerInfo.phoneNumber && item.customerInfo.email && item.customerInfo.sex) {
-            const params = {
-              fullName: item.customerInfo.fullname,
-              phoneNumber: item.customerInfo.phoneNumber,
-              email: item.customerInfo.email,
-              sex: item.sexLabel[item.customerInfo.sex]
-            }
-            data.push(params)
-          }
-        })
-        this.customerInfos = data
-
-        // set referral user
-        this.referralUser = this.$refs.FormCustomerInfo[0].customerInfo.referralUser
-
-        // call api book ticket
-        if (this.customerInfos.length < this.totalPassengers) {
-          this.$message.error(this.$t('message.book.enterFullCustomerInfo', { totalPassengers: this.totalPassengers }))
-          // Vui lòng nhập đủ thông tin ${this.totalPassengers} hành khách
-        } else {
-          // define params pass to api and call api
-          const info = {
-            tripId: this.trip.tripId,
-            personInfos: this.customerInfos,
-            pointUpId: this.pickUpAddress,
-            pointDownId: this.pickDownAddress,
-            referralUser: this.referralUser,
-            promotionCode: this.promotionResponse ? this.promotionResponse.code : '',
-            pointUpManual: this.pickUpAddressManual,
-            pointDownManual: this.pickDownAddressManual,
-            exportInvoice: this.exportInvoice,
-            invoiceInfo: this.exportInvoice ? this.invoiceInfo : null
-          }
-          // console.log(info)
-          this.loadingBookTicket = true
-          setTimeout(() => {
-            this.$store.dispatch('ticket/bookTicket', info).then((resp) => {
-              this.$message.success(this.$t('message.book.bookTicketSuccess'))
-              this.$router.push({ name: 'pay', query: { ticket: resp[0].ticketCode }})
-              this.loadingBookTicket = false
-            }).catch((err) => {
-              console.log(err)
-              this.$message.error(err.message ? err.message : this.$t('message.common.undefinedError'))
-              this.loadingBookTicket = false
-            })
-          }, 500)
-        }
       }
+      const params = {
+        tripId: this.selectedTrip.trip.id,
+        platform: 2,
+        informationsBySeats: []
+      }
+      const pointUp = this.listPoint.find(point => point.pointId === this.searchTripQuery.startPoint)
+      const pointDown = this.listPoint.find(point => point.pointId === this.searchTripQuery.endPoint)
+      this.$refs.FormCustomerInfo.map(x => x.customerInfo).forEach((item, i) => {
+        const info = {
+          seatId: this.listIndexTotalPassengers[i],
+          isAdult: true,
+          fullName: item.fullname,
+          birthday: null,
+          phoneNumber: item.phoneNumber,
+          email: item.email,
+          image: null,
+          invoiceInfo: {
+            requireStatus: 0 || 1
+          },
+          note: null,
+          paymentType: 1,
+          foreignKey: '',
+          paidMoney: 0,
+          orderer: null,
+          ordererPhoneNumber: null,
+          pointUp: {
+            pointType: 0,
+            name: pointUp.pointName,
+            id: pointUp.pointId,
+            address: pointUp.address,
+            transshipmentId: null
+          },
+          pointDown: {
+            pointType: 0,
+            name: pointDown.pointName,
+            id: pointDown.pointId,
+            address: pointDown.address,
+            transshipmentId: null
+          },
+          overTime: null
+        }
+        params.informationsBySeats.push(info)
+      })
+      console.log(params)
+      this.customerInfos = params.informationsBySeats
+      if (this.customerInfos.length < this.totalPassengers) {
+        console.log('ko du thong tin khach')
+        return
+      }
+      // this.$message.success(this.$t('message.book.bookTicketSuccess'))
+      // this.$router.push({ name: 'pay', query: { ticket: '4324324-234234' }})
+      // this.$store.dispatch('system/setLastOrder', params)
+
+      this.loadingBookTicket = true
+      setTimeout(() => {
+        this.$store.dispatch('system/bookTickets', params).then(res => {
+          this.$message.success(this.$t('message.book.bookTicketSuccess'))
+          this.$router.push({ name: 'pay', query: { ticket: res.listTicket }})
+          this.$store.dispatch('system/setLastOrder', params)
+          this.loadingBookTicket = false
+        }).catch((err) => {
+          console.log(err)
+          this.$message.error(err.message ? err.message : this.$t('message.common.undefinedError'))
+          this.loadingBookTicket = false
+        })
+      }, 500)
     },
     handlePassengersChange(currentVal, oldVal) {
       const res = []
@@ -610,13 +647,18 @@ export default {
       this.listIndexTotalPassengers = res
       this.totalPassengers = this.listIndexTotalPassengers.length
     },
-    removeFormCustomer(index) {
-      const findIndex = this.listIndexTotalPassengers.indexOf(index)
-      if (findIndex > -1) {
-        this.listIndexTotalPassengers.splice(findIndex, 1)
-      }
+    removeFormCustomer(seat) {
+      // const findIndex = this.listIndexTotalPassengers.indexOf(index)
+      // if (findIndex > -1) {
+      //   this.listIndexTotalPassengers.splice(findIndex, 1)
+      // }
 
-      const findErrorByIndex = this.validate.filter(element => element.index !== index)
+      // const findErrorByIndex = this.validate.filter(element => element.index !== index)
+      // this.$store.dispatch('trip/validateInfo', findErrorByIndex)
+      this.$delete(this.listSelectedSeat, seat)
+      this.listIndexTotalPassengers = this.listIndexTotalPassengers.filter(x => x !== seat)
+
+      const findErrorByIndex = this.validate.filter(element => element.index !== seat)
       this.$store.dispatch('trip/validateInfo', findErrorByIndex)
     },
     makeMapData(seatMap) {
@@ -665,7 +707,7 @@ export default {
         id: `${floor}${row}${column}`
       }
       return data
-    },
+    }
   }
 }
 </script>
@@ -1032,7 +1074,7 @@ $bg_light_gray: #F4F7F8;
     grid-template-columns: 1fr;
     grid-gap: 2px;
     .seat-section {
-      background: #a4b0be;
+      background: #f1acbf;
       border-radius: 4px;
       .seat-row {
         display: flex;
@@ -1054,7 +1096,7 @@ $bg_light_gray: #F4F7F8;
             // border: 1px solid #80808038;
             // box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.05);
             .seat-name {
-              font-size: 4px;
+              font-size: 14px;
               text-align: center;
               color: #232731;
               font-weight: bold;
@@ -1065,8 +1107,8 @@ $bg_light_gray: #F4F7F8;
             }
           }
           .seat-selected {
-            background: #fdd0fc !important;
-            border: 1px solid #d413f3;
+            background: #a3a3a3 !important;
+            border: 1px solid #202020;
           }
           .seat-available {
             .seat-status {

@@ -53,8 +53,7 @@ const getters = {
         seatList: seatMap
       }
       return seatMapObject
-    }
-    else return null
+    } else return null
   }
 }
 export default getters
