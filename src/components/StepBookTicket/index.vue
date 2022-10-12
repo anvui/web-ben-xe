@@ -77,7 +77,7 @@ export default {
     mapStartPoint() {
       const point = this.getDateAndPoint ? this.provinces.find((item, index) => item.id === this.getDateAndPoint.from) : null
       return point
-    },
+    }
   },
   methods: {
   }
