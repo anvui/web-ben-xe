@@ -11,6 +11,9 @@ import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import 'bootstrap/dist/css/bootstrap.css'
 
+import filters from '@/utils/filter'
+filters.create(Vue)
+
 Vue.use(require('vue-moment'))
 
 Vue.directive('click-outside', {

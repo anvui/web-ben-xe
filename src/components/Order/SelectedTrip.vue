@@ -145,6 +145,7 @@
                           ? 'seat-available'
                           : 'seat-not-available',
                         listSelectedSeat[col.seatId] ? 'seat-selected' : '',
+                        list_seat_unable_select.includes(col.seatId) ? 'seat-booked' : 'seat-for-sale',
                       ]"
                       class="seat-item"
                       @click="selectSeat(col)"
@@ -167,6 +168,11 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="explain-section">
+          <span class="explain-seat able-select">Ghế trống</span>
+          <span class="explain-seat enable-select">Ghế đã có người đặt</span>
+          <span class="explain-seat selected">Ghế đang chọn</span>
         </div>
       </div>
       <div class="col-md-7">
@@ -300,6 +306,11 @@ export default {
     trip: {
       type: Object,
       default: null
+    },
+    lockSeat: {
+      type: [String, Number],
+      default: null,
+      required: false
     }
   },
   data() {
@@ -346,9 +357,40 @@ export default {
       const total = this.listIndexTotalPassengers.length
       return total
     },
+    list_seat_unable_select() {
+      const res = [...this.list_seat_booked, ...this.list_lock_seat]
+      return res
+    },
+    list_seat_booked() {
+      const res = this.selectedTrip ? this.selectedTrip.tickets.map(x => x.seatId) : []
+      return res
+    },
+    list_lock_seat() {
+      const lockSeat = this.lockSeat
+        ? JSON.parse(this.lockSeat)
+        : []
+      const res = lockSeat.map((seat) => seat.seatId)
+      return res
+    },
     seatMapFake() {
       const seatMap = this.tripSeatMap ? this.makeMapData(this.tripSeatMap) : null
       return seatMap
+    },
+    getPointUpManual() {
+      let points = null
+      if (this.trip.pointManual) {
+        const pointManual = JSON.parse(this.trip.pointManual)
+        points = pointManual.filter((item, index) => index !== pointManual.length - 1)
+      }
+      return points
+    },
+    getPointDownManual() {
+      let points = null
+      if (this.trip.pointManual) {
+        const pointManual = JSON.parse(this.trip.pointManual)
+        points = pointManual.filter((item, index) => index !== 0 && item.placeId !== this.pickUpAddress)
+      }
+      return points
     },
     getListPointUp() {
       let points = null
@@ -364,16 +406,18 @@ export default {
       }
       return points
     },
+    totalPrice() {
+      const total = this.trip.baseTicketPrice * this.totalTicket
+      return total
+    },
+
+    //  xoa sau
     routeProfit() {
       let data = 0.3
       if (this.trip.route) {
         data = this.trip.route.profit
       }
       return data
-    },
-    totalPrice() {
-      const total = this.trip.baseTicketPrice * this.totalTicket
-      return total
     },
     discountPriceNow() {
       if (!this.trip.route || !this.trip.vehicle) {
@@ -429,23 +473,8 @@ export default {
     discountTicket() {
       const data = this.userInfo && this.userInfo.discountTicket ? this.totalPrice * this.userInfo.discountTicket : 0
       return data
-    },
-    getPointUpManual() {
-      let points = null
-      if (this.trip.pointManual) {
-        const pointManual = JSON.parse(this.trip.pointManual)
-        points = pointManual.filter((item, index) => index !== pointManual.length - 1)
-      }
-      return points
-    },
-    getPointDownManual() {
-      let points = null
-      if (this.trip.pointManual) {
-        const pointManual = JSON.parse(this.trip.pointManual)
-        points = pointManual.filter((item, index) => index !== 0 && item.placeId !== this.pickUpAddress)
-      }
-      return points
     }
+
   },
   watch: {
     // 'listIndexTotalPassengers': function(val) {
@@ -509,13 +538,18 @@ export default {
   },
   methods: {
     selectSeat(seat) {
+      if (this.list_seat_unable_select.includes(seat.seatId)) {
+        alert('Ghế đã có người đặt, vui lòng chọn ghế khác!')
+        return
+      }
+
       if (this.listSelectedSeat[seat.seatId]) {
         this.$delete(this.listSelectedSeat, seat.seatId)
       } else {
         this.$set(this.listSelectedSeat, seat.seatId, seat)
       }
-      if (Object.keys(this.listSelectedSeat).length === 1) {
-        this.labelFormCustomerActive = seat.seatId
+      if (Object.keys(this.listSelectedSeat).length >= 1) { // nếu chỉ có 1 ghế thì chọn ghế đầu tiên
+        this.labelFormCustomerActive = Object.keys(this.listSelectedSeat)[0]
       }
       this.listIndexTotalPassengers = Object.keys(this.listSelectedSeat)
     },
@@ -628,8 +662,10 @@ export default {
       setTimeout(() => {
         this.$store.dispatch('system/bookTickets', params).then(res => {
           this.$message.success(this.$t('message.book.bookTicketSuccess'))
-          this.$router.push({ name: 'pay', query: { ticket: res.listTicket }})
-          this.$store.dispatch('system/setLastOrder', params)
+
+          const response = res.results
+          this.$router.push({ name: 'pay', query: { ticket: response.listTicket }})
+          this.$store.dispatch('system/setLastOrder', { param: params, listTicket: response.listTicketDetails })
           this.loadingBookTicket = false
         }).catch((err) => {
           console.log(err)
@@ -1083,7 +1119,7 @@ $bg_light_gray: #F4F7F8;
           flex-basis: 0;
           flex-grow: 1;
           .seat-available {
-            background: white !important;
+            background: white;
             justify-content: center;
           }
           .seat-item {
@@ -1131,23 +1167,21 @@ $bg_light_gray: #F4F7F8;
                 height: 4px;
               }
             }
-            &.seat-sold .seat-status::after {
+            &.seat-sold::after {
               width: 100%;
               background: #2dc1cd;
             }
-            &.seat-for-sale .seat-status::after {
+            &.seat-for-sale::after {
               width: 100%;
               background: #50C694;
             }
-            &.seat-booked .seat-status::after {
-              width: 100%;
+            &.seat-booked {
               background: #f1c40f;
             }
-            &.seat-paid .seat-status::after {
-              width: 100%;
+            &.seat-paid::after {
               background: #084388;
             }
-            &.one-way-ticket .seat-status::after {
+            &.one-way-ticket::after {
               width: calc(100% / 2);
             }
             &.owner-seat {
@@ -1185,33 +1219,36 @@ $bg_light_gray: #F4F7F8;
 .left-input-section {
   flex-wrap: wrap;
 }
-.list-seat-selected-contain {
-  .list-seat-selected {
-    display: flex;
-    flex-wrap: wrap;
-    grid-gap: 2px;
-    .btn-close-seats {
-      height: 28px;
-      display: flex;
-      align-items: center;
-    }
+.explain-section {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5rem;
+  .explain-seat {
+    position: relative;
+    margin-left: 100px;
+    line-height: 20px;
+    font-size: 16px;
+  }
+  .explain-seat::before {
+    content: "";
+    position: absolute;
+    left: -80px;
+    top: 0px;
+    width: 50px;
+    height: 20px;
+    border-radius: 2px;
+    border: 1px solid rgb(77, 77, 77);
+  }
+  .able-select::before {
+    background: white;
+  }
+  .enable-select::before {
+    background: #f1c40f;
+  }
+  .selected::before {
+    background: #a3a3a3;
   }
 }
-.ticket-just-updated {
-  animation: ripple 0.5s linear infinite;
-}
-@keyframes ripple {
-  0% {
-    box-shadow: 0 0 0 0 rgba(#3498db, 0.3),
-      0 0 0 1px rgba(#3498db, 0.3),
-      0 0 0 3px rgba(#3498db, 0.3),
-      0 0 0 5px rgba(#3498db, 0.3);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(#3498db, 0.3),
-      0 0 0 4px rgba(#3498db, 0.3),
-      0 0 0 20px rgba(#3498db, 0),
-      0 0 0 30px rgba(#3498db, 0);
-  }
-}
+
 </style>

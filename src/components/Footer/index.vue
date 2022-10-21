@@ -3,8 +3,8 @@
     <div class="container">
       <div class="overview">
         <div class="logo">
-          <img src="https://apikbus.anvui.vn/image/get/ce0cf40a-8055-41d5-b11f-bfefef4bb566" alt="logo kbus" width="117" height="48">
-          <span id="company-name" class="text-note">Công ty Cổ Phần KBus - 2021</span>
+          <img :src="companyConfig ? companyConfig.logo : ''" alt="logo kbus" width="117" height="48">
+          <span id="company-name" class="text-note">{{ companyConfig ? companyConfig.packageName : '' }}</span>
         </div>
         <div class="about-us">
           <h3 class="title-footer">Về chúng tôi</h3>
@@ -60,6 +60,7 @@
 </template>
 <script>
 import PopupIntro from '@/components/Popup/PopupIntro.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -70,6 +71,9 @@ export default {
       versionNumber: '0.31.84',
       dialogIntro: false
     }
+  },
+  computed: {
+    ...mapGetters(['companyConfig'])
   }
 }
 </script>

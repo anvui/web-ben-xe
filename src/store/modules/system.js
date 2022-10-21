@@ -1,4 +1,6 @@
-import { getListPoints, searchTrip, getTripDetail, bookTickets } from '@/api/system'
+import {
+  getListPoints, searchTrip, getTripDetail,
+  bookTickets, createPayment } from '@/api/system'
 import { setPayload } from '@/utils/get-point-and-date'
 
 const state = {
@@ -41,7 +43,14 @@ const actions = {
         const conf = {
           sitename: siteNane,
           packageName: ' bến xe An Vui',
-          partnerId: 'PN0TU1yYd3LmVJWJ'
+          partnerId: 'PN0TU1yYd3LmVJWJ',
+          logo: 'https://anvui.vn/v2/logo.svg',
+          companyImage: [
+            'https://anvui.vn/upload/web/2022/10/08/1665204227_kiost-ban-ve-tu-dong-av02.jpg',
+            'https://anvui.vn/upload/web/2022/08/29/1661754564_nhung-loi-ich-khi-ung-dung-ben-xe-dien-tu.jpeg',
+            'https://anvui.vn/upload/web/2022/09/14/1663138339_dai-ly-ban-ve-xe-an-vui-cong-bo-nen-tang-ams-partner-nen-tang-giup-cac-to-chuc-ca-nhan-ban-ve-xe-huong-hoa-hong.jpg',
+            'https://anvui.vn/upload/web/2022/09/06/1662436629_phan-mem-quan-ly-ben-xe.png'
+          ]
         }
         return resolve(conf)
       }, 2000)
@@ -100,6 +109,15 @@ const actions = {
     return new Promise((resolve, reject) => {
       searchTrip(params).then(response => {
         resolve(response.results.trips)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  payOrder({ commit }, params) {
+    return new Promise((resolve, reject) => {
+      createPayment(params).then(response => {
+        resolve(response.results.url)
       }).catch(error => {
         reject(error)
       })

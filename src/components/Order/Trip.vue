@@ -24,11 +24,14 @@
           </div>
         </div>
         <div class="mt-1">
+          <span class="route-name">{{ trip.routeName }}</span>
+        </div>
+        <!-- <div class="mt-1">
           <span v-if="trip.note" class="trip-note">* {{ trip.note }}</span>
-        </div>
-        <div class="btn-more-info mt-2">
+        </div> -->
+        <!-- <div class="btn-more-info mt-2">
           <a href="" @click.prevent.stop="openMoreInfoSection">{{ $t('book.trip.btnTripInfo') }}</a>
-        </div>
+        </div> -->
       </div>
       <div class="col info-company">
         <!-- <div class="border-wrap">
@@ -56,15 +59,19 @@
       </div>
       <div class="col-auto info-price ml-auto">
         <div class="border-wrap">
-          <!-- <div class="text-right">
+          <div class="text-right">
             <span class="title">{{ $t('book.trip.priceLabel') }}</span>
-            <span class="price-ticket">{{ numeral(trip.baseTicketPrice).format('0,0') }}đ</span>
+            <span class="price-ticket">{{ numeral(trip.displayPrice).format('0,0') }}đ</span>
           </div>
           <div class="text-right mt-1">
-            <span class="title">{{ $t('book.trip.discountLabel') }}</span>
-            <span class="price-ticket">{{ numeral(Math.abs(trip.currentTicketPrice - trip.baseTicketPrice)).format('0,0') }}đ</span>
-          </div> -->
-          <span class="empty-seat">{{ $t('book.trip.emptySeat') }} {{ trip.totalSeat }}</span>
+            <span class="title">{{ $t('book.trip.vehicleType') }}</span>
+            <span class="price-ticket">{{ trip.vehicleType | vehicleType }}</span>
+          </div>
+          <div class="text-right mt-1">
+            <span class="title">Nhà xe</span>
+            <span class="price-ticket">{{ trip.companyName }}</span>
+          </div>
+          <span class="empty-seat">{{ `${trip.totalSeat} ghế` }}</span>
           <el-button
             v-if="allowBookTicket && trip.totalSeat> 0"
             class="btn-select-trip d-block"
@@ -111,11 +118,11 @@
         </div>
       </div>
     </div>
-    <div class="more-info-section" :class="[ moreInfoStatus === trip.tripId ? '' : 'collapsed' ]">
+    <!-- <div class="more-info-section" :class="[ moreInfoStatus === trip.tripId ? '' : 'collapsed' ]">
       <more-info-trip :trip="trip" />
-    </div>
+    </div> -->
     <div class="selected-trip-section" :class="[ selectedTripStatus === trip.tripId ? '' : 'collapsed' ]">
-      <selected-trip :trip="trip" />
+      <selected-trip :trip="trip" :lock-seat="trip.lockSeat" />
     </div>
   </div>
 </template>
@@ -415,6 +422,12 @@ $light_pink: #FBD1E1;
         font-size: 11px;
         line-height: normal;
         color: $dark_gray;
+        font-style: italic;
+      }
+      .route-name {
+        font-size: 18px;
+        line-height: normal;
+        color: #ED196B;
         font-style: italic;
       }
 

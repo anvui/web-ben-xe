@@ -8,7 +8,6 @@
         name="fullname"
         type="text"
         tabindex="1"
-        @change="handleValueChange"
       />
       <label class="custom-placeholder">{{ $t('book.formCustomerInfo.fullName') }} <span style="color: red">*</span></label>
     </el-form-item>
@@ -20,7 +19,6 @@
         name="phoneNumber"
         type="text"
         tabindex="2"
-        @change="handleValueChange"
       />
       <label class="custom-placeholder">{{ $t('book.formCustomerInfo.phoneNumber') }} <span style="color: red">*</span></label>
     </el-form-item>
@@ -32,13 +30,12 @@
         name="email"
         type="text"
         tabindex="3"
-        @change="handleValueChange"
       />
       <label class="custom-placeholder">{{ $t('book.formCustomerInfo.email') }} <span style="color: red">*</span></label>
     </el-form-item>
     <el-form-item prop="sex">
       <label style="margin-right: 8px">{{ $t('book.formCustomerInfo.sex.label') }} <span style="color: red">*</span></label>
-      <el-radio-group v-model="customerInfo.sex" tabindex="5" @change="handleValueChange">
+      <el-radio-group v-model="customerInfo.sex" tabindex="5">
         <el-radio :label="1">{{ $t('book.formCustomerInfo.sex.male') }}</el-radio>
         <el-radio :label="2">{{ $t('book.formCustomerInfo.sex.female') }}</el-radio>
       </el-radio-group>

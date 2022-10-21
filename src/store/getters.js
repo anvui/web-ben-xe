@@ -54,6 +54,7 @@ const getters = {
       }
       return seatMapObject
     } else return null
-  }
+  },
+  lastOrder: state => state.system.lastOrder
 }
 export default getters

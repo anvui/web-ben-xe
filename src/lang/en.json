@@ -135,7 +135,9 @@
             "btnBook": "Đặt chỗ",
             "btnTimeout": "Quá giờ",
             "btnFullSeat": "Hết chỗ",
-            "btnShareTrip": "Chia sẻ ngay"
+            "btnShareTrip": "Chia sẻ ngay",
+            "vehicleType": "Loại xe",
+            "": ""
         },
         "moreInfoTrip": {
             "imagesDescription": "* Trên đây là những hình ảnh phương tiện theo chuẩn phục vụ của của KBus . Hình ảnh do đối tác vận chuyển của KBus cung cấp và đã được đội ngũ của KBus kiểm tra thẩm định. Trong quá trình sử dụng dịch vụ nếu Quý khách thấy không đúng chất lượng cung cấp vui lòng phản hồi ngay trong phần đánh giá của Chúng tôi. Đội ngũ KBus sẽ xác minh và chủ động loại bỏ những đối tác cung cấp chất lượng xe không đúng như công bố đăng ký với KBus!",

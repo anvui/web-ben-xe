@@ -1,19 +1,26 @@
 <template>
   <div class="image-container">
-    <img class="image-logo" :src="logoUrl" alt="Company Logo">
+    <img class="image-logo" :src="companyConfig ? companyConfig.logo : ''" alt="Company Logo">
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'CompanyLogo',
   props: {
     logoUrl: {
       type: String,
-      required: true
+      default: null,
+      required: false
     }
   },
-  computed: {}
+  computed: {
+    ...mapGetters([
+      'companyConfig'
+    ])
+  }
 }
 </script>
 

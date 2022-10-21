@@ -34,3 +34,11 @@ export function bookTickets(data) {
     data
   })
 }
+
+export function createPayment(data) {
+  return request({
+    url: appengine + '/partner/onepay/create-payment',
+    method: 'post',
+    data
+  })
+}

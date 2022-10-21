@@ -19,7 +19,7 @@
                 <a v-if="$route.name !== 'payment'" href="" :style="{ 'padding-left': searchTripQuery ? '8px' : '' }" @click.prevent="reselectRoute = true">Chọn lại</a>
               </div>
               <div class="date">
-                <p>{{ searchTripQuery ? $moment(searchTripQuery.startDate).format("DD/MM/YYYY") : '' }}</p>
+                <p>{{ searchTripQuery ? $moment(searchTripQuery.date).format("DD/MM/YYYY") : '' }}</p>
               </div>
             </div>
           </div>

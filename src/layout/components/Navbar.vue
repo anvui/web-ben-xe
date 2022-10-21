@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-container">
     <div class="logo" @click="goPath('dashboard')">
-      <company-logo :logo-url="logoLink" />
+      <company-logo />
     </div>
     <div class="menu-container">
       <div v-for="(item, index) of ListMenu" :key="index" class="menu-item">
@@ -85,13 +85,13 @@ export default {
     return {
       ListMenu: this.renderMenu(),
       BalanceAmount: '2.000.000',
-      logoLink: 'https://lh3.googleusercontent.com/-BpLdJpXJc-IKfkkUHwTVifYenC8JJ5344fYSTSbwAFY9nlciqmt6wSSpd_Ez00HkUs0e2t4EpXsDGJ-l62pyTNB22-Vq3yjnX0HujE'
     }
   },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'companyConfig'
     ])
   },
   methods: {

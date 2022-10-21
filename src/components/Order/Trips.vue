@@ -106,7 +106,7 @@ export default {
       }
     } catch (error) {
       console.log('warning trips page', error)
-      this.$router.push({ name: 'Home' } )
+      this.$router.push({ name: 'Home' })
     }
   },
   methods: {

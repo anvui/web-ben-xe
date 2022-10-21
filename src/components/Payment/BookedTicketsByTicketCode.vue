@@ -1,14 +1,12 @@
 <template>
   <div v-loading="loading" element-loading-spinner="el-icon-kbus-loading" class="booked-tickets-wrapper">
-    <div v-if="ticketsBooked.length > 0" class="row no-gutters info-trip">
+    <div v-if="previousOrder.length > 0" class="row no-gutters info-trip">
       <div id="route-info" class="col-md-6 text-center">
         <div id="start-point" class="col-md point">
           <span class="time">{{ formatStartTime }}</span>
           <span class="date">{{ formatStartDate }}</span>
-          <span v-if="ticketsBooked.length > 0 && ticketsBooked[0].pointUp" class="point-name">{{ ticketsBooked[0].pointUp.name }}</span>
-          <span v-if="ticketsBooked.length > 0 && ticketsBooked[0].pointUp" class="point-address">{{ ticketsBooked[0].pointUp.address }}</span>
-          <span v-if="!ticketsBooked[0].pointUp && getPointManual" class="point-name">{{ getPointManual[0].name }}</span>
-          <span v-if="!ticketsBooked[0].pointUp && getPointManual" class="point-address">{{ getPointManual[0].address }}</span>
+          <span v-if="previousOrder.length > 0" class="point-name">{{ detechPointName(lastOrder.param.informationsBySeats[0].pointUp.id) }}</span>
+          <!-- <span v-if="previousOrder.length > 0" class="point-address">{{ previousOrder[0].pointUp.address }}</span> -->
         </div>
         <div id="distance" class="col-auto">
           <div class="text">
@@ -30,14 +28,11 @@
         <div id="end-point" class="col-md point">
           <span class="time">{{ formatEndTime }}</span>
           <span class="date">{{ formatEndDate }}</span>
-          <span v-if="ticketsBooked.length > 0 && ticketsBooked[0].pointDown" class="point-name">{{ ticketsBooked[0].pointDown.name }}</span>
-          <span v-if="ticketsBooked.length > 0 && ticketsBooked[0].pointDown" class="point-address">{{ ticketsBooked[0].pointDown.address }}</span>
-          <span v-if="!ticketsBooked[0].pointDown && getPointManual" class="point-name">{{ getPointManual[getPointManual.length - 1].name }}</span>
-          <span v-if="!ticketsBooked[0].pointDown && getPointManual" class="point-address">{{ getPointManual[getPointManual.length - 1].address }}</span>
+          <span v-if="previousOrder.length > 0" class="point-name">{{ detechPointName(lastOrder.param.informationsBySeats[0].pointDown.id) }}</span>
         </div>
       </div>
       <div id="number-customer" class="col-md">
-        <label class="total-customer d-block">{{ $t('payment.numberCustomer.quantity') }} {{ ticketsBooked.length }}</label>
+        <label class="total-customer d-block">{{ $t('payment.numberCustomer.quantity') }} {{ previousOrder.length }}</label>
         <span id="number-male">{{ countMale }} {{ $t('payment.numberCustomer.male') }} </span>
         <span id="number-female">{{ countFemale }} {{ $t('payment.numberCustomer.female') }}</span>
       </div>
@@ -48,8 +43,8 @@
         </div>
       </div>
     </div>
-    <div v-if="ticketsBooked.length > 0" class="w-100 list-passengers-info">
-      <template v-for="(passenger, p) in passengersInfo">
+    <div v-if="previousOrder.length > 0" class="w-100 list-passengers-info">
+      <template v-for="(passenger, p) in previousOrder">
         <div :key="p" class="wrapper">
           <div class="passenger-info-item">
             <label class="text-title">HK{{ p + 1 }}</label>
@@ -64,32 +59,23 @@
           </div>
           <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.email') }}</label>
-            <label class="text-content">{{ passenger.email }}</label>
+            <label class="text-content">{{ passenger.email || '-Không xác định-' }}</label>
           </div>
           <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.sex') }}</label>
-            <label v-if="passenger.sex === 'MALE'" class="text-content">Nam</label>
-            <label v-if="passenger.sex === 'FEMALE'" class="text-content">Nữ</label>
+            <label class="text-content">Nam</label>
           </div>
-          <div class="passenger-info-item">
+          <!-- <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.price') }}</label>
             <label class="text-content">{{ numeral(passenger.totalPrice).format('0,0') }}đ</label>
-          </div>
-          <div class="passenger-info-item">
-            <label class="text-title">{{ $t('payment.passengerInfo.promotion') }}</label>
-            <label class="text-content">{{ numeral(passenger.discountMoney).format('0,0') }}đ</label>
-          </div>
-          <div class="passenger-info-item">
-            <label class="text-title">{{ $t('payment.passengerInfo.discount') }}</label>
-            <label class="text-content">{{ numeral(passenger.discountPrice).format('0,0') }}đ</label>
-          </div>
-          <div class="passenger-info-item">
+          </div> -->
+          <!-- <div class="passenger-info-item">
             <label class="text-title" :style="{ 'color': getColorTicketStatus(passenger.ticketStatus) }">{{ getLabelTicketStatus(passenger.ticketStatus) }}</label>
-          </div>
+          </div> -->
         </div>
       </template>
     </div>
-    <div class="price-and-discount">
+    <!-- <div class="price-and-discount">
       <div class="text-title">
         <label class="price">{{ $t('payment.priceSection.price') }}</label>
         <label class="discount">{{ $t('payment.priceSection.discount') }}</label>
@@ -100,26 +86,24 @@
         <label class="discount">{{ numeral(discountPriceNow).format('0,0') }}đ</label>
         <label class="discount">{{ numeral(totalPrice - discountPriceNow - discountMoney).format('0,0') }}đ</label>
       </div>
-    </div>
-    <div class="description">
+    </div> -->
+    <!-- <div class="description">
       <template v-for="(item, i) in $t('payment.description')">
         <span :key="i">{{ item }}</span>
       </template>
-    </div>
+    </div> -->
     <div class="pay">
       <el-button
-        v-if="hasTicketsBooked && !isPayExpire"
         class="btn-pay"
-        :class="[ ticketsBooked && ticketsBooked.length <= 0 || isPayExpire ? 'disabled' : '' ]"
+        :class="[ previousOrder && previousOrder.length <= 0 || isPayExpire ? 'disabled' : '' ]"
         :loading="loadingPay"
-        :disabled="ticketsBooked && ticketsBooked.length <= 0 || isPayExpire"
+        :disabled="previousOrder && previousOrder.length <= 0 || isPayExpire"
         @click="handlePayTicket"
       >
         Thanh toán
       </el-button>
       <div class="w-100 text-center mt-3">
         <el-button
-          v-if="(hasTicketsBooked && !isPayExpire) || hasTicketsPaid"
           class="w-100"
           style="border-radius: 8px"
           :loading="loadingCancelTicket"
@@ -146,14 +130,17 @@ export default {
       loadingPay: false,
       isPayExpire: false,
       loadingCancelTicket: false,
-      loadingCancelPerTicket: null
+      loadingCancelPerTicket: null,
+      previousOrder: []
     }
   },
   computed: {
     ...mapGetters([
       'paymeResponse',
       'userInfo',
-      'systemConfig'
+      'systemConfig',
+      'lastOrder',
+      'listPoint'
     ]),
     formatStartTime() {
       if (this.ticketsBooked.length > 0) {
@@ -199,21 +186,16 @@ export default {
       return data
     },
     countMale() {
-      let count = 0
-      this.ticketsBooked.forEach((ticket, t) => {
-        if (ticket.sex === 'MALE') {
-          count++
-        }
-      })
-      return count
+      // let count = 0
+      // this.ticketsBooked.forEach((ticket, t) => {
+      //   if (ticket.sex === 'MALE') {
+      //     count++
+      //   }
+      // })
+      return this.previousOrder.length
     },
     countFemale() {
-      let count = 0
-      this.ticketsBooked.forEach((ticket, t) => {
-        if (ticket.sex === 'FEMALE') {
-          count++
-        }
-      })
+      const count = 0
       return count
     },
     totalPrice() {
@@ -248,32 +230,14 @@ export default {
         const priceEstimate = this.ticketsAvailable[0].priceEstimate
         discount = (totalPrice - priceEstimate) * this.ticketsAvailable.length
       }
-      return discount
-    },
-    discountPriceMax() {
-      let discount = 0
-      if (this.ticketsAvailable.length > 0) {
-        if (!this.ticketsAvailable[0].trip.route || !this.ticketsAvailable[0].trip.vehicle) {
-          return 0
-        }
-        const priceByDistance = parseInt(((this.ticketsAvailable[0].trip.route.distance * this.ticketsAvailable[0].trip.vehicle.pricePerKm) + this.ticketsAvailable[0].trip.planTrip.additionMoney) * (1 + this.ticketsAvailable[0].trip.route.profit))
-        const numberSeats = this.ticketsAvailable[0].trip.vehicle.totalSeat
-        const discountPrice = parseInt(priceByDistance / numberSeats)
-        const basePrice = this.ticketsAvailable[0].basePrice
-
-        if (basePrice === 0) {
-          discount = parseInt(priceByDistance / numberSeats * 60 / 100)
-        }
-        discount = (basePrice - discountPrice) * this.ticketsAvailable.length
-      }
-      return discount
+      return 'null'
     },
     timeExpire() {
       let time = ''
       if (this.ticketsBooked.length > 0) {
         time = new Date(this.ticketsBooked[0].createdAt).getTime() + this.systemConfigData.ticketHolderTime
       }
-      return time
+      return 'null'
     },
     passengersInfo() {
       const data = []
@@ -315,14 +279,14 @@ export default {
       if (this.ticketsBooked.length > 0) {
         points = JSON.parse(this.ticketsBooked[0].trip.pointManual)
       }
-      return points
+      return 'null'
     },
     systemConfigData() {
       let data = null
       if (this.systemConfig) {
         data = JSON.parse(this.systemConfig.data)
       }
-      return data
+      return 'null'
     }
   },
   watch: {
@@ -331,6 +295,10 @@ export default {
     this.getListTicketsBooked()
   },
   methods: {
+    detechPointName(pointId) {
+      const detechPoint = this.listPoint.find(x => x.pointId === pointId)
+      return detechPoint ? detechPoint.pointName : '-Không xác định-'
+    },
     getLabelTicketStatus(ticketStatus) {
       let label = ''
       switch (true) {
@@ -388,25 +356,28 @@ export default {
     },
     getListTicketsBooked() {
       this.loading = true
-      this.$store.dispatch('ticket/getTicketsByTicketCode', { ticketCode: this.$route.query.ticket }).then((response) => {
-        this.ticketsBooked = response
+      setTimeout(() => {
+        this.ticketsBooked = this.lastOrder // xoa sau
+        this.previousOrder = this.lastOrder.listTicket
+        console.log('this.lastOrder', this.lastOrder)
+        console.log('this.previousOrder', this.previousOrder)
         this.loading = false
-      }).catch(error => {
-        console.log(error)
-        this.loading = false
-        this.$message.error(error.message ? error.message : 'Đã có lỗi xảy ra')
-      })
+      }, 1000)
+      // this.$store.dispatch('ticket/getTicketsByTicketCode', { ticketCode: this.$route.query.ticket }).then((response) => {
+      //   this.ticketsBooked = response
+      //   this.loading = false
+      // }).catch(error => {
+      //   console.log(error)
+      //   this.loading = false
+      //   this.$message.error(error.message ? error.message : 'Đã có lỗi xảy ra')
+      // })
     },
     handlePayTicket() {
-      // lay ve chua thanh toan
-      const listTicketAvailable = this.ticketsBooked.filter(ticket => ticket.status !== 0)
-      // get list ticket ids
-      const listTicketIds = listTicketAvailable.map(ticket => ticket.id)
-
+      const listTicketIds = this.previousOrder.map(x => x.id).join('-')
       // get response payme
       this.loadingPay = true
-      this.$store.dispatch('payme/getPaymeResponse', { ticketIds: listTicketIds }).then(resp => {
-        window.location.href = this.paymeResponse.data.url
+      this.$store.dispatch('system/payOrder', { ticketIds: listTicketIds }).then(resp => {
+        window.location.href = resp
         this.loadingPay = false
       }).catch(err => {
         this.$message.error(err.message ? err.message : 'Đã có lỗi xảy ra')

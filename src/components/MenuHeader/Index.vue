@@ -2,7 +2,7 @@
   <div class="header">
     <div class="menu container">
       <nav class="navbar navbar-expand-lg navbar-light">
-        <router-link :to="`/${$i18n.locale}`" class="navbar-brand"><img class="logo" src="https://apikbus.anvui.vn/image/get/ce0cf40a-8055-41d5-b11f-bfefef4bb566" width="97.66px" height="40px" alt="logo kbus"></router-link>
+        <router-link :to="`/${$i18n.locale}`" class="navbar-brand"><img class="logo" :src="companyConfig ? companyConfig.logo : ''" width="97.66px" height="40px" alt="logo kbus"></router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -36,7 +36,7 @@
             <li class="nav-item" style="margin-right: 16px">
               <select-language />
             </li>
-            <li v-if="!userInfo" class="nav-item">
+            <!-- <li v-if="!userInfo" class="nav-item">
               <button class="btn-become-partner" @click="handleNaviLink(routerType.LOGIN)">
                 <span>
                   {{ $t('header.signup') }} / {{ $t('header.login') }}
@@ -76,7 +76,7 @@
                   Đăng xuất
                 </a>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>
@@ -120,7 +120,8 @@ export default {
   computed: {
     ...mapGetters([
       'token',
-      'userInfo'
+      'userInfo',
+      'companyConfig'
     ])
   },
   watch: {
