@@ -1,15 +1,17 @@
 import {
-  getListPoints, searchTrip, getTripDetail,
-  bookTickets, createPayment } from '@/api/system'
+  getListPoints, getListProvinces, searchTrip, getTripDetail,
+  bookTickets, createPayment, checkSeatsPrice } from '@/api/system'
 import { setPayload } from '@/utils/get-point-and-date'
 
 const state = {
   companyConfig: null,
   points: [],
+  provinces: [],
   trips: [],
   searchTripQuery: null,
   selectedTrip: null,
-  lastOrder: null
+  lastOrder: null,
+  totalPrice: null
 }
 
 const mutations = {
@@ -18,6 +20,12 @@ const mutations = {
   },
   SET_POINTS: (state, points) => {
     state.points = points
+  },
+  SET_TOTAL_PRICE: (state, totalPrice) => {
+    state.totalPrice = totalPrice
+  },
+  SET_PROVINCES: (state, provinces) => {
+    state.provinces = provinces
   },
   SET_TRIPS: (state, datya) => {
     state.trips = datya
@@ -44,7 +52,10 @@ const actions = {
           sitename: siteNane,
           packageName: ' bến xe An Vui',
           partnerId: 'PN0TU1yYd3LmVJWJ',
+          premiumColor: '#1931ed',
+          themeColor: '',
           logo: 'https://anvui.vn/v2/logo.svg',
+          slide: 'https://anvui.vn/upload/web/2022/09/14/1663138339_dai-ly-ban-ve-xe-an-vui-cong-bo-nen-tang-ams-partner-nen-tang-giup-cac-to-chuc-ca-nhan-ban-ve-xe-huong-hoa-hong.jpg',
           companyImage: [
             'https://anvui.vn/upload/web/2022/10/08/1665204227_kiost-ban-ve-tu-dong-av02.jpg',
             'https://anvui.vn/upload/web/2022/08/29/1661754564_nhung-loi-ich-khi-ung-dung-ben-xe-dien-tu.jpeg',
@@ -66,6 +77,21 @@ const actions = {
       getListPoints(params).then(response => {
         const data = response.results.points
         commit('SET_POINTS', data)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  getProvinces({ commit }) {
+    return new Promise((resolve, reject) => {
+      const params = {
+        count: 1000,
+        searchKey: ''
+      }
+      getListProvinces(params).then(response => {
+        const data = response.results.provinces
+        commit('SET_PROVINCES', data)
         resolve()
       }).catch(error => {
         reject(error)
@@ -118,6 +144,16 @@ const actions = {
     return new Promise((resolve, reject) => {
       createPayment(params).then(response => {
         resolve(response.results.url)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  checkPrice({ commit }, params) {
+    return new Promise((resolve, reject) => {
+      checkSeatsPrice(params).then(response => {
+        const data = response.results.seatPrice
+        commit('SET_TOTAL_PRICE', data)
       }).catch(error => {
         reject(error)
       })

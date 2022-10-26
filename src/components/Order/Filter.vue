@@ -19,38 +19,14 @@
     </div> -->
     <div class="list-banner-ads">
       <hooper :settings="hooperSettings">
-        <slide>
+        <slide v-for="item of companyConfig.companyImage" :key="item">
           <!-- <div id="banner-1" class="ads"> -->
           <!-- <span>Lan toả KBus <br> niềm vui không ngớt!</span> -->
           <!-- </div> -->
           <div class="row no-gutters justify-content-center">
             <div class="col-auto">
-              <a href="" @click.prevent="viewNews('kbus-khai-truong-hanh-trinh-du-lich-tu-ha-noi-di-sapa-voi-chi-phi-10k')">
-                <img src="https://apikbus.anvui.vn/image/get/fa420954-27e7-483a-aff9-27383fe72b30" alt="banner 1">
-              </a>
-            </div>
-          </div>
-        </slide>
-        <slide>
-          <!-- <div id="banner-2" class="ads"> -->
-          <!-- <span>Trở thành đối tác của KBus không lo thiếu khách.</span> -->
-          <!-- </div> -->
-          <div class="row no-gutters justify-content-center">
-            <div class="col-auto">
-              <a href="" @click.prevent="viewNews('kbus-nen-tang-chia-se-dich-vu-van-tai-du-lich-duong-dai-kbus-cuu-canh-cho-doanh-nghiep-van-tai-du-lich')">
-                <img src="https://apikbus.anvui.vn/image/get/ca627588-ca60-4cad-821a-981bf3237362" alt="banner 2">
-              </a>
-            </div>
-          </div>
-        </slide>
-        <slide>
-          <!-- <div id="banner-3" class="ads"> -->
-          <!-- <span>Trải nghiệm KBus phong cách di chuyển kiểu mới</span> -->
-          <!-- </div> -->
-          <div class="row no-gutters justify-content-center">
-            <div class="col-auto">
-              <a href="" @click.prevent="viewNews('di-xe-ha-noi-–-sapa-lao-cai-dung-quen-trai-nghiem-kbus')">
-                <img src="https://apikbus.anvui.vn/image/get/363948f6-cab4-47ce-aa07-f00573477f2e" alt="banner 3">
+              <a href="#">
+                <img :src="item">
               </a>
             </div>
           </div>
@@ -107,7 +83,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['trips'])
+    ...mapGetters([
+      'trips',
+      'companyConfig'
+    ])
   },
   watch: {
     // 'currentArrange': function(val) {

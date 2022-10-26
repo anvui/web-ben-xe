@@ -55,7 +55,7 @@
   </div>
 </template>
 <script>
-import SelectPoint from '@/components/Province/PickPoint.vue'
+import SelectPoint from '@/components/Province/PickProvince.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -109,6 +109,9 @@ export default {
       'listPoint',
       'searchTripQuery'
     ]),
+    premiumColor() {
+      return this.companyConfig.premiumColor
+    },
     getDateAndPoint() {
       let dateAndPoint = this.dateAndPoint
       // console.log(typeof (dateAndPoint))
@@ -124,8 +127,8 @@ export default {
     searchTripQuery: {
       handler(newVal, oldValue) {
         if (newVal) {
-          this.requestFilter.startPoint = this.listPoint.find(point => point.pointId === newVal.startPoint).pointName
-          this.requestFilter.endPoint = this.listPoint.find(point => point.pointId === newVal.endPoint).pointName
+          this.requestFilter.startPoint = newVal.startPoint
+          this.requestFilter.endPoint = newVal.endPoint
           this.requestFilter.startDate = this.$moment(newVal.date).format('YYYY-MM-DD')
         }
       },
@@ -164,9 +167,11 @@ export default {
         const params = {
           date: this.requestFilter.startDate.split('-').join(''),
           companyId: null,
-          startPoint: this.listPoint.find(point => point.pointName === this.requestFilter.startPoint).pointId,
-          endPoint: this.listPoint.find(point => point.pointName === this.requestFilter.endPoint).pointId,
-          type: 0,
+          startPoint: this.requestFilter.startPoint,
+          endPoint: this.requestFilter.endPoint,
+          // startPoint: this.listPoint.find(point => point.pointName === this.requestFilter.startPoint).pointId,
+          // endPoint: this.listPoint.find(point => point.pointName === this.requestFilter.endPoint).pointId,
+          type: 1,
           routeIds: null
         }
         this.$store.dispatch('system/getPointAndDate', params)
@@ -201,10 +206,11 @@ export default {
 }
 </script>
 <style lang="scss">
-$main: #ED196B;
+// $main: #ED196B;
 $white: #FFFFFF;
 $pink: #FBD1E1;
 $gray-70: #9399A9;
+@import '~@/styles/anvui/abstracts/_variables.scss';
 
   .box-search-trip{
     margin-top: -35px;

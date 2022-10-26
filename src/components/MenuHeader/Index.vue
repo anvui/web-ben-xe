@@ -19,19 +19,19 @@
         <div id="navbarSupportedContent" class="collapse navbar-collapse">
           <ul class="navbar-nav nav-header" style="margin-left: auto">
             <li class="nav-item">
-              <a href="" class="navi-link" @click.prevent.stop="handleNaviLink(routerType.INTRODUCE)">{{ $t('header.introduction') }}</a>
+              <a href="#" class="navi-link">{{ $t('header.introduction') }}</a>
             </li>
             <li class="nav-item">
-              <a href="" class="navi-link" @click.prevent.stop="handleNaviLink(routerType.SERVICE_PRICE)">{{ $t('header.servicePrice') }}</a>
+              <a href="#" class="navi-link">{{ $t('header.servicePrice') }}</a>
             </li>
-            <li class="nav-item">
-              <a href="" class="navi-link" @click.prevent.stop="handleNaviLink(routerType.BECOME_PARTNER)">{{ $t('header.partnerRegistration') }}</a>
-            </li>
+            <!-- <li class="nav-item">
+              <a href="" class="navi-link">{{ $t('header.partnerRegistration') }}</a>
+            </li> -->
             <!-- <li class="nav-item dropdown">
               <router-link :to="{ path: '/help' }" class="navi-link">Trợ giúp</router-link>
             </li> -->
             <li class="nav-item dropdown">
-              <a href="" class="navi-link" @click.prevent.stop="handleNaviLink(routerType.DOWNLOAD_APP)">{{ $t('header.downloadApp') }}</a>
+              <a href="#" class="navi-link">{{ $t('header.downloadApp') }}</a>
             </li>
             <li class="nav-item" style="margin-right: 16px">
               <select-language />

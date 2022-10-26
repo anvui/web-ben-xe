@@ -40,7 +40,8 @@ $gray-60: #B0B5C1;
 $gray-40: #ECEDF1;
 $gray-20: #ffffff;
 
-$main: #ED196B;
+// $main: #ED196B;
+$main: #1931ed;
 
 $colors: (
     'white': $white,
@@ -240,3 +241,7 @@ $input-big-height:          48px;
 $input-small-padding-y:       7px;
 $input-small-padding-x:       16px;
 $input-small-height:          32px;
+
+:export {
+  main: $main;
+}

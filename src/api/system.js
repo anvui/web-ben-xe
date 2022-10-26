@@ -27,9 +27,25 @@ export function getListPoints(data) {
   })
 }
 
+export function getListProvinces(data) {
+  return request({
+    url: apiV2 + '/search/province',
+    method: 'post',
+    data
+  })
+}
+
 export function bookTickets(data) {
   return request({
     url: appengine + '/ticket/partner/book',
+    method: 'post',
+    data
+  })
+}
+
+export function checkSeatsPrice(data) {
+  return request({
+    url: apiV2 + '/ticket/calculate-price',
     method: 'post',
     data
   })

@@ -11,9 +11,9 @@
               <div class="route">
                 <div class="province-name">
                   <template v-if="searchTripQuery">
-                    <span id="start-point">{{ listPoint.find(point => point.pointId === searchTripQuery.startPoint).pointName }}</span>
+                    <span id="start-point">{{ searchTripQuery.startPoint }}</span>
                     <span> - </span>
-                    <span id="end-point">{{ listPoint.find(point => point.pointId === searchTripQuery.endPoint).pointName }}</span>
+                    <span id="end-point">{{ searchTripQuery.endPoint }}</span>
                   </template>
                 </div>
                 <a v-if="$route.name !== 'payment'" href="" :style="{ 'padding-left': searchTripQuery ? '8px' : '' }" @click.prevent="reselectRoute = true">Chọn lại</a>

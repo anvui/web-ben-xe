@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'listPoint'
+      'listProvince'
     ])
   },
   watch: {
@@ -67,13 +67,13 @@ export default {
   },
   methods: {
     async getListData() {
-      await this.$store.dispatch('system/getPoints')
+      await this.$store.dispatch('system/getProvinces')
     },
     querySearch(queryString, callback) {
-      const listData = this.listPoint.map(point => {
+      const listData = this.listProvince.map(item => {
         return {
-          label: point.pointId,
-          value: point.pointName
+          label: item.province,
+          value: item.province
         }
       })
 

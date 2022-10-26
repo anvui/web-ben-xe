@@ -3,7 +3,7 @@
     <div class="container">
       <div class="overview">
         <div class="logo">
-          <img :src="companyConfig ? companyConfig.logo : ''" alt="logo kbus" width="117" height="48">
+          <img :src="companyConfig ? companyConfig.logo : ''" alt="logo company" width="117" height="48">
           <span id="company-name" class="text-note">{{ companyConfig ? companyConfig.packageName : '' }}</span>
         </div>
         <div class="about-us">
@@ -34,13 +34,13 @@
         </div>
         <div class="get-app">
           <div id="desc-get-app">
-            <span class="text-note">Tải ứng dụng KBus để đặt vé nhanh trên điện thoại</span>
+            <span class="text-note">Tải app để đặt vé nhanh trên điện thoại</span>
           </div>
           <div class="btn-get-app">
-            <a href="https://apps.apple.com/vn/app/id1602614232" target="_blank">
+            <a href="#" target="_blank">
               <img src="@/assets/images/appstore.png" alt="app store image" width="120" height="40">
             </a>
-            <a href="https://play.google.com/store/apps/details?id=vn.kbus.booking" target="_blank">
+            <a href="#" target="_blank">
               <img src="@/assets/images/googleplay.png" alt="google play image" width="120" height="40">
             </a>
           </div>
@@ -48,7 +48,7 @@
       </div>
       <div class="desc">
         <div class="develop-by w-100 text-center">
-          <span>Copyright &copy; KBus version 2022. Dev by <a href="https://anvui.vn">ANVUI</a></span>
+          <span>Copyright &copy; WebStation version 2022. Dev by <a href="https://anvui.vn">ANVUI</a></span>
         </div>
         <div class="version-number text-center mt-3">
           <span>Số phiên bản: {{ versionNumber }}</span>

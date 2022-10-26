@@ -338,7 +338,8 @@ export default {
       },
       formInvoiceRules: {
       },
-      listSelectedSeat: {}
+      listSelectedSeat: {},
+      totalPrice: 0
     }
   },
   computed: {
@@ -405,10 +406,6 @@ export default {
         points = this.trip.route.points.filter((item, index) => index !== 0 && item.id !== this.pickUpAddress)
       }
       return points
-    },
-    totalPrice() {
-      const total = this.trip.baseTicketPrice * this.totalTicket
-      return total
     },
 
     //  xoa sau
@@ -610,8 +607,9 @@ export default {
         platform: 2,
         informationsBySeats: []
       }
-      const pointUp = this.listPoint.find(point => point.pointId === this.searchTripQuery.startPoint)
-      const pointDown = this.listPoint.find(point => point.pointId === this.searchTripQuery.endPoint)
+      const pointUp = this.selectedTrip.points[0]
+      const pointDown = this.selectedTrip.points.reverse()[0]
+      // console.log({ pointUp, pointDown })
       this.$refs.FormCustomerInfo.map(x => x.customerInfo).forEach((item, i) => {
         const info = {
           seatId: this.listIndexTotalPassengers[i],
@@ -666,6 +664,12 @@ export default {
           const response = res.results
           this.$router.push({ name: 'pay', query: { ticket: response.listTicket }})
           this.$store.dispatch('system/setLastOrder', { param: params, listTicket: response.listTicketDetails })
+          this.$store.dispatch('system/checkPrice', {
+            tripId: params.tripId,
+            pointUpId: params.informationsBySeats[0].pointUp.id,
+            pointDownId: params.informationsBySeats[0].pointDown.id,
+            seatIds: this.listIndexTotalPassengers
+          })
           this.loadingBookTicket = false
         }).catch((err) => {
           console.log(err)

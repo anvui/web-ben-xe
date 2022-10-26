@@ -5,16 +5,16 @@
         <div id="start-point" class="col-md point">
           <span class="time">{{ formatStartTime }}</span>
           <span class="date">{{ formatStartDate }}</span>
-          <span v-if="previousOrder.length > 0" class="point-name">{{ detechPointName(lastOrder.param.informationsBySeats[0].pointUp.id) }}</span>
+          <!-- <span v-if="previousOrder.length > 0" class="point-name">{{ detechPointName(lastOrder.param.informationsBySeats[0].pointUp.id) }}</span> -->
           <!-- <span v-if="previousOrder.length > 0" class="point-address">{{ previousOrder[0].pointUp.address }}</span> -->
         </div>
         <div id="distance" class="col-auto">
-          <div class="text">
+          <!-- <div class="text">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M3.15691 0.70942C3.31741 0.934126 3.26536 1.2464 3.04066 1.40691L1.29066 2.65691C1.06595 2.81741 0.753677 2.76536 0.593172 2.54066C0.432668 2.31595 0.484713 2.00368 0.70942 1.84317L2.45942 0.593172C2.68413 0.432668 2.9964 0.484713 3.15691 0.70942ZM8.84317 0.70942C9.00368 0.484713 9.31595 0.432668 9.54066 0.593172L11.2907 1.84317C11.5154 2.00368 11.5674 2.31595 11.4069 2.54066C11.2464 2.76536 10.9341 2.81741 10.7094 2.65691L8.95942 1.40691C8.73471 1.2464 8.68267 0.934126 8.84317 0.70942ZM0.916696 6.50005C0.916696 3.69258 3.19257 1.41671 6.00004 1.41671C8.80748 1.41671 11.0834 3.69258 11.0834 6.50005C11.0834 9.30749 8.80748 11.5834 6.00004 11.5834C3.19257 11.5834 0.916696 9.30749 0.916696 6.50005ZM6.00004 2.41671C3.74486 2.41671 1.9167 4.24487 1.9167 6.50005C1.9167 8.75521 3.74486 10.5834 6.00004 10.5834C8.2552 10.5834 10.0834 8.75521 10.0834 6.50005C10.0834 4.24487 8.2552 2.41671 6.00004 2.41671ZM5.93994 3.33843C6.21609 3.33846 6.43992 3.56234 6.43989 3.83848L6.43961 6.38354L8.23622 8.18015C8.43148 8.37541 8.43148 8.69199 8.23622 8.88725C8.04096 9.08252 7.72437 9.08252 7.52911 8.88725L5.58604 6.94418C5.49225 6.8504 5.43957 6.7232 5.43959 6.59057L5.43989 3.83837C5.43992 3.56223 5.6638 3.3384 5.93994 3.33843Z" fill="white" />
             </svg>
             <span class="text">{{ formatDistanceTime.hours }} giờ {{ formatDistanceTime.minutes }}p</span>
-          </div>
+          </div> -->
           <svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M22.5002 3.33334C22.0581 3.33334 21.6342 3.50894 21.3217 3.8215C21.0091 4.13406 20.8335 4.55798 20.8335 5.00001V14.1667C20.8335 14.6269 21.2066 15 21.6668 15H22.6424C22.9856 15.971 23.9116 16.6667 25.0002 16.6667C26.0887 16.6667 27.0147 15.971 27.3579 15H32.6424C32.9856 15.971 33.9116 16.6667 35.0002 16.6667C36.0887 16.6667 37.0147 15.971 37.3579 15H38.3335C38.7937 15 39.1668 14.6269 39.1668 14.1667V10C39.1668 8.30635 38.6883 6.64673 37.7912 5.39086C36.8916 4.13145 35.6007 3.33334 34.1668 3.33334H22.5002ZM29.1668 5.00001H26.6668V7.50001H29.1668V5.00001ZM30.8335 7.50001V5.00001H32.6597L33.1955 7.50001H30.8335ZM22.5002 9.16668V13.3333H22.6424C22.9856 12.3623 23.9116 11.6667 25.0002 11.6667C26.0887 11.6667 27.0147 12.3623 27.3579 13.3333H32.6424C32.9856 12.3623 33.9116 11.6667 35.0002 11.6667C36.0887 11.6667 37.0147 12.3623 37.3579 13.3333H37.5002V10.8335H34.5835C34.1905 10.8335 33.851 10.559 33.7686 10.1748L33.5526 9.16668H22.5002ZM22.5002 5.00001H25.0002V7.50001H22.5002V5.00001ZM35.2571 9.16685H37.4526C37.3284 8.08758 36.9666 7.10379 36.435 6.35959C35.8283 5.51019 35.0831 5.07708 34.3663 5.00944L35.2571 9.16685Z" fill="#2D225E" />
             <rect x="12" y="9" width="4" height="1" fill="#2D225E" />
@@ -26,12 +26,15 @@
           </svg>
         </div>
         <div id="end-point" class="col-md point">
-          <span class="time">{{ formatEndTime }}</span>
-          <span class="date">{{ formatEndDate }}</span>
-          <span v-if="previousOrder.length > 0" class="point-name">{{ detechPointName(lastOrder.param.informationsBySeats[0].pointDown.id) }}</span>
+          <!-- <span class="time">{{ formatEndTime }}</span>
+          <span class="date">{{ formatEndDate }}</span> -->
+          <span v-if="previousOrder.length > 0" class="point-name">{{ previousOrder[0].routeName }}</span>
+          <!-- <span v-if="selectedTrip" class="point-name">{{ trips.find( item => item.tripId === selectedTrip.trip.id) }}</span> -->
+          <!-- <span v-if="previousOrder.length > 0" class="point-name">{{ detechPointName(lastOrder.param.informationsBySeats[0].pointDown.id) }}</span> -->
         </div>
       </div>
       <div id="number-customer" class="col-md">
+        <label class="total-customer d-block">Mã vé: {{ previousOrder[0].ticketCode }}</label>
         <label class="total-customer d-block">{{ $t('payment.numberCustomer.quantity') }} {{ previousOrder.length }}</label>
         <span id="number-male">{{ countMale }} {{ $t('payment.numberCustomer.male') }} </span>
         <span id="number-female">{{ countFemale }} {{ $t('payment.numberCustomer.female') }}</span>
@@ -51,20 +54,24 @@
           </div>
           <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.fullName') }}</label>
-            <label class="text-content">{{ passenger.fullName }}</label>
+            <label class="text-content">{{ passenger.fullName || '-trống-' }}</label>
           </div>
           <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.phoneNumber') }}</label>
-            <label class="text-content">{{ passenger.phoneNumber }}</label>
+            <label class="text-content">{{ passenger.phoneNumber || '-trống-' }}</label>
           </div>
           <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.email') }}</label>
-            <label class="text-content">{{ passenger.email || '-Không xác định-' }}</label>
+            <label class="text-content">{{ passenger.email || '-trống-' }}</label>
           </div>
           <div class="passenger-info-item">
+            <label class="text-title">{{ `Ghế` }}</label>
+            <label class="text-content">{{ passenger.seatId }}</label>
+          </div>
+          <!-- <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.sex') }}</label>
             <label class="text-content">Nam</label>
-          </div>
+          </div> -->
           <!-- <div class="passenger-info-item">
             <label class="text-title">{{ $t('payment.passengerInfo.price') }}</label>
             <label class="text-content">{{ numeral(passenger.totalPrice).format('0,0') }}đ</label>
@@ -100,7 +107,7 @@
         :disabled="previousOrder && previousOrder.length <= 0 || isPayExpire"
         @click="handlePayTicket"
       >
-        Thanh toán
+        Thanh toán ( {{ totalPrice ? Object.values(totalPrice).reduce((a, b) => a + b, 0) : 0 | number }} VNĐ )
       </el-button>
       <div class="w-100 text-center mt-3">
         <el-button
@@ -131,7 +138,8 @@ export default {
       isPayExpire: false,
       loadingCancelTicket: false,
       loadingCancelPerTicket: null,
-      previousOrder: []
+      previousOrder: [],
+      // totalPrice: 0
     }
   },
   computed: {
@@ -140,21 +148,18 @@ export default {
       'userInfo',
       'systemConfig',
       'lastOrder',
-      'listPoint'
+      'listPoint',
+      'selectedTrip',
+      'trips',
+      'totalPrice'
     ]),
     formatStartTime() {
-      if (this.ticketsBooked.length > 0) {
-        return this.$moment.utc(this.ticketsBooked[0].trip.runTime).format('HH:mm')
-      } else {
-        return 0
-      }
+      const time = this.previousOrder[0].getInTimePlan || null
+      return this.$moment.utc(time).format('HH:mm')
     },
     formatStartDate() {
-      let data = ''
-      if (this.ticketsBooked.length > 0) {
-        data = this.$moment.utc(this.ticketsBooked[0].trip.runTime).format('DD/MM/YYYY')
-      }
-      return data
+      const time = this.previousOrder[0].getInTimePlan || null
+      return this.$moment.utc(time).format('DD/MM/YYYY')
     },
     formatDistanceTime() {
       let data = ''
@@ -198,15 +203,6 @@ export default {
       const count = 0
       return count
     },
-    totalPrice() {
-      let total = 0
-      if (this.ticketsAvailable.length > 0) {
-        this.ticketsAvailable.forEach((ticket, t) => {
-          total += ticket.basePrice
-        })
-      }
-      return total
-    },
     discountMoney() {
       let total = 0
       if (this.ticketsAvailable.length > 0) {
@@ -222,15 +218,6 @@ export default {
         tickets = this.ticketsBooked.filter((ticket) => ticket.status !== 0)
       }
       return tickets
-    },
-    discountPriceNow() {
-      let discount = 0
-      if (this.ticketsAvailable.length > 0) {
-        const totalPrice = this.ticketsAvailable[0].basePrice
-        const priceEstimate = this.ticketsAvailable[0].priceEstimate
-        discount = (totalPrice - priceEstimate) * this.ticketsAvailable.length
-      }
-      return 'null'
     },
     timeExpire() {
       let time = ''
@@ -249,10 +236,10 @@ export default {
             fullName: ticket.fullName,
             phoneNumber: ticket.phoneNumber,
             email: ticket.email,
-            sex: ticket.sex,
-            totalPrice: ticket.basePrice,
-            discountPrice: ticket.basePrice - ticket.priceEstimate,
-            discountMoney: ticket.discountMoney
+            // sex: ticket.sex,
+            // totalPrice: ticket.basePrice,
+            // discountPrice: ticket.basePrice - ticket.priceEstimate,
+            // discountMoney: ticket.discountMoney
           })
         })
       }
@@ -295,6 +282,16 @@ export default {
     this.getListTicketsBooked()
   },
   methods: {
+    // checkTicketsPrice(pointId) {
+    //   this.$store.dispatch('system/checkPrice', ).then(resp => {
+    //     window.location.href = resp
+    //     this.loadingPay = false
+    //   }).catch(err => {
+    //     this.$message.error(err.message ? err.message : 'Đã có lỗi xảy ra')
+    //     console.log(err)
+    //     this.loadingPay = false
+    //   })
+    // },
     detechPointName(pointId) {
       const detechPoint = this.listPoint.find(x => x.pointId === pointId)
       return detechPoint ? detechPoint.pointName : '-Không xác định-'
@@ -390,37 +387,7 @@ export default {
       this.isPayExpire = true
     },
     handleCancelTicket() {
-      const ticketsBookedAndPaid = this.ticketsBooked.filter((ticket, t) => ticket.status !== 0)
-      const listTicketIds = ticketsBookedAndPaid.map((ticket, t) => ticket.id)
-
-      let label = ''
-      const startTime = new Date(this.ticketsBooked[0].trip.runTime)
-      const currentTime = new Date()
-
-      // convert datetime to milliseconds
-      // console.log(startTime, currentTime)
-      const startTimeMillisec = startTime.getTime() - 25200000 // múi giờ GMT+7
-      const currentTimeMillisec = currentTime.getTime()
-      const distance = startTimeMillisec - 43200000
-      // console.log(distance)
-      if (currentTimeMillisec > distance) {
-        label = 'Bạn chắc chắn muốn hủy vé?\n\nHủy vé sau 12 tiếng so với giờ xuất bến: Không được hoàn tiền vé'
-      } else if (currentTimeMillisec < distance) {
-        label = 'Bạn chắc chắn muốn hủy vé?\n\nHủy vé trước 12 tiếng so với giờ xuất bến: Được hoàn 100% tiền vé'
-      }
-
-      if (confirm(label)) {
-        // call api cancel ticket
-        this.loadingCancelTicket = true
-        this.$store.dispatch('ticket/cancelTicket', { ticketIds: listTicketIds }).then(resp => {
-          this.loadingCancelTicket = false
-          this.getListTicketsBooked()
-        }).catch(err => {
-          console.log(err)
-          this.loadingCancelTicket = false
-          this.$message.error('Đã có lỗi xảy ra')
-        })
-      }
+      this.$router.push({ path: '' })
     },
     handleCancelPerTicket(ticketId) {
       let label = ''

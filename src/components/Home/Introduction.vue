@@ -1,11 +1,11 @@
 <template>
   <div class="intro-container">
-    <div class="intro-wrapper">
+    <div class="intro-wrapper" :style="styleBackground">
       <!-- <img :src="bg" alt=""> -->
       <div class="intro-text">
         <h1 class="text">
-          <!-- Nền tảng kết nối chia sẻ xe du lịch đầu tiên tại Đông Nam Á!<br> -->
-          {{ $t('introduction.title') }}<br>
+          Chào mừng quý khách đã đến với nhà xe An Vui
+          <br>
         </h1>
         <div class="line mt-3 mb-3" />
         <div class="d-flex align-items-center special-features" style="flex-wrap: wrap;">
@@ -31,12 +31,24 @@
 </template>
 <script>
 import SearchTrip from '../SearchTrip/SearchTrip.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { SearchTrip },
   data() {
     return {
       urlBg: 'https://apikbus.anvui.vn/image/get/bd5d0690-5a99-4bf7-ab04-e233beda8cd2'
+    }
+  },
+  computed: {
+    ...mapGetters(['companyConfig']),
+    styleBackground() {
+      return {
+        'background-image': `linear-gradient(86.99deg, rgba(237, 25, 107, 0) 1.65%, ${this.companyConfig.premiumColor} 100%), url('${this.companyConfig.slide}')`,
+        'background-position': 'center center',
+        'background-repeat': 'no-repeat',
+        'background-size': 'cover'
+      }
     }
   },
   mounted() {
@@ -47,10 +59,10 @@ export default {
 .intro-container{
 
   .intro-wrapper{
-    background-image: linear-gradient(86.99deg, rgba(237, 25, 107, 0) 1.65%, #ED196B 100%), url('https://apikbus.anvui.vn/image/get/bd5d0690-5a99-4bf7-ab04-e233beda8cd2');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    // background-image: linear-gradient(86.99deg, rgba(237, 25, 107, 0) 1.65%, #ED196B 100%), url('https://apikbus.anvui.vn/image/get/bd5d0690-5a99-4bf7-ab04-e233beda8cd2');
+    // background-position: center center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
     height: 380px;
     max-width: 1440px;
     margin: auto;

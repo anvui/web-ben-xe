@@ -120,26 +120,6 @@ export default {
       const param = this.searchTripQuery
       console.log('param', param)
       this.loading = true
-      // this.$store.dispatch('system/getListTrip', param).then((resp) => {
-      //   if (this.trips.length > 0) {
-      //     console.log('listtrip', res)
-      //     this.trips = resp
-      //     this.trips.map((trip, t) => {
-      //       // calculate millisecond and add field runTimeMilliseconds
-      //       const formatTime = getUTCTime(trip.runTime)
-      //       const milliSec = convertHourToMilliseconds(parseInt(formatTime.hours), parseInt(formatTime.minutes), parseInt(formatTime.seconds))
-
-      //       this.trips[t] = { ...trip, runTimeMilliseconds: milliSec }
-      //     })
-      //   } else {
-      //     this.$message.warning(this.$t('message.book.communityNotCreateTrip', { startDate: this.$moment(this.getDateAndPoint.startDate).format('DD-MM-YYYY') }))
-      //   }
-      //   this.loading = false
-      // }).catch((error) => {
-      //   this.loading = false
-      //   this.$message.error(error.message ? error.message : this.$t('message.common.undefinedError'))
-      //   console.log(error)
-      // })
 
       const resp = await this.$store.dispatch('system/getListTrip', param)
       if (resp) {
@@ -154,8 +134,7 @@ export default {
           this.trips[t] = { ...trip, runTimeMilliseconds: milliSec }
         })
       } else {
-        this.$message.error(error.message ? error.message : this.$t('message.common.undefinedError'))
-        console.log(error)
+        this.$message.error(this.$t('message.common.undefinedError'))
       }
       this.loading = false
     },

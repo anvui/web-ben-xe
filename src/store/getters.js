@@ -41,6 +41,7 @@ const getters = {
   systemConfig: state => state.config.systemConfig,
   companyConfig: state => state.system.companyConfig,
   listPoint: state => state.system.points,
+  listProvince: state => state.system.provinces,
   searchTripQuery: state => state.system.searchTripQuery,
   selectedTrip: state => state.system.selectedTrip,
   tripSeatMap: state => {
@@ -55,6 +56,7 @@ const getters = {
       return seatMapObject
     } else return null
   },
-  lastOrder: state => state.system.lastOrder
+  lastOrder: state => state.system.lastOrder,
+  totalPrice: state => state.system.totalPrice
 }
 export default getters
