@@ -157,6 +157,7 @@
                 "male": "Nam",
                 "female": "Nữ"
             },
+            "note": "Ghi chú",
             "promotionCode": "Mã ưu đãi",
             "btnConfirm": "Xác nhận",
             "btnRemove": "Gỡ bỏ",

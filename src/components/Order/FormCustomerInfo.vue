@@ -33,64 +33,24 @@
       />
       <label class="custom-placeholder">{{ $t('book.formCustomerInfo.email') }} <span style="color: red">*</span></label>
     </el-form-item>
-    <el-form-item prop="sex">
+    <el-form-item prop="note">
+      <el-input
+        ref="note"
+        v-model="customerInfo.note"
+        class="form-input"
+        name="note"
+        type="text"
+        tabindex="3"
+      />
+      <label class="custom-placeholder">{{ $t('book.formCustomerInfo.note') }} <span style="color: red">*</span></label>
+    </el-form-item>
+    <!-- <el-form-item prop="sex">
       <label style="margin-right: 8px">{{ $t('book.formCustomerInfo.sex.label') }} <span style="color: red">*</span></label>
       <el-radio-group v-model="customerInfo.sex" tabindex="5">
         <el-radio :label="1">{{ $t('book.formCustomerInfo.sex.male') }}</el-radio>
         <el-radio :label="2">{{ $t('book.formCustomerInfo.sex.female') }}</el-radio>
       </el-radio-group>
-    </el-form-item>
-    <div
-      v-if="$route.name === 'OrderPage' || $route.name === 'CreateTrip'"
-      class="row no-gutters"
-      style="gap: 16px"
-    >
-      <div class="col">
-        <el-form-item prop="promotionCode">
-          <el-input
-            ref="promotionCode"
-            v-model="customerInfo.promotionCode"
-            class="form-input"
-            name="promotionCode"
-            type="text"
-            tabindex="6"
-            :disabled="promotionResponse && promotionResponse.tripId === tripId ? true : false"
-            @change="handleValueChange"
-          />
-          <label class="custom-placeholder">{{ $t('book.formCustomerInfo.promotionCode') }}</label>
-        </el-form-item>
-      </div>
-      <div class="col-auto">
-        <el-button
-          v-if="!promotionResponse || promotionResponse && promotionResponse.tripId !== tripId"
-          class="btn-confirm-promotion"
-          :loading="loadingConfirmPromotion"
-          @click="confirmPromotion()"
-        >
-          {{ $t('book.formCustomerInfo.btnConfirm') }}
-        </el-button>
-        <el-button
-          v-else
-          class="btn-remove-promotion"
-          :loading="loadingConfirmPromotion"
-          @click="removePromotion()"
-        >
-          {{ $t('book.formCustomerInfo.btnRemove') }}
-        </el-button>
-      </div>
-    </div>
-    <span class="text-note">{{ promotionResponse && promotionResponse.tripId === tripId && promotionResponse.note ? promotionResponse.note : '' }}</span>
-    <el-form-item v-if="$route.params.tripId && $route.params.referralUser" prop="referralUser" style="margin-block: 1rem">
-      <el-input
-        ref="referralUser"
-        v-model="customerInfo.referralUser"
-        class="form-input"
-        name="referralUser"
-        type="text"
-        disabled
-      />
-      <label class="custom-placeholder">{{ $t('book.formCustomerInfo.referralUser') }}</label>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item>
       <el-checkbox
         v-if="$route.name === 'OrderPage' || $route.name === 'CreateTrip'"
@@ -154,15 +114,16 @@ export default {
 
     return {
       formCustomerRules: {
-        fullname: [{ required: true, trigger: ['blur', 'change'], validator: validateFullname }],
-        phoneNumber: [{ required: true, trigger: ['blur', 'change'], validator: validatePhoneNumber }],
-        email: [{ required: true, trigger: ['blur', 'change'], validator: validateEmail }]
+        // fullname: [{ required: true, trigger: ['blur', 'change'], validator: validateFullname }],
+        // phoneNumber: [{ required: true, trigger: ['blur', 'change'], validator: validatePhoneNumber }],
+        // email: [{ required: true, trigger: ['blur', 'change'], validator: validateEmail }]
       },
       customerInfo: {
         ticketId: null,
         fullname: '',
         phoneNumber: '',
         email: '',
+        note: '',
         sex: 1,
         referralUser: this.$route.params.referralUser || '',
         promotionCode: ''
@@ -197,6 +158,7 @@ export default {
           this.customerInfo.fullname = this.firstCustomerInfo.fullname
           this.customerInfo.phoneNumber = this.firstCustomerInfo.phoneNumber
           this.customerInfo.email = this.firstCustomerInfo.email
+          this.customerInfo.note = this.firstCustomerInfo.note
           this.customerInfo.sex = this.firstCustomerInfo.sex
         }
       } else {
@@ -204,6 +166,7 @@ export default {
           this.customerInfo.fullname = ''
           this.customerInfo.phoneNumber = ''
           this.customerInfo.email = ''
+          this.customerInfo.note = ''
           this.customerInfo.sex = 1
         }
       }
@@ -226,6 +189,12 @@ export default {
       if (newval && this.fillAllCustomer) {
         // console.log(newval, oldval)
         this.firstCustomerInfo.email = newval
+      }
+    },
+    'customerInfo.note': function(newval, oldval) {
+      if (newval && this.fillAllCustomer) {
+        // console.log(newval, oldval)
+        this.firstCustomerInfo.note = newval
       }
     },
     'customerInfo.sex': function(newval, oldval) {
@@ -256,6 +225,7 @@ export default {
         this.customerInfo.fullname = this.userInfo ? this.userInfo.fullName : ''
         this.customerInfo.phoneNumber = this.userInfo ? this.userInfo.phoneNumber : ''
         this.customerInfo.email = this.userInfo ? this.userInfo.email : ''
+        this.customerInfo.note = this.userInfo ? this.userInfo.note : ''
 
         const firstCustomerInfo = this.customerInfo
         this.$store.dispatch('trip/firstCustomerInfo', firstCustomerInfo)
@@ -264,6 +234,7 @@ export default {
           this.customerInfo.fullname = this.firstCustomerInfo ? this.firstCustomerInfo.fullname : ''
           this.customerInfo.phoneNumber = this.firstCustomerInfo ? this.firstCustomerInfo.phoneNumber : ''
           this.customerInfo.email = this.firstCustomerInfo ? this.firstCustomerInfo.email : ''
+          this.customerInfo.note = this.firstCustomerInfo ? this.firstCustomerInfo.note : ''
           this.customerInfo.sex = this.firstCustomerInfo ? this.firstCustomerInfo.sex : ''
         }
       }
@@ -275,6 +246,7 @@ export default {
         this.customerInfo.fullname = this.passengerInfo.fullName
         this.customerInfo.phoneNumber = this.passengerInfo.phoneNumber
         this.customerInfo.email = this.passengerInfo.email
+        this.customerInfo.note = this.passengerInfo.note
         this.customerInfo.sex = this.passengerInfo.sex === 'MALE' ? 1 : 2
       }
     },
@@ -298,21 +270,7 @@ export default {
           if (mapIndex > -1) {
             validateArr.splice(mapIndex, 1)
           }
-          // console.log(mapIndex)
         }
-
-        // if (this.fillAllCustomer) {
-        //   validateArr = []
-        // } else {
-        //   if (this.containsValidate(validateError, validateArr)) {
-        //     const objContain = this.containsValidate(validateError, validateArr)
-        //     const mapIndex = validateArr.indexOf(objContain)
-        //     if (mapIndex > -1) {
-        //       validateArr.splice(mapIndex, 1)
-        //     }
-        //     // console.log(mapIndex)
-        //   }
-        // }
       }
       this.$store.dispatch('trip/validateInfo', validateArr)
     },

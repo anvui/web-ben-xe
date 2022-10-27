@@ -153,15 +153,6 @@
                       <div class="seat-name">
                         {{ col.seatId ? col.seatId : "" }}
                       </div>
-                      <!-- <b-row align-h="center">
-                        <b-col v-if="list_lock_seat.includes(col.seatId)" cols="auto">
-                          <i class="el-icon-lock" title="Ghế khóa" />
-                        </b-col>
-                        <b-col v-if="timeExpire(col)" cols="auto">
-                          <time-countdown :time="timeExpire(col)" />
-                        </b-col>
-                      </b-row> -->
-                      <!-- <div class="seat-status" /> -->
                     </div>
                   </div>
                 </div>
@@ -205,91 +196,6 @@
       <el-checkbox v-model="agreeTermsStatus">
         {{ $t('book.selectedTrip.agreeTerms.label') }} <a href="#">{{ $t('book.selectedTrip.agreeTerms.policy') }}</a>
       </el-checkbox>
-    </div>
-    <!-- <div class="total-seat-and-price">
-      <div class="total-wrapper">
-        <label>{{ $t('book.selectedTrip.seatAndPrice.totalPassengers') }}</label>
-        <label>{{ totalPassengers }}</label>
-      </div>
-      <div class="total-wrapper">
-        <label>{{ $t('book.selectedTrip.seatAndPrice.price') }}</label>
-        <label>{{ numeral(parseInt(promotionDiscount > 0 ? totalPrice - promotionDiscount : totalPrice)).format('0,0') }}đ</label>
-      </div>
-      <div class="total-wrapper" style="color: #ED196B">
-        <label>{{ $t('book.selectedTrip.seatAndPrice.discount') }}</label>
-        <label>{{ numeral(parseInt(discountPriceNow)).format('0,0') }}đ</label>
-      </div>
-      <div class="total-wrapper" style="color: #ED196B">
-        <label>{{ $t('book.selectedTrip.seatAndPrice.promotion') }}</label>
-        <label>{{ promotionDiscount > 0 ? '- ' + numeral(parseInt(promotionDiscount)).format(0,0) : 0 }}đ</label>
-      </div>
-      <div class="total-wrapper" style="color: #ED196B">
-        <label>{{ $t('book.selectedTrip.seatAndPrice.remain') }}</label>
-        <label>{{ numeral(parseInt(promotionDiscount > 0 ? remainPrice - promotionDiscount : remainPrice)).format('0,0') }}đ</label>
-      </div>
-      <div class="description">
-        <template v-for="(item, i) in $t('book.selectedTrip.seatAndPrice.description')">
-          <span :key="i">{{ item }}</span>
-        </template>
-      </div>
-    </div> -->
-    <div class="form-invoice">
-      <el-checkbox
-        v-if="$route.name === 'OrderPage' || $route.name === 'CreateTrip'"
-        v-model="exportInvoice"
-      >
-        {{ $t('book.selectedTrip.invoiceInfo.checkbox') }}
-      </el-checkbox>
-      <el-form
-        v-if="exportInvoice"
-        id="form-invoice-info"
-        ref="invoice-info"
-        :model="invoiceInfo"
-        :rules="formInvoiceRules"
-        auto-complete="on"
-        label-position="left"
-      >
-        <el-form-item prop="companyName">
-          <el-input
-            ref="companyName"
-            v-model="invoiceInfo.companyName"
-            class="form-input"
-            name="companyName"
-            type="text"
-          />
-          <label class="custom-placeholder">{{ $t('book.selectedTrip.invoiceInfo.companyName') }}</label>
-        </el-form-item>
-        <el-form-item prop="address">
-          <el-input
-            ref="address"
-            v-model="invoiceInfo.address"
-            class="form-input"
-            name="address"
-            type="text"
-          />
-          <label class="custom-placeholder">{{ $t('book.selectedTrip.invoiceInfo.address') }}</label>
-        </el-form-item>
-        <el-form-item prop="tax">
-          <el-input
-            ref="tax"
-            v-model.trim="invoiceInfo.tax"
-            class="form-input"
-            name="tax"
-            type="text"
-          />
-          <label class="custom-placeholder">{{ $t('book.selectedTrip.invoiceInfo.taxNumber') }}</label>
-        </el-form-item>
-        <el-form-item prop="email">
-          <el-input
-            ref="email"
-            v-model.trim="invoiceInfo.email"
-            class="form-input"
-            name="email"
-            type="email"
-          />
-          <label class="custom-placeholder">{{ $t('book.selectedTrip.invoiceInfo.email') }}</label>
-        </el-form-item>
-      </el-form>
     </div>
     <div class="book-ticket-section">
       <el-button class="btn-book-ticket" :loading="loadingBookTicket" :disabled="agreeTermsStatus ? false : true" @click="handleBookTicket">{{ $t('book.selectedTrip.btnBookTicket') }}</el-button>
@@ -575,6 +481,7 @@ export default {
         this.$message.error(this.$t('message.book.selectPointDown'))
         return false
       } else if (this.validate.length > 0) {
+        console.log(this.validate)
         this.$message.error(this.$t('message.book.enterCorrectPassengerInfo'))
         return false
       } else if (this.exportInvoice && !this.invoiceInfo.companyName) {

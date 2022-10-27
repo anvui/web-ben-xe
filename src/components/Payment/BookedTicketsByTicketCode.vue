@@ -203,22 +203,6 @@ export default {
       const count = 0
       return count
     },
-    discountMoney() {
-      let total = 0
-      if (this.ticketsAvailable.length > 0) {
-        this.ticketsAvailable.forEach((ticket, t) => {
-          total += ticket.discountMoney
-        })
-      }
-      return total
-    },
-    ticketsAvailable() {
-      let tickets = []
-      if (this.ticketsBooked.length > 0) {
-        tickets = this.ticketsBooked.filter((ticket) => ticket.status !== 0)
-      }
-      return tickets
-    },
     timeExpire() {
       let time = ''
       if (this.ticketsBooked.length > 0) {
@@ -227,22 +211,19 @@ export default {
       return 'null'
     },
     passengersInfo() {
-      const data = []
-      if (this.ticketsBooked.length > 0) {
-        this.ticketsBooked.forEach((ticket, t) => {
-          data.push({
-            ticketStatus: ticket.status,
-            ticketId: ticket.id,
-            fullName: ticket.fullName,
-            phoneNumber: ticket.phoneNumber,
-            email: ticket.email,
-            // sex: ticket.sex,
-            // totalPrice: ticket.basePrice,
-            // discountPrice: ticket.basePrice - ticket.priceEstimate,
-            // discountMoney: ticket.discountMoney
-          })
-        })
-      }
+      const data = this.previousOrder.map((ticket, t) => {
+        return {
+          ticketStatus: ticket.status,
+          ticketId: ticket.id,
+          fullName: ticket.fullName,
+          phoneNumber: ticket.phoneNumber,
+          email: ticket.email
+          // sex: ticket.sex,
+          // totalPrice: ticket.basePrice,
+          // discountPrice: ticket.basePrice - ticket.priceEstimate,
+          // discountMoney: ticket.discountMoney
+        }
+      })
       return data
     },
     hasTicketsBooked() {
@@ -260,13 +241,6 @@ export default {
       } else {
         return false
       }
-    },
-    getPointManual() {
-      let points = null
-      if (this.ticketsBooked.length > 0) {
-        points = JSON.parse(this.ticketsBooked[0].trip.pointManual)
-      }
-      return 'null'
     },
     systemConfigData() {
       let data = null

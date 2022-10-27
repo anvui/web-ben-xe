@@ -53,7 +53,12 @@ const actions = {
           packageName: ' bến xe An Vui',
           partnerId: 'PN0TU1yYd3LmVJWJ',
           premiumColor: '#1931ed',
-          themeColor: '',
+          themeColor: {
+            premiumColor: '#1931ed',
+            secondColor: '',
+            btnColor: '',
+            backgroundColor: ''
+          },
           logo: 'https://anvui.vn/v2/logo.svg',
           slide: 'https://anvui.vn/upload/web/2022/09/14/1663138339_dai-ly-ban-ve-xe-an-vui-cong-bo-nen-tang-ams-partner-nen-tang-giup-cac-to-chuc-ca-nhan-ban-ve-xe-huong-hoa-hong.jpg',
           companyImage: [
