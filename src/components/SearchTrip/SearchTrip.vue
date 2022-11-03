@@ -146,6 +146,10 @@ export default {
     }
   },
   created() {},
+  mounted() {
+    const bodyStyles = document.body.style
+    bodyStyles.setProperty('--savialonso-florentino', 'rgb(218, 162, 42)')
+  },
   methods: {
     swap() {
       const startPoint = this.requestFilter.startPoint
@@ -210,6 +214,15 @@ export default {
 $white: #FFFFFF;
 $pink: #FBD1E1;
 $gray-70: #9399A9;
+
+:root{
+  // --primary-color: #C5C5C5!important;
+  // --secondary-color: #6C7478!important;
+  --tertiary-color: red!important;
+  // --success-color: #80b855!important;
+  // --warning-color: #eaca44!important;
+  // --error-color: #ef4d4d!important;
+}
 @import '~@/styles/anvui/abstracts/_variables.scss';
 
   .box-search-trip{
@@ -253,7 +266,7 @@ $gray-70: #9399A9;
     }
 
     .btn-search-trip{
-      background: $main;
+      background: var(--savialonso-florentino);
       box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
       border-radius: 6px;
       padding: 1rem 37px;

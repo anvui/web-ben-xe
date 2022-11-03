@@ -168,7 +168,12 @@ export const constantRoutes = [
     ],
     hidden: true
   }
-
+  // {
+  //   path: '/searchTrip',
+  //   name: 'SearchTrip',
+  //   component: SearchTrip,
+  //   meta: { title: 'tim chuyen', icon: '' }
+  // },
   // {
   //   path: '*',
   //   redirect() {
