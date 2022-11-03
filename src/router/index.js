@@ -6,6 +6,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import IframeSearchTrip from '@/components/Iframe/index'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -34,6 +35,23 @@ import Layout from '@/layout'
 
 /* router name is require to check white list */
 export const constantRoutes = [
+  {
+    path: '/search-trip',
+    component: IframeSearchTrip,
+    redirect: '/search-trip',
+    permission: [],
+    children: [{
+      path: '',
+      name: 'IframeSearchTrip',
+      component: IframeSearchTrip,
+      meta: {
+        title: 'Tìm chuyến',
+        icon: '',
+        permission: []
+      }
+    }],
+    hidden: true
+  },
   {
     path: '/:locale',
     component: Layout,
@@ -150,7 +168,12 @@ export const constantRoutes = [
     ],
     hidden: true
   }
-
+  // {
+  //   path: '/searchTrip',
+  //   name: 'SearchTrip',
+  //   component: SearchTrip,
+  //   meta: { title: 'tim chuyen', icon: '' }
+  // },
   // {
   //   path: '*',
   //   redirect() {
