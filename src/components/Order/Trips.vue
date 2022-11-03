@@ -94,16 +94,16 @@ export default {
     try {
       this.mapStartPoint = this.searchTripQuery.startPoint
       this.mapEndPoint = this.searchTripQuery.endPoint
-      if (this.$route.query.tripId || this.$route.params.tripId) {
-        if (this.$route.query.tripId) {
-          this.moreInfoStatus = parseInt(this.$route.query.tripId)
-        } else if (this.$route.params.tripId) {
-          this.moreInfoStatus = parseInt(this.$route.params.tripId)
-        }
-        await this.getTripByTripId()
-      } else {
-        await this.getListTrip()
-      }
+      // if (this.$route.query.tripId || this.$route.params.tripId) {
+      //   if (this.$route.query.tripId) {
+      //     this.moreInfoStatus = parseInt(this.$route.query.tripId)
+      //   } else if (this.$route.params.tripId) {
+      //     this.moreInfoStatus = parseInt(this.$route.params.tripId)
+      //   }
+      //   await this.getTripByTripId()
+      // } else {
+      //   await this.getListTrip()
+      // }
     } catch (error) {
       console.log('warning trips page', error)
       this.$router.push({ name: 'Home' })
@@ -118,6 +118,10 @@ export default {
     },
     async getListTrip() {
       const param = this.searchTripQuery
+      if(!this.searchTripQuery.startPoint || !this.searchTripQuery.endPoint) {
+        this.$message.warning('Chọn điểm đi điểm xuống')
+        return
+      }
       console.log('param', param)
       this.loading = true
 

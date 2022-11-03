@@ -245,7 +245,9 @@ export default {
       formInvoiceRules: {
       },
       listSelectedSeat: {},
-      totalPrice: 0
+      totalPrice: 0,
+      searchPointUp: null,
+      searchPointDown: null
     }
   },
   computed: {

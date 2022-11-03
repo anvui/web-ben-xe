@@ -45,11 +45,11 @@ const actions = {
   saveCompanyConfig({ commit }, config) {
     commit('SET_COMPANY_CONFIG', config)
   },
-  async getCompanyConfig({ commit }, siteNane) {
+  async getCompanyConfig({ commit }, siteName) {
     const config = await new Promise((resolve, reject) => {
       setTimeout(() => {
         const conf = {
-          sitename: siteNane,
+          sitename: siteName,
           packageName: ' bến xe An Vui',
           partnerId: 'PN0TU1yYd3LmVJWJ',
           premiumColor: '#1931ed',
@@ -71,6 +71,7 @@ const actions = {
         return resolve(conf)
       }, 2000)
     })
+    console.log('getCompany config success'. config)
     commit('SET_COMPANY_CONFIG', config)
   },
   getPoints({ commit }) {

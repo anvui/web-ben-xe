@@ -50,9 +50,9 @@ export default {
     // AppCustomer
   },
   mounted() {
-    if (getOperatingSystem() === 'IOS' || getOperatingSystem() === 'ANDROID') {
-      this.$refs.DialogAppCustomer.visible = true
-    }
+    // if (getOperatingSystem() === 'IOS' || getOperatingSystem() === 'ANDROID') {
+    //   this.$refs.DialogAppCustomer.visible = true
+    // }
   }
 }
 </script>

@@ -6,7 +6,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
-
+import SearchTrip from '@/components/Iframe/SearchTrip.vue'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -34,6 +34,24 @@ import Layout from '@/layout'
 
 /* router name is require to check white list */
 export const constantRoutes = [
+  {
+    path: '/search-trip',
+    component: SearchTrip,
+    redirect: '/search-trip',
+    name: 'SearchTrip',
+    meta: { title: 'SearchTrip', icon: '' },
+    permission: [],
+    children: [
+      {
+        path: '',
+        name: 'SearchTrip',
+        component: SearchTrip,
+        // component: () => import('@/components/Iframe/SearchTrip.vue'),
+        meta: { title: 'SearchTrip', icon: '' }
+      }
+    ],
+    hidden: true
+  },
   {
     path: '/:locale',
     component: Layout,
