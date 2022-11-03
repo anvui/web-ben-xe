@@ -5,27 +5,8 @@
         <div class="col-auto">
           <span class="total-trip">{{ $t('book.trips.totalTrips', { 'tripsLength': trips.length }) }}</span>
         </div>
-        <!-- <div v-if="(getDateAndPoint && getDateAndPoint.startDate) != $moment().format('YYYY-MM-DD') && trips.length > 0" class="col text-right">
-          <el-button class="btn-create-own-trip" @click="handleCreateTrip">{{ $t('book.trips.btnCreateTrip') }}</el-button>
-        </div> -->
       </div>
     </div>
-    <!-- <div v-if="trips && trips.length <= 0">
-      <div class="w-100 trips-not-available">
-        <span class="w-100 text-center font-weight-bold">
-          {{ $t('book.trips.tripsNotAvailable', { startDate: $moment(getDateAndPoint.startDate).format('DD-MM-YYYY') }) }}
-        </span>
-        <template v-for="(item, i) in $t('book.trips.tripsNotAvailableMessage')">
-          <span :key="i">{{ item }}</span>
-        </template>
-        <div class="w-100 text-center">
-          <el-button v-if="!token" class="btn-create-own-trip" @click="handleCreateTrip">{{ $t('book.trips.btnCreateTrip') }}</el-button>
-        </div>
-      </div>
-      <div>
-        <form-create-trip />
-      </div>
-    </div> -->
     <div v-if="!loading && trips && trips.length > 0" class="list">
       <template v-for="(item, index) in trips">
         <trip :key="index" :trip="item" :status-more-info-section="moreInfoStatus" :status-selected-trip-section="selectedTripStatus" @set-status-more-info-section="setStatusMoreInfoSection" @set-status-selected-trip-section="setStatusSelectedTripSection" />
@@ -92,8 +73,8 @@ export default {
   },
   async mounted() {
     try {
-      this.mapStartPoint = this.searchTripQuery.startPoint
-      this.mapEndPoint = this.searchTripQuery.endPoint
+      // this.mapStartPoint = this.searchTripQuery.startPoint
+      // this.mapEndPoint = this.searchTripQuery.endPoint
       // if (this.$route.query.tripId || this.$route.params.tripId) {
       //   if (this.$route.query.tripId) {
       //     this.moreInfoStatus = parseInt(this.$route.query.tripId)
@@ -104,6 +85,21 @@ export default {
       // } else {
       //   await this.getListTrip()
       // }
+      if(this.$route.params.query) {
+        const query = this.$route.params.query
+        const dataQuery = JSON.parse(decodeURI(query))
+        console.log(dataQuery)
+        const params = {
+          date: dataQuery.startDate.split('-').join(''),
+          companyId: null,
+          startPoint: dataQuery.startPoint,
+          endPoint: dataQuery.endPoint,
+          type: 1,
+          routeIds: null
+        }
+        this.$store.dispatch('system/getPointAndDate', params)
+        await this.getListTrip()
+      }
     } catch (error) {
       console.log('warning trips page', error)
       this.$router.push({ name: 'Home' })
@@ -172,15 +168,6 @@ export default {
       //   this.$message.error(this.$t('message.common.undefinedError'))
       //   console.log(error)
       // })
-    },
-    handleCreateTrip() {
-      if (this.token) {
-        this.$router.push({ name: 'CreateTrip' })
-      } else {
-        if (confirm(this.$t('message.book.checkLoginCreateTrip'))) {
-          this.$router.push({ name: 'Login' })
-        }
-      }
     }
   }
 }

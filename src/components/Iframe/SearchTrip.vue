@@ -267,9 +267,13 @@ export default {
     },
     searchTrip() {
       console.log(this.companyConfig);
-      // console.log(this.$router);
-      // const link = this.$router.resolve({name: 'OrderPage', path: '/vi/book'})
-      const link2 = `${this.companyConfig.sitename}/vi/book`
+      console.log(this.requestFilter);
+      const querySearch = encodeURI(JSON.stringify(this.requestFilter))
+      // const querySearch = Object.keys(this.requestFilter).map((key) => {
+      //     return encodeURI(key) + '=' + encodeURI(this.requestFilter[key])
+      // }).join('&')
+      console.log(querySearch);
+      const link2 = `${window.location.origin}/vi/book/querysearch/${querySearch}`
       console.log(link2);
       window.open(link2, '_blank')
     },

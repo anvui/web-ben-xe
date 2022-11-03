@@ -59,6 +59,7 @@ export const constantRoutes = [
       const locale = to.params.locale // 1
       const supported_locales = process.env.VUE_APP_I18N_SUPPORTED_LOCALE.split(',')
       if (!supported_locales.includes(locale)) {
+        console.log('locale not include')
         return next('vi')
       }
 
@@ -77,6 +78,12 @@ export const constantRoutes = [
       },
       {
         path: 'book',
+        name: 'OrderPage',
+        component: () => import('@/views/order/OrderPage'),
+        meta: { title: 'Đặt vé', icon: '' }
+      },
+      {
+        path: 'book/querysearch/:query',
         name: 'OrderPage',
         component: () => import('@/views/order/OrderPage'),
         meta: { title: 'Đặt vé', icon: '' }
