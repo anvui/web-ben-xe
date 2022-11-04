@@ -1,6 +1,6 @@
 import {
   getListPoints, getListProvinces, searchTrip, getTripDetail,
-  bookTickets, createPayment, checkSeatsPrice } from '@/api/system'
+  bookTickets, createPaymentOnePay, createPaymentVnPay, checkSeatsPrice } from '@/api/system'
 import { setPayload } from '@/utils/get-point-and-date'
 
 const state = {
@@ -51,7 +51,8 @@ const actions = {
         const conf = {
           sitename: siteName,
           packageName: ' bến xe An Vui',
-          partnerId: 'PN0TU1yYd3LmVJWJ',
+          partnerId: 'PN0Tz1yksta4UMNL',
+          // partnerId: 'PN0TU1yYd3LmVJWJ',
           premiumColor: '#1931ed',
           themeColor: {
             premiumColor: '#1931ed',
@@ -146,9 +147,18 @@ const actions = {
       })
     })
   },
-  payOrder({ commit }, params) {
+  payOrderOnepay({ commit }, params) {
     return new Promise((resolve, reject) => {
-      createPayment(params).then(response => {
+      createPaymentOnePay(params).then(response => {
+        resolve(response.results.url)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  payOrderVnpay({ commit }, params) {
+    return new Promise((resolve, reject) => {
+      createPaymentVnPay(params).then(response => {
         resolve(response.results.url)
       }).catch(error => {
         reject(error)

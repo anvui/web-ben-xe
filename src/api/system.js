@@ -51,10 +51,19 @@ export function checkSeatsPrice(data) {
   })
 }
 
-export function createPayment(data) {
+export function createPaymentOnePay(data) {
   return request({
     url: appengine + '/partner/onepay/create-payment',
     method: 'post',
     data
   })
 }
+
+export function createPaymentVnPay(data) {
+  return request({
+    url: appengine + '/partner/vnpayqr/create-payment',
+    method: 'post',
+    data
+  })
+}
+

@@ -101,14 +101,25 @@
     </div> -->
     <div class="pay">
       <el-button
-        class="btn-pay"
+        class="btn-onepay"
         :class="[ previousOrder && previousOrder.length <= 0 || isPayExpire ? 'disabled' : '' ]"
-        :loading="loadingPay"
+        :loading="load.PayMethod_Onepay"
         :disabled="previousOrder && previousOrder.length <= 0 || isPayExpire"
-        @click="handlePayTicket"
+        @click="handlePayTicket_Onepay"
       >
         Thanh toán ( {{ totalPrice ? Object.values(totalPrice).reduce((a, b) => a + b, 0) : 0 | number }} VNĐ )
       </el-button>
+      <div class="w-100 text-center mt-3">
+        <el-button
+          class="btn-vnpay"
+          :class="[ previousOrder && previousOrder.length <= 0 || isPayExpire ? 'disabled' : '' ]"
+          :loading="load.PayMethod_Vnpay"
+          :disabled="previousOrder && previousOrder.length <= 0 || isPayExpire"
+          @click="handlePayTicket_Vnpay"
+        >
+          Thanh toán qua VNPay ( {{ totalPrice ? Object.values(totalPrice).reduce((a, b) => a + b, 0) : 0 | number }} VNĐ )
+        </el-button>
+      </div>
       <div class="w-100 text-center mt-3">
         <el-button
           class="w-100"
@@ -134,7 +145,10 @@ export default {
     return {
       ticketsBooked: [],
       loading: false,
-      loadingPay: false,
+      load: {
+        PayMethod_Onepay: false,
+        PayMethod_Vnpay: false
+      },
       isPayExpire: false,
       loadingCancelTicket: false,
       loadingCancelPerTicket: null,
@@ -259,11 +273,11 @@ export default {
     // checkTicketsPrice(pointId) {
     //   this.$store.dispatch('system/checkPrice', ).then(resp => {
     //     window.location.href = resp
-    //     this.loadingPay = false
+    //     this.load.PayMethod_Onepay = false
     //   }).catch(err => {
     //     this.$message.error(err.message ? err.message : 'Đã có lỗi xảy ra')
     //     console.log(err)
-    //     this.loadingPay = false
+    //     this.load.PayMethod_Onepay = false
     //   })
     // },
     detechPointName(pointId) {
@@ -343,17 +357,30 @@ export default {
       //   this.$message.error(error.message ? error.message : 'Đã có lỗi xảy ra')
       // })
     },
-    handlePayTicket() {
+    handlePayTicket_Onepay() {
       const listTicketIds = this.previousOrder.map(x => x.id).join('-')
       // get response payme
-      this.loadingPay = true
-      this.$store.dispatch('system/payOrder', { ticketIds: listTicketIds }).then(resp => {
+      this.load.PayMethod_Onepay = true
+      this.$store.dispatch('system/payOrderOnepay', { ticketIds: listTicketIds }).then(resp => {
         window.location.href = resp
-        this.loadingPay = false
+        this.load.PayMethod_Onepay = false
       }).catch(err => {
         this.$message.error(err.message ? err.message : 'Đã có lỗi xảy ra')
         console.log(err)
-        this.loadingPay = false
+        this.load.PayMethod_Onepay = false
+      })
+    },
+    handlePayTicket_Vnpay() {
+      const listTicketIds = this.previousOrder.map(x => x.id).join('-')
+      // get response payme
+      this.load.PayMethod_Vnpay = true
+      this.$store.dispatch('system/payOrderVnpay', { ticketIds: listTicketIds }).then(resp => {
+        window.location.href = resp
+        this.load.PayMethod_Vnpay = false
+      }).catch(err => {
+        this.$message.error(err.message ? err.message : 'Đã có lỗi xảy ra')
+        console.log(err)
+        this.load.PayMethod_Vnpay = false
       })
     },
     payExpire(value) {
@@ -636,7 +663,7 @@ $pink: #FBD1E1;
   .pay {
     margin-top: 1rem;
 
-    .btn-pay {
+    .btn-onepay {
       background-color: $main;
       padding: 12px 16px;
       width: 100%;
@@ -650,6 +677,26 @@ $pink: #FBD1E1;
 
       &:focus, &:hover {
         background-color: rgb(237 25 107 / 80%);
+      }
+
+      &.disabled{
+        background-color: rgba(237, 25, 107, 0.8) !important;
+      }
+    }
+    .btn-vnpay {
+      background-color: #ed8e19;
+      padding: 12px 16px;
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      outline: none;
+      border: transparent;
+      font-size: 16px;
+      line-height: 18px;
+      color: $white !important;
+
+      &:focus, &:hover {
+        background-color: rgb(237 138 25 / 80%);
       }
 
       &.disabled{

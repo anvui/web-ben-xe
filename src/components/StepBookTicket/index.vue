@@ -80,6 +80,17 @@ export default {
     }
   },
   methods: {
+  },
+  watch: {
+    searchTripQuery: {
+      handler(newVal, oldValue) {
+        if (newVal) {
+          this.reselectRoute = false
+        }
+      },
+      immediate: true,
+      deep: true
+    },
   }
 }
 </script>
